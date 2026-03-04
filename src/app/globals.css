@@ -229,7 +229,7 @@ tbody tr:hover {
   /* Hide user info in side, move to dropdown if needed */
 
   .main-content {
-    padding: 20px 16px;
+    padding: 20px 16px 80px 16px;
     width: 100%;
   }
 
