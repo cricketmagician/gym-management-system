@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
-export async function POST() {
+export async function GET() {
     try {
         const gymId = 'gym_01_pulsefit';
 
