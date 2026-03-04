@@ -15,10 +15,24 @@ export async function POST(req: Request) {
 
         const gymId = session.user.gymId;
         const body = await req.json();
-        const { name, email, phone, planId, startDate, gender, amount } = body;
+        const { name, email, phone, planId, startDate, gender, amount, password } = body;
 
         // We use a transaction to create User and Membership atomically
         const result = await prisma.$transaction(async (tx) => {
+            // Check for existing user with same phone in this gym
+            const existingUser = await tx.user.findFirst({
+                where: {
+                    OR: [
+                        { gymId, phone: phone },
+                        email ? { gymId, email: email } : { id: 'none' }
+                    ]
+                }
+            });
+
+            if (existingUser) {
+                throw new Error("A member with this phone or email already exists in your gym.");
+            }
+
             // Create user
             const user = await tx.user.create({
                 data: {
@@ -28,7 +42,7 @@ export async function POST(req: Request) {
                     phone,
                     gender,
                     role: "MEMBER",
-                    passwordHash: await bcrypt.hash("changeme123", 10), // Default password
+                    passwordHash: await bcrypt.hash(password || "changeme123", 10),
                 }
             });
 
