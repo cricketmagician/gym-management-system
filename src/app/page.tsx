@@ -70,38 +70,38 @@ export default async function DashboardPage() {
     });
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }} className="dashboard-container">
+            <header className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                     <h1 style={{ fontSize: '1.875rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Overview</h1>
-                    <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Welcome back, here's what's happening at PulseFit today.</p>
+                    <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Welcome back, PulseFit activity today.</p>
                 </div>
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
                     <AdminQrControl gymId={gymId} />
-                    <div style={{ position: 'relative' }}>
+                    <div style={{ position: 'relative', flex: '1 1 200px' }}>
                         <Search style={{ position: 'absolute', top: '10px', left: '12px', color: 'var(--text-secondary)' }} size={18} />
                         <input
                             type="text"
-                            placeholder="Search members..."
+                            placeholder="Search..."
                             style={{
                                 padding: '10px 16px 10px 40px',
                                 borderRadius: '8px',
                                 border: '1px solid var(--border-color)',
                                 background: 'var(--surface-color)',
                                 color: 'var(--text-primary)',
-                                minWidth: '250px',
+                                width: '100%',
                                 outline: 'none'
                             }}
                         />
                     </div>
-                    <Link href="/members/new" className="btn btn-primary" style={{ textDecoration: 'none' }}>
+                    <Link href="/members/new" className="btn btn-primary" style={{ textDecoration: 'none', whiteSpace: 'nowrap' }}>
                         <Plus size={18} style={{ marginRight: '8px' }} />
                         Add Member
                     </Link>
                 </div>
             </header>
 
-            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+            <section className="metric-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
                 <MetricCard title="Total Members" value={totalMembers} icon={<Users size={20} />} trend="All time accounts" trendUp={true} />
                 <MetricCard title="Active Members" value={activeMemberships} icon={<TrendingUp size={20} />} trend="Currently permitted" trendUp={true} color="var(--status-active-text)" bg="var(--status-active-bg)" />
                 <MetricCard title="Recent Punch-Ins" value={recentAttendance.length} icon={<Clock size={20} />} trend="Last 24 hours activity" trendUp={true} color="var(--brand-primary)" bg="rgba(79,70,229,0.1)" />

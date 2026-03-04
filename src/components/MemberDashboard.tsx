@@ -76,13 +76,13 @@ export default function MemberDashboard({ user, membership, attendance: initialA
         : 0;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            <header>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }} className="dashboard-container">
+            <header style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <h1 style={{ fontSize: '1.875rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Welcome, {user.name}</h1>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Here's your fitness status for today.</p>
+                <p style={{ color: 'var(--text-secondary)' }}>PulseFit status overview.</p>
             </header>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+            <div className="metric-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
                 {/* Membership Status Card */}
                 <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
