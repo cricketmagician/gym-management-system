@@ -53,6 +53,7 @@ model User {
   updatedAt     DateTime     @updatedAt
 
   @@unique([gymId, phone])
+  @@unique([gymId, email])
 }
 
 model Plan {
