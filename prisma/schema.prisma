@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -13,6 +14,13 @@ model Gym {
   timezone      String       @default("UTC")
   currency      String       @default("INR")
   opening_hours String?      // e.g., "06:00-22:00"
+  
+  // Branding
+  primaryColor   String?      @default("#4F46E5")
+  secondaryColor String?      @default("#8B5CF6")
+  logoUrl        String?
+  bannerUrl      String?
+  fontFamily     String?      @default("'Inter', sans-serif")
   
   users         User[]
   memberships   Membership[]

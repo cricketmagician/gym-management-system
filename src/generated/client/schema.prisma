@@ -1,0 +1,159 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Gym {
+  id            String  @id @default(uuid())
+  name          String
+  slug          String  @unique
+  timezone      String  @default("UTC")
+  currency      String  @default("INR")
+  opening_hours String? // e.g., "06:00-22:00"
+
+  // Branding
+  primaryColor   String? @default("#4F46E5")
+  secondaryColor String? @default("#8B5CF6")
+  logoUrl        String?
+  bannerUrl      String?
+  fontFamily     String? @default("'Inter', sans-serif")
+
+  users       User[]
+  memberships Membership[]
+  attendances Attendance[]
+  payments    Payment[]
+  auditLogs   AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  STAFF
+  MEMBER
+}
+
+model User {
+  id           String  @id @default(uuid())
+  gymId        String
+  name         String
+  email        String?
+  gender       String? // e.g., "MALE", "FEMALE", "OTHER"
+  phone        String?
+  passwordHash String?
+  role         Role    @default(MEMBER)
+
+  gym         Gym          @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  memberships Membership[]
+  attendances Attendance[]
+  payments    Payment[]
+
+  // For relations where the user is an actor or target in audit logs
+  auditLogActor  AuditLog[] @relation("AuditLogActor")
+  auditLogTarget AuditLog[] @relation("AuditLogTarget")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([gymId, phone])
+  @@unique([gymId, email], name: "gymId_email")
+}
+
+model Plan {
+  id           String @id @default(uuid())
+  name         String @unique
+  durationDays Int
+
+  memberships Membership[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum MembershipStatus {
+  ACTIVE
+  EXPIRED
+  FROZEN
+  PENDING
+}
+
+model Membership {
+  id     String @id @default(uuid())
+  userId String
+  planId String
+  gymId  String
+
+  startDate DateTime
+  endDate   DateTime
+  status    MembershipStatus @default(PENDING)
+
+  freezeDate         DateTime?
+  expectedResumeDate DateTime?
+  autoRenew          Boolean   @default(true)
+  lastNotifiedAt     DateTime?
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan     Plan      @relation(fields: [planId], references: [id], onDelete: Restrict)
+  gym      Gym       @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  payments Payment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attendance {
+  id        String   @id @default(uuid())
+  userId    String
+  gymId     String
+  date      DateTime @db.Date // Store only the date part for easy querying
+  timestamp DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gym  Gym  @relation(fields: [gymId], references: [id], onDelete: Cascade)
+}
+
+enum PaymentStatus {
+  SUCCESS
+  PENDING
+  FAILED
+}
+
+model Payment {
+  id           String        @id @default(uuid())
+  userId       String
+  gymId        String
+  membershipId String?
+  amount       Decimal       @db.Decimal(10, 2)
+  currency     String
+  status       PaymentStatus @default(PENDING)
+  externalId   String? // Stripe/Razorpay payment intent ID
+  date         DateTime      @default(now())
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gym        Gym         @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  membership Membership? @relation(fields: [membershipId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  gymId     String
+  actorId   String?
+  targetId  String?
+  action    String
+  oldData   Json?
+  newData   Json?
+  ipAddress String?
+  timestamp DateTime @default(now())
+
+  gym    Gym   @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  actor  User? @relation("AuditLogActor", fields: [actorId], references: [id], onDelete: SetNull)
+  target User? @relation("AuditLogTarget", fields: [targetId], references: [id], onDelete: SetNull)
+}
