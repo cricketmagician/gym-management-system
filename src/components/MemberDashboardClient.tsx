@@ -189,7 +189,7 @@ export default function MemberDashboardClient({
                         display: 'grid', 
                         gridTemplateColumns: '1.1fr 0.9fr', 
                         gap: '12px', 
-                        marginTop: '-44px',
+                        marginTop: '0px',
                         position: 'relative',
                         zIndex: 10
                     }}>
@@ -205,7 +205,7 @@ export default function MemberDashboardClient({
                             boxShadow: '0 8px 24px rgba(0,0,0,0.1)'
                         }}>
                             <h2 className="font-premium" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.025em', lineHeight: 1.1 }}>
-                                Hi <span style={{ textTransform: 'uppercase' }}>{user.name}</span>!
+                                Hi <span style={{ textTransform: 'uppercase' }}>{user.name}</span>,
                             </h2>
                             <p style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.8, lineHeight: 1.2 }}>Make every workout count.</p>
                         </div>
