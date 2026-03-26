@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Home, Dumbbell, Activity, User, Plus, X, QrCode, ClipboardList, TrendingUp } from 'lucide-react';
+import { Home, Dumbbell, Activity, User, Plus, X, QrCode, ClipboardList, TrendingUp, Sparkles } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 export default function MemberLayout({
@@ -63,8 +63,8 @@ export default function MemberLayout({
                     {pathname === '/member/dashboard' && <div className="active-glow" />}
                 </Link>
                 <Link href="/member/exercises" className={`nav-item ${pathname === '/member/exercises' ? 'active' : ''}`}>
-                    <Dumbbell size={22} className="nav-icon" />
-                    <span className="nav-label">Exercises</span>
+                    <Sparkles size={22} className="nav-icon" />
+                    <span className="nav-label">Gym Hub</span>
                     {pathname === '/member/exercises' && <div className="active-glow" />}
                 </Link>
                 

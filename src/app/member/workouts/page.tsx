@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, Activity, Timer, Zap, CheckCircle2, ChevronRight, Plus, X, Trash2, AlertCircle } from 'lucide-react';
+import { Calendar, Activity, Timer, Zap, CheckCircle2, ChevronRight, Plus, X, Trash2, AlertCircle, Clock, MapPin, Phone } from 'lucide-react';
 import { format, isToday, isYesterday } from 'date-fns';
 
 const WORKOUT_TYPES = [
@@ -22,6 +22,7 @@ export default function WorkoutsPage() {
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
     const [savingStage, setSavingStage] = useState<SavingStage>('idle');
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
     useEffect(() => {
         fetchWorkouts();
@@ -87,13 +88,12 @@ export default function WorkoutsPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Remove this session from your history?")) return;
-        
         try {
             const res = await fetch(`/api/v1/workouts/${id}`, {
                 method: 'DELETE'
             });
             if (res.ok) {
+                setConfirmDeleteId(null);
                 fetchWorkouts();
             }
         } catch (error) {
@@ -242,7 +242,7 @@ export default function WorkoutsPage() {
                                     
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                         <button 
-                                            onClick={() => handleDelete(item.id)}
+                                            onClick={() => setConfirmDeleteId(item.id)}
                                             style={{ padding: '10px', borderRadius: '12px', background: 'rgba(220, 38, 38, 0.05)', color: '#dc2626', border: 'none', cursor: 'pointer' }}
                                         >
                                             <Trash2 size={18} />
@@ -257,6 +257,48 @@ export default function WorkoutsPage() {
                     </div>
                 )}
             </section>
+
+            {/* Custom Delete Confirmation Modal */}
+            {confirmDeleteId && (
+                <div style={{ 
+                    position: 'fixed', 
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    background: 'rgba(0,0,0,0.6)', 
+                    backdropFilter: 'blur(10px)',
+                    zIndex: 3000, 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    padding: '24px'
+                }}>
+                    <div className="card" style={{ padding: '32px', maxWidth: '400px', width: '100%', textAlign: 'center', background: '#fff' }}>
+                        <div style={{ width: '64px', height: '64px', background: 'rgba(220, 38, 38, 0.1)', color: '#dc2626', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+                            <Trash2 size={32} />
+                        </div>
+                        <h3 style={{ fontSize: '1.25rem', fontWeight: 900, marginBottom: '12px' }}>Delete Session?</h3>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', marginBottom: '32px', lineHeight: 1.5 }}>
+                            This will permanently remove this workout from your activity history. This action cannot be undone.
+                        </p>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                            <button 
+                                onClick={() => setConfirmDeleteId(null)}
+                                style={{ padding: '16px', borderRadius: '16px', background: 'rgba(0,0,0,0.05)', border: 'none', color: '#000', fontWeight: 700, cursor: 'pointer' }}
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                onClick={() => handleDelete(confirmDeleteId)}
+                                style={{ padding: '16px', borderRadius: '16px', background: '#dc2626', border: 'none', color: '#fff', fontWeight: 700, cursor: 'pointer' }}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
