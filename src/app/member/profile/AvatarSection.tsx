@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Camera, Loader2, X, Link as LinkIcon, Check } from 'lucide-react';
+import { Camera, Loader2, X, Link as LinkIcon, Check, User, Users } from 'lucide-react';
 import { getDirectImageUrl } from '@/lib/image-utils';
 
 interface AvatarSectionProps {
@@ -9,11 +9,23 @@ interface AvatarSectionProps {
   userName: string;
 }
 
+const AVATARS = {
+    boys: [
+        { id: 'b1', url: '/avatars/boy1.png' },
+        { id: 'b2', url: '/avatars/boy2.png' }
+    ],
+    girls: [
+        { id: 'g1', url: '/avatars/girl1.png' },
+        { id: 'g2', url: '/avatars/girl2.png' }
+    ]
+};
+
 export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSectionProps) {
   const [photoUrl, setPhotoUrl] = useState(initialPhotoUrl);
   const [isUploading, setIsUploading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tempUrl, setTempUrl] = useState(photoUrl || '');
+  const [activeGender, setActiveGender] = useState<'boys' | 'girls'>('boys');
 
   const handleUpdatePhoto = async () => {
     if (tempUrl === photoUrl) {
@@ -91,14 +103,14 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
             right: '0', 
             background: 'var(--brand-primary)', 
             borderRadius: '50%', 
-            padding: '8px', 
+            padding: '10px', 
             border: '2px solid var(--surface-color)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
         }}>
-            <Camera size={14} color="#fff" />
+            <Camera size={16} color="#000" />
         </div>
       </div>
 
@@ -119,9 +131,9 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
                 style={{ 
                     position: 'absolute', 
                     inset: 0, 
-                    background: 'rgba(0,0,0,0.8)', 
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)'
+                    background: 'rgba(0,0,0,0.85)', 
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)'
                 }} 
             />
 
@@ -129,30 +141,104 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
             <div style={{ 
                 position: 'relative',
                 width: '100%',
-                maxWidth: '400px',
+                maxWidth: '440px',
                 background: 'var(--surface-color)',
-                borderRadius: '32px',
+                borderRadius: '36px',
                 border: '1px solid var(--border-color)',
-                padding: '32px',
+                padding: '36px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '24px',
-                boxShadow: '0 32px 64px rgba(0,0,0,0.5)',
-                animation: 'modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                gap: '28px',
+                boxShadow: '0 32px 80px rgba(0,0,0,0.6)',
+                animation: 'modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
             }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
-                        <h3 className="font-premium" style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '8px' }}>Update Photo</h3>
-                        <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
-                            Paste a Google Drive or image link below to update your profile picture.
+                        <h3 className="font-premium" style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '8px' }}>Update Photo</h3>
+                        <p style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+                            Choose a cartoon avatar or paste a link.
                         </p>
                     </div>
                     <button 
                         onClick={() => setIsModalOpen(false)}
-                        style={{ background: 'rgba(0,0,0,0.05)', border: 'none', borderRadius: '50%', padding: '8px', cursor: 'pointer' }}
+                        style={{ background: 'rgba(0,0,0,0.05)', border: 'none', borderRadius: '50%', padding: '10px', cursor: 'pointer' }}
                     >
-                        <X size={20} color="var(--text-secondary)" />
+                        <X size={22} color="var(--text-secondary)" />
                     </button>
+                </div>
+
+                {/* Avatar Grid Section */}
+                <div>
+                    <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', background: 'rgba(0,0,0,0.03)', padding: '6px', borderRadius: '14px', width: 'fit-content' }}>
+                        <button 
+                            onClick={() => setActiveGender('boys')}
+                            style={{ 
+                                padding: '8px 20px', 
+                                borderRadius: '10px', 
+                                border: 'none', 
+                                background: activeGender === 'boys' ? 'var(--brand-primary)' : 'transparent',
+                                color: activeGender === 'boys' ? '#000' : 'var(--text-secondary)',
+                                fontWeight: 700,
+                                fontSize: '0.8125rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px'
+                            }}
+                        >
+                            <User size={14} /> Boys
+                        </button>
+                        <button 
+                            onClick={() => setActiveGender('girls')}
+                            style={{ 
+                                padding: '8px 20px', 
+                                borderRadius: '10px', 
+                                border: 'none', 
+                                background: activeGender === 'girls' ? 'var(--brand-primary)' : 'transparent',
+                                color: activeGender === 'girls' ? '#000' : 'var(--text-secondary)',
+                                fontWeight: 700,
+                                fontSize: '0.8125rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px'
+                            }}
+                        >
+                            <Users size={14} /> Girls
+                        </button>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+                        {[...AVATARS.boys, ...AVATARS.girls].filter(a => activeGender === 'boys' ? a.id.startsWith('b') : a.id.startsWith('g')).map(avatar => (
+                            <div 
+                                key={avatar.id}
+                                onClick={() => setTempUrl(avatar.url)}
+                                style={{ 
+                                    aspectRatio: '1',
+                                    borderRadius: '20px',
+                                    background: tempUrl === avatar.url ? 'rgba(245, 158, 11, 0.1)' : 'rgba(0,0,0,0.03)',
+                                    border: `2px solid ${tempUrl === avatar.url ? 'var(--brand-primary)' : 'transparent'}`,
+                                    padding: '8px',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.3s ease',
+                                    position: 'relative'
+                                }}
+                            >
+                                <img src={avatar.url} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} />
+                                {tempUrl === avatar.url && (
+                                    <div style={{ position: 'absolute', top: '-6px', right: '-6px', background: 'var(--brand-primary)', borderRadius: '50%', padding: '4px', border: '2px solid var(--surface-color)' }}>
+                                        <Check size={10} color="#000" />
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ height: '1px', flex: 1, background: 'var(--border-color)', opacity: 0.5 }}></div>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px' }}>Or Paste URL</span>
+                    <div style={{ height: '1px', flex: 1, background: 'var(--border-color)', opacity: 0.5 }}></div>
                 </div>
 
                 <div style={{ position: 'relative' }}>
@@ -163,13 +249,13 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
                         type="text" 
                         value={tempUrl}
                         onChange={(e) => setTempUrl(e.target.value)}
-                        placeholder="https://drive.google.com/..."
+                        placeholder="Paste Google Drive or Image link..."
                         style={{ 
                             width: '100%', 
                             background: 'rgba(0,0,0,0.03)', 
                             border: '1px solid var(--border-color)', 
-                            borderRadius: '16px', 
-                            padding: '16px 16px 16px 48px',
+                            borderRadius: '18px', 
+                            padding: '18px 18px 18px 48px',
                             fontSize: '0.9375rem',
                             fontWeight: 500,
                             color: 'var(--text-primary)',
@@ -178,13 +264,13 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
                     />
                 </div>
 
-                <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ display: 'flex', gap: '14px' }}>
                     <button 
                         onClick={() => setIsModalOpen(false)}
                         style={{ 
                             flex: 1, 
-                            padding: '16px', 
-                            borderRadius: '16px', 
+                            padding: '18px', 
+                            borderRadius: '18px', 
                             border: '1px solid var(--border-color)', 
                             background: 'transparent',
                             fontWeight: 700,
@@ -198,8 +284,8 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
                         onClick={handleUpdatePhoto}
                         style={{ 
                             flex: 1.5, 
-                            padding: '16px', 
-                            borderRadius: '16px', 
+                            padding: '18px', 
+                            borderRadius: '18px', 
                             border: 'none', 
                             background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                             fontWeight: 800,
@@ -208,19 +294,19 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '8px',
-                            boxShadow: '0 8px 20px rgba(245, 158, 11, 0.3)'
+                            gap: '10px',
+                            boxShadow: '0 12px 24px rgba(245, 158, 11, 0.25)'
                         }}
                     >
-                        <Check size={18} />
-                        Update Now
+                        <Check size={18} strokeWidth={3} />
+                        Update Profile
                     </button>
                 </div>
             </div>
 
             <style jsx>{`
                 @keyframes modalSlideIn {
-                    from { transform: translateY(40px) scale(0.95); opacity: 0; }
+                    from { transform: translateY(60px) scale(0.9); opacity: 0; }
                     to { transform: translateY(0) scale(1); opacity: 1; }
                 }
             `}</style>

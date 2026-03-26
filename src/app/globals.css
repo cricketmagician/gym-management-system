@@ -190,7 +190,7 @@ table {
 .watermark-text {
     position: absolute;
     top: 5vh;
-    left: 0;
+    left: 5vw;
     right: 0;
     font-size: 8.5rem;
     font-weight: 900;
@@ -200,7 +200,7 @@ table {
     pointer-events: none;
     text-transform: uppercase;
     white-space: pre-wrap;
-    text-align: center;
+    text-align: left;
     user-select: none;
     padding-bottom: 200px;
 }
