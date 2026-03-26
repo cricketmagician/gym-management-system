@@ -67,7 +67,7 @@ export default async function RootLayout({
         }
     `;
 
-    if (isLoginPage || pathname.startsWith('/member')) {
+    if (isLoginPage || pathname === '/member' || pathname.startsWith('/member/')) {
         return (
             <html lang="en">
                 <head>
