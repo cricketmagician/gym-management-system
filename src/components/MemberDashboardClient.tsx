@@ -262,54 +262,90 @@ export default function MemberDashboardClient({
                         </Link>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
-                        {/* Membership Card - Premium Amber Orange */}
-                        <div className="card" style={{ 
-                            padding: '20px', 
-                            background: orangeGradient, 
-                            color: '#fff', 
-                            borderRadius: '24px', 
-                            border: 'none',
-                            boxShadow: '0 15px 30px rgba(245, 158, 11, 0.2)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '16px'
-                        }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <h3 style={{ fontSize: '1rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <Trophy size={18} /> Membership Status
-                                </h3>
-                                <span style={{ padding: '4px 10px', background: 'rgba(255,255,255,0.2)', borderRadius: '100px', fontSize: '0.6rem', fontWeight: 800 }}>ACTIVE</span>
-                            </div>
-                            
-                            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                                <h2 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 1 }}>{daysLeft}</h2>
-                                <p style={{ fontSize: '0.875rem', fontWeight: 700, opacity: 0.8 }}>DAYS LEFT</p>
-                            </div>
-        
-                            <div style={{ paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.2)', display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '12px' }}>
-                                <div>
-                                    <p style={{ fontSize: '0.55rem', fontWeight: 700, opacity: 0.6, textTransform: 'uppercase' }}>Current Plan</p>
-                                    <p style={{ fontSize: '0.8rem', fontWeight: 800 }}>{activeMembership?.plan.name || 'No Active Plan'}</p>
+                        {/* Membership Card - Premium Amber Orange / Arctic Frozen */}
+                        {(() => {
+                            const isFrozen = activeMembership?.status === 'FROZEN';
+                            const cardBackground = isFrozen 
+                                ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' 
+                                : orangeGradient;
+                            const accentColor = isFrozen ? '#38bdf8' : '#fff';
+                            const shadowColor = isFrozen ? 'rgba(56, 189, 248, 0.1)' : 'rgba(245, 158, 11, 0.2)';
+
+                            return (
+                                <div className="card" style={{ 
+                                    padding: '24px', 
+                                    background: cardBackground, 
+                                    color: '#fff', 
+                                    borderRadius: '24px', 
+                                    border: isFrozen ? '1px solid rgba(56, 189, 248, 0.2)' : 'none',
+                                    boxShadow: `0 15px 40px ${shadowColor}`,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '20px',
+                                    position: 'relative',
+                                    overflow: 'hidden'
+                                }}>
+                                    {isFrozen && (
+                                        <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '150px', height: '150px', background: '#38bdf8', opacity: 0.1, filter: 'blur(50px)', borderRadius: '50%' }} />
+                                    )}
+
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <h3 style={{ fontSize: '1rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            {isFrozen ? <Timer size={18} className="text-sky-400" /> : <Trophy size={18} />} 
+                                            Membership Status
+                                        </h3>
+                                        <span style={{ padding: '6px 12px', background: isFrozen ? 'rgba(56, 189, 248, 0.2)' : 'rgba(255,255,255,0.2)', color: isFrozen ? '#38bdf8' : '#fff', borderRadius: '100px', fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.05em' }}>
+                                            {activeMembership?.status || 'NO PLAN'}
+                                        </span>
+                                    </div>
+                                    
+                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                                        <h2 style={{ fontSize: '3rem', fontWeight: 950, letterSpacing: '-0.05em', lineHeight: 1, color: accentColor }}>
+                                            {isFrozen ? 'PAUSED' : daysLeft}
+                                        </h2>
+                                        {!isFrozen && <p style={{ fontSize: '0.875rem', fontWeight: 700, opacity: 0.8 }}>DAYS LEFT</p>}
+                                    </div>
+                
+                                    <div style={{ paddingTop: '16px', borderTop: `1px solid ${isFrozen ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.2)'}`, display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '12px' }}>
+                                        <div>
+                                            <p style={{ fontSize: '0.6rem', fontWeight: 700, opacity: 0.6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Current Plan</p>
+                                            <p style={{ fontSize: '0.9rem', fontWeight: 850 }}>{activeMembership?.plan.name || 'No Active Plan'}</p>
+                                        </div>
+                                        <div style={{ textAlign: 'right' }}>
+                                            <p style={{ fontSize: '0.6rem', fontWeight: 700, opacity: 0.6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                                {isFrozen ? 'Resume Date' : 'Valid Until'}
+                                            </p>
+                                            <p style={{ fontSize: '0.9rem', fontWeight: 850, color: isFrozen ? '#38bdf8' : '#fff' }}>
+                                                {isFrozen 
+                                                    ? (activeMembership.expectedResumeDate ? format(new Date(activeMembership.expectedResumeDate), 'dd MMM yyyy') : 'TBD') 
+                                                    : (activeMembership ? format(new Date(activeMembership.endDate), 'dd MMM yyyy') : '--')}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.15)', padding: '12px 18px', borderRadius: '18px', margin: '0 -4px' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                            <p style={{ fontSize: '0.55rem', fontWeight: 700, opacity: 0.5, letterSpacing: '0.05em' }}>MEMBER ID</p>
+                                            <p style={{ fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.02em' }}>#{user.id.slice(-8).toUpperCase()}</p>
+                                        </div>
+                                        {!isFrozen && (
+                                            <button 
+                                                onClick={() => setIsRenewModalOpen(true)}
+                                                style={{ background: '#fff', color: '#000', padding: '10px 16px', borderRadius: '14px', border: 'none', fontSize: '0.75rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                                className="scale-hover"
+                                            >
+                                                RENEW NOW <ArrowRight size={16} />
+                                            </button>
+                                        )}
+                                        {isFrozen && (
+                                            <div style={{ fontSize: '0.7rem', fontWeight: 800, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                <Sparkles size={14} /> FROZEN STATUS
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                                <div style={{ textAlign: 'right' }}>
-                                    <p style={{ fontSize: '0.55rem', fontWeight: 700, opacity: 0.6, textTransform: 'uppercase' }}>Valid Until</p>
-                                    <p style={{ fontSize: '0.8rem', fontWeight: 800 }}>{activeMembership ? format(new Date(activeMembership.endDate), 'dd MMM yyyy') : '--'}</p>
-                                </div>
-                            </div>
-                            
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.1)', padding: '10px 16px', borderRadius: '16px', margin: '0 -4px' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                    <p style={{ fontSize: '0.5rem', fontWeight: 700, opacity: 0.5 }}>MEMBER ID</p>
-                                    <p style={{ fontSize: '0.7rem', fontWeight: 800 }}>#{user.id.slice(-8).toUpperCase()}</p>
-                                </div>
-                                <button 
-                                    onClick={() => setIsRenewModalOpen(true)}
-                                    style={{ background: '#fff', color: '#000', padding: '8px 14px', borderRadius: '12px', border: 'none', fontSize: '0.7rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
-                                >
-                                    RENEW NOW <ArrowRight size={14} />
-                                </button>
-                            </div>
-                        </div>
+                            );
+                        })()}
         
                         {/* Quick Scan Entry moved to top row */}
                     </div>
