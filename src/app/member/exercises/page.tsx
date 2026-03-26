@@ -66,14 +66,14 @@ export default function GymHubPage() {
                     <div className="horizontal-scroll" style={{ gap: '16px' }}>
                         {offers.map((offer: any) => (
                             <div key={offer.id} style={{ 
-                                minWidth: '280px', 
-                                padding: '24px', 
+                                minWidth: '300px', 
+                                padding: '28px', 
                                 background: offer.color || 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', 
-                                borderRadius: '24px', 
+                                borderRadius: '32px', 
                                 color: '#fff',
                                 position: 'relative',
                                 overflow: 'hidden',
-                                boxShadow: `0 15px 30px ${offer.color || '#f59e0b'}30`
+                                boxShadow: `0 20px 40px ${offer.color || '#f59e0b'}40`
                             }}>
                                 <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '120px', height: '120px', background: 'rgba(255,255,255,0.1)', borderRadius: '50%' }}></div>
                                 <h3 style={{ fontSize: '1.25rem', fontWeight: 900, marginBottom: '8px', position: 'relative' }}>{offer.title}</h3>
@@ -112,16 +112,33 @@ export default function GymHubPage() {
                     <h2 style={{ fontSize: '1.125rem', fontWeight: 900, marginBottom: '16px' }}>Premium Services</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
                         {services.map((service: any, idx: number) => (
-                            <div key={service.id} className="card" style={{ padding: '20px', display: 'flex', gap: '16px', alignItems: 'center', background: '#fff' }}>
-                                <div style={{ padding: '12px', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', borderRadius: '16px' }}>
+                            <div key={service.id} style={{ 
+                                padding: '24px', 
+                                display: 'flex', 
+                                gap: '20px', 
+                                alignItems: 'center', 
+                                background: '#fff',
+                                border: '1px solid rgba(0,0,0,0.04)',
+                                borderRadius: '24px',
+                                boxShadow: '0 10px 25px rgba(0,0,0,0.03)'
+                            }}>
+                                <div style={{ 
+                                    padding: '16px', 
+                                    background: 'rgba(245, 158, 11, 0.08)', 
+                                    color: '#f59e0b', 
+                                    borderRadius: '20px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
                                     <ServiceIcon name={service.iconName} />
                                 </div>
                                 <div style={{ flex: 1 }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                                        <h3 style={{ fontSize: '1rem', fontWeight: 900 }}>{service.name}</h3>
-                                        {service.priceLabel && <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#f59e0b' }}>{service.priceLabel}</span>}
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                                        <h3 style={{ fontSize: '1.0625rem', fontWeight: 900 }}>{service.name}</h3>
+                                        {service.priceLabel && <span style={{ fontSize: '0.7rem', fontWeight: 900, color: '#f59e0b', background: 'rgba(245, 158, 11, 0.1)', padding: '2px 8px', borderRadius: '6px' }}>{service.priceLabel}</span>}
                                     </div>
-                                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5, fontWeight: 500 }}>{service.description}</p>
+                                    <p style={{ fontSize: '0.85rem', color: 'rgba(0,0,0,0.5)', lineHeight: 1.5, fontWeight: 500 }}>{service.description}</p>
                                 </div>
                             </div>
                         ))}
