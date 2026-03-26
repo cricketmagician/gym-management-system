@@ -19,6 +19,11 @@ export default async function SuperAdminDashboard() {
     
     const gyms = await prisma.gym.findMany({
         include: {
+            users: {
+                where: { role: 'ADMIN' },
+                select: { email: true },
+                take: 1
+            },
             _count: {
                 select: { users: true, memberships: true }
             }
@@ -31,6 +36,7 @@ export default async function SuperAdminDashboard() {
         name: g.name,
         slug: g.slug,
         primaryColor: g.primaryColor,
+        adminEmail: g.users[0]?.email || 'No Admin Linked',
         _count: g._count
     }));
 

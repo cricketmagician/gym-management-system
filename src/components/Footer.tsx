@@ -27,7 +27,7 @@ export default function Footer({ gymName, session }: FooterProps) {
             display: 'flex',
             flexDirection: 'column',
             gap: '64px',
-            zIndex: 10,
+            zIndex: 0,
             position: 'relative'
         }}>
             {/* Top Section - Brand & Navigation */}

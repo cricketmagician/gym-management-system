@@ -10,6 +10,7 @@ interface Gym {
     name: string;
     slug: string;
     primaryColor: string | null;
+    adminEmail?: string;
     _count: {
         users: number;
         memberships: number;
@@ -84,7 +85,8 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
                     <thead>
                         <tr style={{ textAlign: 'left', color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                             <th style={{ padding: '0 24px' }}>Gym Entity</th>
-                            <th style={{ padding: '0 24px' }}>Admin Score</th>
+                            <th style={{ padding: '0 24px' }}>Admin Contact</th>
+                            <th style={{ padding: '0 24px' }}>Traction</th>
                             <th style={{ padding: '0 24px' }}>Status</th>
                             <th style={{ padding: '0 24px', textAlign: 'right' }}>Actions</th>
                         </tr>
@@ -102,6 +104,10 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
                                             <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>SLUG: {gym.slug}</div>
                                         </div>
                                     </div>
+                                </td>
+                                <td style={{ padding: '20px 24px' }}>
+                                    <div style={{ fontWeight: 700, fontSize: '0.875rem', color: '#fff' }}>{gym.adminEmail}</div>
+                                    <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>PRIMARY OPERATOR</div>
                                 </td>
                                 <td style={{ padding: '20px 24px' }}>
                                     <div style={{ fontWeight: 700 }}>{gym._count.users} Members</div>
@@ -148,8 +154,29 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
 
             {/* Modal */}
             {isModalOpen && (
-                <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(20px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-                    <div style={{ width: '100%', maxWidth: '600px', background: '#080808', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '32px', padding: '48px', position: 'relative', boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }} className="modal-entrance">
+                <div style={{ 
+                    position: 'fixed', 
+                    inset: 0, 
+                    background: 'rgba(0,0,0,0.85)', 
+                    backdropFilter: 'blur(20px)', 
+                    zIndex: 9999, 
+                    display: 'flex', 
+                    alignItems: 'flex-start', 
+                    justifyContent: 'center', 
+                    padding: '80px 20px',
+                    overflowY: 'auto'
+                }}>
+                    <div style={{ 
+                        width: '100%', 
+                        maxWidth: '600px', 
+                        background: '#080808', 
+                        border: '1px solid rgba(255,255,255,0.1)', 
+                        borderRadius: '32px', 
+                        padding: '48px', 
+                        position: 'relative', 
+                        boxShadow: '0 30px 60px rgba(0,0,0,0.8)',
+                        margin: 'auto 0' 
+                    }} className="modal-entrance">
                         <button onClick={() => setIsModalOpen(false)} style={{ position: 'absolute', top: '32px', right: '32px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer' }}><X size={24} /></button>
                         
                         {success ? (
