@@ -177,6 +177,28 @@ export default function EditMemberModal({ user }: { user: User }) {
                                     {loading ? 'Saving...' : 'Save Changes'}
                                 </button>
                             </div>
+
+                            <div style={{ padding: '24px', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '20px', border: '1px solid rgba(239, 68, 68, 0.1)', marginTop: '16px' }}>
+                                <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#ef4444', textTransform: 'uppercase', marginBottom: '12px' }}>Security Zone</p>
+                                <button 
+                                    type="button"
+                                    onClick={async () => {
+                                        if (window.confirm('Reset password to standard default (gym123)?')) {
+                                            setLoading(true);
+                                            try {
+                                                const res = await fetch(`/api/v1/members/${user.id}/reset-password`, { method: 'POST' });
+                                                if (res.ok) alert('Password reset to: gym123');
+                                                else alert('Reset failed');
+                                            } catch (err) { alert('Reset failed'); }
+                                            setLoading(false);
+                                        }
+                                    }}
+                                    className="scale-hover"
+                                    style={{ width: '100%', padding: '12px', background: '#ef4444', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 800, fontSize: '0.875rem' }}
+                                >
+                                    Reset Password (gym123)
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -111,16 +111,34 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
                                     <div style={{ display: 'inline-flex', padding: '6px 12px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '8px', fontSize: '0.75rem', fontWeight: 800 }}>ACTIVE</div>
                                 </td>
                                 <td style={{ padding: '20px 24px', textAlign: 'right', borderRadius: '0 16px 16px 0' }}>
-                                    <button 
-                                        onClick={() => {
-                                            setSelectedGymForAudit({ id: gym.id, name: gym.name });
-                                            setAuditModalOpen(true);
-                                        }}
-                                        style={{ padding: '10px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}
-                                        className="scale-hover"
-                                    >
-                                        <Shield size={14} className="text-amber-500" /> Manage Audit
-                                    </button>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end' }}>
+                                        <button 
+                                            onClick={() => {
+                                                setSelectedGymForAudit({ id: gym.id, name: gym.name });
+                                                setAuditModalOpen(true);
+                                            }}
+                                            style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                                            className="scale-hover"
+                                        >
+                                            <Shield size={14} className="text-amber-500" /> Manage Audit
+                                        </button>
+                                        <button 
+                                            onClick={async () => {
+                                                if (window.confirm(`Reset main Admin password for ${gym.name} to 'admin123@pulsefit'?`)) {
+                                                    try {
+                                                        const res = await fetch(`/api/v1/superadmin/gyms/${gym.id}/reset-admin-password`, { method: 'POST' });
+                                                        const data = await res.json();
+                                                        if (res.ok) alert(`Success! Email: ${data.adminEmail}\nTemp Password: ${data.defaultPassword}`);
+                                                        else alert(`Failed: ${data.error}`);
+                                                    } catch (err) { alert('Reset failed'); }
+                                                }
+                                            }}
+                                            style={{ padding: '8px 16px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '12px', color: '#ef4444', fontSize: '0.7rem', fontWeight: 800, cursor: 'pointer' }}
+                                            className="scale-hover"
+                                        >
+                                            Reset Credentials
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
