@@ -160,13 +160,15 @@ export default function MemberDashboardClient({
                         style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }}
                     />
                     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8))' }} />
-                    <div style={{ position: 'absolute', bottom: '32px', left: '24px', right: '24px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                            <div style={{ padding: '6px', background: 'var(--brand-primary)', borderRadius: '8px' }}>
-                                <Zap size={16} color="#fff" />
+                    <div style={{ position: 'absolute', top: '24px', left: '24px', right: '24px', zIndex: 2 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                            <div style={{ padding: '4px', background: 'var(--brand-primary)', borderRadius: '6px' }}>
+                                <Zap size={14} color="#fff" />
                             </div>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Portal</span>
+                            <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.9 }}>Member Portal</span>
                         </div>
+                    </div>
+                    <div style={{ position: 'absolute', bottom: '28px', left: '24px', right: '24px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                             <h1 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#fff', letterSpacing: '0.02em', lineHeight: 1.2, opacity: 0.9 }}>{user.gym?.name || 'PulseFit'}</h1>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', opacity: 0.6 }}>
@@ -180,25 +182,23 @@ export default function MemberDashboardClient({
                 <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     {/* New Info Card: Member Welcome */}
                     <div className="card" style={{ 
-                        padding: '18px 24px', 
+                        padding: '24px', 
                         background: 'var(--surface-color)', 
                         border: '1px solid var(--border-color)', 
                         borderRadius: '24px',
                         display: 'flex',
+                        flexDirection: 'column',
                         alignItems: 'center',
-                        gap: '14px',
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        gap: '6px',
                         marginTop: '-44px',
                         position: 'relative',
                         zIndex: 10,
                         boxShadow: '0 12px 30px rgba(0,0,0,0.12)'
                     }}>
-                        <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)' }}>
-                            <UserIcon size={20} />
-                        </div>
-                        <div>
-                            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Member</p>
-                            <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Hi {user.name}!</h2>
-                        </div>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Hi {user.name}!</h2>
+                        <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.8, maxWidth: '280px', lineHeight: 1.4 }}>"Your only limit is you. Let's make today count!"</p>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
                         {/* Membership Card - Premium Amber Orange */}
