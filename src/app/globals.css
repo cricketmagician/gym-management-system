@@ -151,6 +151,12 @@ table {
     overflow-x: hidden;
 }
 
+@media (prefers-color-scheme: dark) {
+    .member-bg {
+        background: linear-gradient(135deg, #0B0F19 0%, #111827 100%);
+    }
+}
+
 .watermark-text {
     position: absolute;
     top: 0;
@@ -167,13 +173,27 @@ table {
     padding-top: 20px;
 }
 
+@media (prefers-color-scheme: dark) {
+    .watermark-text {
+        color: rgba(255, 255, 255, 0.02);
+    }
+}
+
 .glass-card {
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 24px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    .glass-card {
+        background: rgba(17, 24, 39, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    }
 }
 
 .glass-card-dark {

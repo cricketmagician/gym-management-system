@@ -96,10 +96,10 @@ export default function MemberLayout({
                     left: 0;
                     right: 0;
                     height: 72px;
-                    background: rgba(255, 255, 255, 0.95);
+                    background: var(--surface-color);
                     backdrop-filter: blur(24px);
                     -webkit-backdrop-filter: blur(24px);
-                    border-top: 1px solid rgba(0, 0, 0, 0.05);
+                    border-top: 1px solid var(--border-color);
                     display: flex;
                     justify-content: space-around;
                     align-items: center;
@@ -113,7 +113,7 @@ export default function MemberLayout({
                     flex-direction: column;
                     align-items: center;
                     gap: 4px;
-                    color: rgba(0, 0, 0, 0.4);
+                    color: var(--text-secondary);
                     text-decoration: none;
                     transition: all 0.3s ease;
                     flex: 1;
@@ -121,7 +121,7 @@ export default function MemberLayout({
                     justify-content: center;
                 }
                 .nav-item.active {
-                    color: #000;
+                    color: var(--text-primary);
                 }
                 .active-glow {
                     position: absolute;
@@ -145,8 +145,8 @@ export default function MemberLayout({
                     align-items: center;
                     justify-content: center;
                     color: #000;
-                    box-shadow: 0 12px 24px rgba(245, 158, 11, 0.4);
-                    border: 4px solid #fff;
+                    box-shadow: 0 12px 24px rgba(245, 158, 11, 0.3);
+                    border: 4px solid var(--surface-color);
                     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                     cursor: pointer;
                 }
@@ -173,11 +173,11 @@ function QuickActionItem({ icon, label, last, href, onClick }: { icon: React.Rea
                 alignItems: 'center', 
                 gap: '16px', 
                 padding: '16px', 
-                borderBottom: last ? 'none' : '1px solid rgba(0,0,0,0.05)',
+                borderBottom: last ? 'none' : '1px solid var(--border-color)',
                 cursor: 'pointer'
             }}>
                 <div style={{ color: '#2dd4bf' }}>{icon}</div>
-                <span style={{ fontSize: '0.9375rem', fontWeight: 600 }}>{label}</span>
+                <span style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>{label}</span>
             </div>
         </Link>
     );

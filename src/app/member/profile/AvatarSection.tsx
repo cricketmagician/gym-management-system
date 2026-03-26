@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { Camera, Loader2 } from 'lucide-react';
+import { Camera, Loader2, Link as LinkIcon } from 'lucide-react';
+import { getDirectImageUrl } from '@/lib/image-utils';
 
 interface AvatarSectionProps {
   initialPhotoUrl: string | null;
@@ -13,46 +14,30 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleAvatarClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleAvatarClick = async () => {
+    const newUrl = window.prompt("Enter Photo URL (Google Drive links supported):", photoUrl || "");
+    if (newUrl === null || newUrl === photoUrl) return;
 
     setIsUploading(true);
 
-    // Mocking an upload to a CDN (e.g., Cloudinary or S3)
-    // For this demo, we'll use a local FileReader and a mock URL
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-        const base64 = reader.result as string;
-        
-        // In a real app, you'd upload this to a server and get a URL back.
-        // We'll simulate this by using a placeholder that looks unique.
-        const mockUrl = `https://ui-avatars.com/api/?name=${userName}&background=random&color=fff&size=256&random=${Math.random()}`;
+    try {
+        const response = await fetch('/api/v1/members/me/photo', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ photoUrl: newUrl })
+        });
 
-        try {
-            const response = await fetch('/api/v1/members/me/photo', {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ photoUrl: mockUrl })
-            });
-
-            if (response.ok) {
-                setPhotoUrl(mockUrl);
-            } else {
-                alert("Failed to update profile photo.");
-            }
-        } catch (error) {
-            console.error(error);
-            alert("An error occurred during upload.");
-        } finally {
-            setIsUploading(false);
+        if (response.ok) {
+            setPhotoUrl(newUrl);
+        } else {
+            alert("Failed to update profile photo.");
         }
-    };
-    reader.readAsDataURL(file);
+    } catch (error) {
+        console.error(error);
+        alert("An error occurred during update.");
+    } finally {
+        setIsUploading(false);
+    }
   };
 
   return (
@@ -63,28 +48,29 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
           width: '100px', 
           height: '100px', 
           borderRadius: '50%', 
-          background: 'linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%)', 
+          background: 'linear-gradient(135deg, var(--brand-primary) 0%, #0d9488 100%)', 
           padding: '4px',
           cursor: 'pointer',
-          position: 'relative'
+          position: 'relative',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.15)'
         }}
       >
         <div style={{ 
           width: '100%', 
           height: '100%', 
           borderRadius: '50%', 
-          background: '#fff', 
+          background: 'var(--surface-color)', 
           overflow: 'hidden', 
-          border: '4px solid #fff',
+          border: '4px solid var(--surface-color)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
         }}>
           {isUploading ? (
-            <Loader2 className="animate-spin" size={32} color="#2dd4bf" />
+            <Loader2 className="animate-spin" size={32} color="var(--brand-primary)" />
           ) : (
             <img 
-              src={photoUrl || `https://ui-avatars.com/api/?name=${userName}&background=000&color=fff&size=128`} 
+              src={getDirectImageUrl(photoUrl) || `https://ui-avatars.com/api/?name=${userName}&background=333&color=fff&size=128`} 
               alt={userName} 
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
             />
@@ -99,22 +85,15 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
             background: '#000', 
             borderRadius: '50%', 
             padding: '8px', 
-            border: '2px solid #fff',
+            border: '2px solid var(--surface-color)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
         }}>
             <Camera size={14} color="#fff" />
         </div>
       </div>
-
-      <input 
-        type="file" 
-        ref={fileInputRef} 
-        onChange={handleFileChange} 
-        accept="image/*" 
-        style={{ display: 'none' }} 
-      />
     </div>
   );
 }
