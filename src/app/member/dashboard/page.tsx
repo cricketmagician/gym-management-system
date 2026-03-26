@@ -79,7 +79,7 @@ export default async function MemberDashboard() {
                         </div>
                     </div>
                     <h1 style={{ fontSize: '2.25rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1 }}>
-                        HEY, {user.name.split(' ')[0].toUpperCase()}! 🚀
+                        Hi {user.name.split(' ')[0]}! 🚀
                     </h1>
                     <p style={{ marginTop: '4px', color: 'rgba(255,255,255,0.4)', fontWeight: 500, fontSize: '0.85rem' }}>Ready to crush it today?</p>
                 </div>
