@@ -2,7 +2,9 @@ import React from 'react';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import Link from 'next/link';
 import { Calendar, Dumbbell, Target, Flame, ArrowRight } from 'lucide-react';
+import { startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
 
 export default async function MemberDashboard() {
     const session = await getServerSession(authOptions);
@@ -36,9 +38,12 @@ export default async function MemberDashboard() {
         ? Math.max(0, Math.ceil((new Date(activeMembership.endDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))
         : 0;
 
-    const attendanceCount = user.attendances.length;
-    const workoutCount = user.workouts.length || 10; // Mocking 10 if none
-    const weightGoal = user.weightGoals[0] || { currentWeight: 75, targetWeight: 70, caloriesBurned: 1250 };
+    const attendanceDates = user.attendances.map(a => new Date(a.date));
+    const now = new Date();
+    const thisWeekAttendance = attendanceDates.filter(d => isWithinInterval(d, { start: startOfWeek(now), end: endOfWeek(now) })).length;
+    
+    const workoutCount = user.workouts.length || 0;
+    const weightGoal = user.weightGoals[0] || { currentWeight: 0, targetWeight: 0 };
 
     const trainers = await prisma.trainer.findMany({
         where: { gymId: user.gymId },
@@ -50,7 +55,7 @@ export default async function MemberDashboard() {
             {/* Header */}
             <header style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#000', overflow: 'hidden' }}>
-                    <img src={`https://ui-avatars.com/api/?name=${user.name}&background=000&color=fff`} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={user.photoUrl || `https://ui-avatars.com/api/?name=${user.name}&background=000&color=fff`} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Hello, {user.name.split(' ')[0]}</h1>
             </header>
@@ -69,33 +74,39 @@ export default async function MemberDashboard() {
 
             {/* Stats Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '16px' }}>
-                <div className="glass-card-dark" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '160px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 500 }}>Attendance</span>
-                        <Calendar size={18} />
+                <Link href="/member/attendance" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <div className="glass-card-dark" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '160px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 500 }}>Attendance</span>
+                            <Calendar size={18} />
+                        </div>
+                        <h3 style={{ fontSize: '1.75rem', fontWeight: 800 }}>{thisWeekAttendance} This Week</h3>
                     </div>
-                    <h3 style={{ fontSize: '1.75rem', fontWeight: 800 }}>{attendanceCount} Days</h3>
-                </div>
+                </Link>
 
-                <div className="glass-card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '160px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', color: '#444' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Workout Progress</span>
-                        <Dumbbell size={18} />
+                <Link href="/member/workouts" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <div className="glass-card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '160px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', color: '#444' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Workout Progress</span>
+                            <Dumbbell size={18} />
+                        </div>
+                        <div>
+                            <h3 style={{ fontSize: '1.75rem', fontWeight: 800 }}>{workoutCount} Sessions</h3>
+                        </div>
                     </div>
-                    <div>
-                        <h3 style={{ fontSize: '1.75rem', fontWeight: 800 }}>{workoutCount} Sessions</h3>
-                    </div>
-                </div>
+                </Link>
             </div>
 
             {/* Small Progress Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div className="glass-card" style={{ padding: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <div style={{ padding: '8px', background: '#000', borderRadius: '8px', color: '#fff' }}>
-                        <Target size={14} />
+                <Link href="/member/profile/goals" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
+                    <div className="glass-card" style={{ padding: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ padding: '8px', background: '#000', borderRadius: '8px', color: '#fff' }}>
+                            <Target size={14} />
+                        </div>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Weight Loss Goal</span>
                     </div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Weight Loss Goal</span>
-                </div>
+                </Link>
                 <div className="glass-card" style={{ padding: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <div style={{ padding: '8px', background: '#FDE68A', borderRadius: '8px', color: '#000' }}>
                         <Flame size={14} />
