@@ -5,12 +5,13 @@ import prisma from "@/lib/prisma";
 import Link from 'next/link';
 import { ArrowLeft, Award, Dumbbell, Zap, Instagram, MessageSquare } from 'lucide-react';
 
-export default async function TrainerDetailPage({ params }: { params: { id: string } }) {
+export default async function TrainerDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session) return <div>Unauthorized</div>;
 
     const trainer = await prisma.trainer.findUnique({
-        where: { id: params.id }
+        where: { id }
     });
 
     if (!trainer) return <div>Trainer not found</div>;

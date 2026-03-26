@@ -5,8 +5,9 @@ import prisma from "@/lib/prisma";
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session || session.user.role !== 'ADMIN') {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -17,7 +18,7 @@ export async function PATCH(
         const { name, specialization, photoUrl, bio } = body;
 
         const trainer = await prisma.trainer.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 name,
                 specialization,
@@ -34,8 +35,9 @@ export async function PATCH(
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session || session.user.role !== 'ADMIN') {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -43,7 +45,7 @@ export async function DELETE(
 
     try {
         await prisma.trainer.delete({
-            where: { id: params.id }
+            where: { id }
         });
 
         return NextResponse.json({ message: "Trainer deleted successfully" });
