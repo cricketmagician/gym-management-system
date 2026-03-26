@@ -173,35 +173,37 @@ export default function MemberDashboardClient({
                             </div>
                             <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Portal</span>
                         </div>
-                        <h1 style={{ fontSize: '1rem', fontWeight: 800, color: '#fff', letterSpacing: '0.05em', lineHeight: 1, opacity: 0.7, textTransform: 'uppercase' }}>{user.gym?.name || 'PulseFit'}</h1>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                            <h1 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#fff', letterSpacing: '0.02em', lineHeight: 1.2, opacity: 0.9 }}>{user.gym?.name || 'PulseFit'}</h1>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', opacity: 0.6 }}>
+                                <MapPin size={12} color="#fff" />
+                                <span style={{ fontSize: '0.7rem', fontWeight: 500, color: '#fff' }}>{user.gym?.locationDesc || 'Facility Location'}</span>
+                            </div>
+                        </div>
                     </div>
                 </header>
 
                 <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    {/* New Info Card: Member Name & Address */}
+                    {/* New Info Card: Member Welcome */}
                     <div className="card" style={{ 
-                        padding: '16px 20px', 
+                        padding: '18px 24px', 
                         background: 'var(--surface-color)', 
                         border: '1px solid var(--border-color)', 
-                        borderRadius: '20px',
+                        borderRadius: '24px',
                         display: 'flex',
-                        justifyContent: 'space-between',
                         alignItems: 'center',
-                        gap: '12px',
-                        marginTop: '-40px', // Pull up slightly into the banner area
+                        gap: '14px',
+                        marginTop: '-44px',
                         position: 'relative',
                         zIndex: 10,
-                        boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                        boxShadow: '0 12px 30px rgba(0,0,0,0.12)'
                     }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <div style={{ width: '32px', height: '32px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <UserIcon size={16} />
-                            </div>
-                            <span style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--text-primary)' }}>{user.name}</span>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)' }}>
+                            <UserIcon size={20} />
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.8 }}>
-                            <MapPin size={14} color="var(--brand-primary)" />
-                            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{user.gym?.locationDesc || 'PulseFit HQ'}</span>
+                        <div>
+                            <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Member</p>
+                            <h2 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Hi {user.name}!</h2>
                         </div>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
