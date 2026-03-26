@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2, MapPin, User as UserIcon, Volume2, Smartphone, Share, PlusSquare } from 'lucide-react';
 import { format } from 'date-fns';
@@ -28,7 +28,7 @@ function MetricCard({
     variant = 'default' 
 }: { 
     title: string, 
-    value: number, 
+    value: number | string, 
     unit: string, 
     icon: React.ReactNode, 
     color: string, 
@@ -96,6 +96,28 @@ export default function MemberDashboardClient({
 }: MemberDashboardClientProps) {
     const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
     const [isA2HSOpen, setIsA2HSOpen] = useState(false);
+    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+    useEffect(() => {
+        const handler = (e: any) => {
+            e.preventDefault();
+            setDeferredPrompt(e);
+        };
+        window.addEventListener('beforeinstallprompt', handler);
+        return () => window.removeEventListener('beforeinstallprompt', handler);
+    }, []);
+
+    const handleInstall = async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                setDeferredPrompt(null);
+            }
+        } else {
+            setIsA2HSOpen(true);
+        }
+    };
 
     const handleWhatsApp = () => {
         const adminPhone = (user.gym?.whatsappNumber || '').replace(/\D/g, '');
@@ -430,11 +452,12 @@ export default function MemberDashboardClient({
                         />
                         <MetricCard 
                             title="App Experience" 
-                            value={0} 
-                            unit="Add to Home" 
-                            icon={<Smartphone size={18} />} 
-                            color="#8b5cf6" 
-                            onClick={() => setIsA2HSOpen(true)}
+                            value="GET APP" 
+                            unit="Setup PulseFit" 
+                            icon={<Smartphone size={20} />} 
+                            color="#a78bfa" 
+                            onClick={handleInstall}
+                            variant="black"
                         />
                     </div>
 
