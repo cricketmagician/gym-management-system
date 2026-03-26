@@ -21,9 +21,11 @@ export default function MemberLayout({
         if (savedTheme) {
             setTheme(savedTheme);
             document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+            document.documentElement.classList.toggle('light', savedTheme === 'light');
         } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             setTheme('dark');
             document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
         }
     }, []);
 
@@ -31,7 +33,14 @@ export default function MemberLayout({
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
-        document.documentElement.classList.toggle('dark');
+        
+        if (newTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
     };
 
     return (
