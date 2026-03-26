@@ -145,12 +145,6 @@ export default function MemberDashboardClient({
             )}
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '0 0 110px 0', position: 'relative', zIndex: 1 }} className="member-dashboard">
-                <style jsx>{`
-                    @keyframes popIn {
-                        from { opacity: 0; transform: scale(0.9) translateY(20px); }
-                        to { opacity: 1; transform: scale(1) translateY(0); }
-                    }
-                `}</style>
 
                 {/* Full-Bleed Premium Brand Banner */}
                 <header style={{ 
@@ -301,6 +295,10 @@ export default function MemberDashboardClient({
                     </div>
 
                     <style jsx>{`
+                        @keyframes popIn {
+                            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+                            to { opacity: 1; transform: scale(1) translateY(0); }
+                        }
                         .scale-hover {
                             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
                         }
@@ -312,6 +310,9 @@ export default function MemberDashboardClient({
                             inset: 0;
                             background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
                             pointer-events: none;
+                        }
+                        .trainer-card:hover .trainer-img {
+                            transform: scale(1.1);
                         }
                     `}</style>
         
@@ -343,28 +344,68 @@ export default function MemberDashboardClient({
                         <div className="horizontal-scroll" style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '12px' }}>
                             {trainers.map((trainer) => (
                                 <Link key={trainer.id} href={`/member/trainers/${trainer.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <div style={{ 
-                                        minWidth: '280px', 
-                                        padding: '24px', 
-                                        background: 'var(--surface-color)', 
-                                        border: '1px solid var(--border-color)', 
-                                        borderRadius: '28px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '20px',
-                                        boxShadow: 'var(--shadow-soft)',
-                                        transition: 'all 0.3s ease',
+                                    <div className="trainer-card" style={{ 
+                                        minWidth: '200px', 
+                                        height: '280px',
+                                        position: 'relative',
+                                        borderRadius: '24px',
+                                        overflow: 'hidden',
+                                        boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
                                         cursor: 'pointer'
-                                    }} className="card-hover-bright">
-                                        <div style={{ position: 'relative' }}>
-                                            <img src={trainer.photoUrl || `https://ui-avatars.com/api/?name=${trainer.name}&background=fde68a&color=b45309`} alt={trainer.name} style={{ width: '72px', height: '72px', borderRadius: '20px', objectFit: 'cover', boxShadow: '0 5px 15px rgba(0,0,0,0.1)' }} />
-                                            <div style={{ position: 'absolute', bottom: '-4px', right: '-4px', width: '20px', height: '20px', background: '#2dd4bf', border: '3px solid var(--surface-color)', borderRadius: '50%' }}></div>
-                                        </div>
-                                        <div>
-                                            <p style={{ fontSize: '1.0625rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>{trainer.name}</p>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                                <span style={{ fontSize: '0.65rem', color: '#f59e0b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', background: 'rgba(245, 158, 11, 0.1)', padding: '2px 8px', borderRadius: '6px' }}>{trainer.specialization}</span>
-                                            </div>
+                                    }}>
+                                        {/* Background Image */}
+                                        <img 
+                                            src={getDirectImageUrl(trainer.photoUrl) || `https://ui-avatars.com/api/?name=${trainer.name}&background=000&color=fff&size=512`} 
+                                            alt={trainer.name} 
+                                            className="trainer-img"
+                                            style={{ 
+                                                width: '100%', 
+                                                height: '100%', 
+                                                objectFit: 'cover',
+                                                transition: 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)' 
+                                            }} 
+                                        />
+                                        
+                                        {/* Gradient Overlay */}
+                                        <div style={{ 
+                                            position: 'absolute', 
+                                            inset: 0, 
+                                            background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, transparent 100%)' 
+                                        }} />
+
+                                        {/* Activity/Online Indicator */}
+                                        <div style={{ position: 'absolute', top: '16px', right: '16px', width: '12px', height: '12px', background: '#2dd4bf', border: '2px solid rgba(255,255,255,0.3)', borderRadius: '50%', boxShadow: '0 0 10px #2dd4bf' }}></div>
+
+                                        {/* Trainer Details Overlay */}
+                                        <div style={{ 
+                                            position: 'absolute', 
+                                            bottom: 0, 
+                                            left: 0, 
+                                            right: 0, 
+                                            padding: '20px',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '4px'
+                                        }}>
+                                            <p style={{ 
+                                                fontSize: '1.125rem', 
+                                                fontWeight: 900, 
+                                                color: '#fff', 
+                                                letterSpacing: '-0.02em', 
+                                                lineHeight: 1.2 
+                                            }}>{trainer.name}</p>
+                                            <span style={{ 
+                                                fontSize: '0.65rem', 
+                                                color: '#f59e0b', 
+                                                fontWeight: 800, 
+                                                textTransform: 'uppercase', 
+                                                letterSpacing: '0.05em',
+                                                background: 'rgba(245, 158, 11, 0.2)',
+                                                width: 'fit-content',
+                                                padding: '2px 8px',
+                                                borderRadius: '6px',
+                                                backdropFilter: 'blur(4px)'
+                                            }}>{trainer.specialization}</span>
                                         </div>
                                     </div>
                                 </Link>
