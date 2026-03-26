@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, Activity, Timer, Zap, CheckCircle2, ChevronRight, Plus, X } from 'lucide-react';
+import { Calendar, Activity, Timer, Zap, CheckCircle2, ChevronRight, Plus, X, Trash2, AlertCircle } from 'lucide-react';
 import { format, isToday, isYesterday } from 'date-fns';
 
 const WORKOUT_TYPES = [
@@ -15,11 +15,13 @@ const WORKOUT_TYPES = [
     { id: 'abs', label: 'Abs', icon: '💎' },
 ];
 
+type SavingStage = 'idle' | 'confirming' | 'saving';
+
 export default function WorkoutsPage() {
     const [workouts, setWorkouts] = useState<any[]>([]);
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
-    const [isSaving, setIsSaving] = useState(false);
+    const [savingStage, setSavingStage] = useState<SavingStage>('idle');
 
     useEffect(() => {
         fetchWorkouts();
@@ -38,14 +40,27 @@ export default function WorkoutsPage() {
     };
 
     const toggleType = (id: string) => {
+        if (savingStage !== 'idle') setSavingStage('idle');
         setSelectedTypes(prev => 
             prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
         );
     };
 
-    const handleSaveWorkout = async () => {
+    const handleAction = async () => {
         if (selectedTypes.length === 0) return;
-        setIsSaving(true);
+
+        if (savingStage === 'idle') {
+            setSavingStage('confirming');
+            return;
+        }
+
+        if (savingStage === 'confirming') {
+            await handleSaveWorkout();
+        }
+    };
+
+    const handleSaveWorkout = async () => {
+        setSavingStage('saving');
         
         const title = selectedTypes.map(id => WORKOUT_TYPES.find(t => t.id === id)?.label).join(' + ');
 
@@ -55,19 +70,34 @@ export default function WorkoutsPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     title,
-                    duration: 60, // Default for now
-                    calories: selectedTypes.length * 150 // Estimation
+                    duration: 60,
+                    calories: selectedTypes.length * 150
                 })
             });
 
             if (res.ok) {
                 setSelectedTypes([]);
+                setSavingStage('idle');
                 fetchWorkouts();
             }
         } catch (error) {
             console.error("Failed to save workout", error);
-        } finally {
-            setIsSaving(false);
+            setSavingStage('idle');
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm("Remove this session from your history?")) return;
+        
+        try {
+            const res = await fetch(`/api/v1/workouts/${id}`, {
+                method: 'DELETE'
+            });
+            if (res.ok) {
+                fetchWorkouts();
+            }
+        } catch (error) {
+            console.error("Failed to delete workout", error);
         }
     };
 
@@ -79,7 +109,7 @@ export default function WorkoutsPage() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '100px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '110px' }}>
             <header>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '8px' }}>Your Activity</h1>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', fontWeight: 500 }}>Tracking your consistency and growth.</p>
@@ -107,7 +137,14 @@ export default function WorkoutsPage() {
             <section className="card" style={{ padding: '32px', background: '#000', color: '#fff', border: 'none', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ position: 'absolute', top: '-50%', right: '-20%', width: '200px', height: '200px', background: 'rgba(245, 158, 11, 0.15)', filter: 'blur(60px)', borderRadius: '50%' }}></div>
                 
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '20px', position: 'relative' }}>Today's Workout</h2>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', position: 'relative' }}>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Today's Workout</h2>
+                    {selectedTypes.length > 0 && (
+                        <button onClick={() => {setSelectedTypes([]); setSavingStage('idle');}} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}>
+                            <X size={20} />
+                        </button>
+                    )}
+                </div>
                 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '24px', position: 'relative' }}>
                     {WORKOUT_TYPES.map((type) => {
@@ -138,23 +175,32 @@ export default function WorkoutsPage() {
                 </div>
 
                 <button 
-                    onClick={handleSaveWorkout}
-                    disabled={selectedTypes.length === 0 || isSaving}
+                    onClick={handleAction}
+                    disabled={selectedTypes.length === 0 || savingStage === 'saving'}
                     style={{ 
                         width: '100%', 
                         padding: '16px', 
-                        background: selectedTypes.length > 0 ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' : 'rgba(255,255,255,0.1)', 
+                        background: selectedTypes.length > 0 
+                            ? (savingStage === 'confirming' ? '#fb923c' : 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)') 
+                            : 'rgba(255,255,255,0.1)', 
                         color: selectedTypes.length > 0 ? '#fff' : 'rgba(255,255,255,0.3)', 
                         border: 'none', 
                         borderRadius: '16px', 
                         fontWeight: 800, 
                         fontSize: '1rem',
                         cursor: selectedTypes.length > 0 ? 'pointer' : 'default',
-                        transition: 'all 0.3s ease',
-                        boxShadow: selectedTypes.length > 0 ? '0 10px 25px rgba(245, 158, 11, 0.3)' : 'none'
+                        transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        boxShadow: selectedTypes.length > 0 ? '0 10px 25px rgba(245, 158, 11, 0.3)' : 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        transform: savingStage === 'confirming' ? 'scale(1.02)' : 'scale(1)'
                     }}
                 >
-                    {isSaving ? 'Logging...' : 'Finish Workout'}
+                    {savingStage === 'saving' ? 'Processing...' : 
+                     savingStage === 'confirming' ? <>Confirm Session? <AlertCircle size={18} /></> : 
+                     'Log Workout'}
                 </button>
             </section>
 
@@ -178,7 +224,7 @@ export default function WorkoutsPage() {
                                 <div style={{ position: 'absolute', left: '-20px', top: '6px', width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b', boxShadow: '0 0 10px rgba(245, 158, 11, 0.5)' }}></div>
                                 
                                 <div className="card" style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff' }}>
-                                    <div>
+                                    <div style={{ flex: 1 }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                                             <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 700 }}>{formatDateHeader(item.date)}</p>
                                             <span style={{ padding: '2px 8px', borderRadius: '20px', background: 'rgba(45, 212, 191, 0.1)', color: '#2dd4bf', fontSize: '0.625rem', fontWeight: 800 }}>COMPLETED</span>
@@ -193,8 +239,17 @@ export default function WorkoutsPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div style={{ width: '48px', height: '48px', borderRadius: '16px', background: 'rgba(45, 212, 191, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <CheckCircle2 size={24} color="#2dd4bf" />
+                                    
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                        <button 
+                                            onClick={() => handleDelete(item.id)}
+                                            style={{ padding: '10px', borderRadius: '12px', background: 'rgba(220, 38, 38, 0.05)', color: '#dc2626', border: 'none', cursor: 'pointer' }}
+                                        >
+                                            <Trash2 size={18} />
+                                        </button>
+                                        <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(45, 212, 191, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <CheckCircle2 size={20} color="#2dd4bf" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
