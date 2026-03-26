@@ -9312,6 +9312,7 @@ export namespace Prisma {
     name: string | null
     specialization: string | null
     photoUrl: string | null
+    bio: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9322,6 +9323,7 @@ export namespace Prisma {
     name: string | null
     specialization: string | null
     photoUrl: string | null
+    bio: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9332,6 +9334,7 @@ export namespace Prisma {
     name: number
     specialization: number
     photoUrl: number
+    bio: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9344,6 +9347,7 @@ export namespace Prisma {
     name?: true
     specialization?: true
     photoUrl?: true
+    bio?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9354,6 +9358,7 @@ export namespace Prisma {
     name?: true
     specialization?: true
     photoUrl?: true
+    bio?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9364,6 +9369,7 @@ export namespace Prisma {
     name?: true
     specialization?: true
     photoUrl?: true
+    bio?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -9447,6 +9453,7 @@ export namespace Prisma {
     name: string
     specialization: string
     photoUrl: string | null
+    bio: string | null
     createdAt: Date
     updatedAt: Date
     _count: TrainerCountAggregateOutputType | null
@@ -9474,6 +9481,7 @@ export namespace Prisma {
     name?: boolean
     specialization?: boolean
     photoUrl?: boolean
+    bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -9485,6 +9493,7 @@ export namespace Prisma {
     name?: boolean
     specialization?: boolean
     photoUrl?: boolean
+    bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -9496,6 +9505,7 @@ export namespace Prisma {
     name?: boolean
     specialization?: boolean
     photoUrl?: boolean
+    bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -9507,11 +9517,12 @@ export namespace Prisma {
     name?: boolean
     specialization?: boolean
     photoUrl?: boolean
+    bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TrainerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gymId" | "name" | "specialization" | "photoUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["trainer"]>
+  export type TrainerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gymId" | "name" | "specialization" | "photoUrl" | "bio" | "createdAt" | "updatedAt", ExtArgs["result"]["trainer"]>
   export type TrainerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gym?: boolean | GymDefaultArgs<ExtArgs>
   }
@@ -9533,6 +9544,7 @@ export namespace Prisma {
       name: string
       specialization: string
       photoUrl: string | null
+      bio: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["trainer"]>
@@ -9964,6 +9976,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Trainer", 'String'>
     readonly specialization: FieldRef<"Trainer", 'String'>
     readonly photoUrl: FieldRef<"Trainer", 'String'>
+    readonly bio: FieldRef<"Trainer", 'String'>
     readonly createdAt: FieldRef<"Trainer", 'DateTime'>
     readonly updatedAt: FieldRef<"Trainer", 'DateTime'>
   }
@@ -13917,6 +13930,7 @@ export namespace Prisma {
     name: 'name',
     specialization: 'specialization',
     photoUrl: 'photoUrl',
+    bio: 'bio',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -14707,6 +14721,7 @@ export namespace Prisma {
     name?: StringFilter<"Trainer"> | string
     specialization?: StringFilter<"Trainer"> | string
     photoUrl?: StringNullableFilter<"Trainer"> | string | null
+    bio?: StringNullableFilter<"Trainer"> | string | null
     createdAt?: DateTimeFilter<"Trainer"> | Date | string
     updatedAt?: DateTimeFilter<"Trainer"> | Date | string
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
@@ -14718,6 +14733,7 @@ export namespace Prisma {
     name?: SortOrder
     specialization?: SortOrder
     photoUrl?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     gym?: GymOrderByWithRelationInput
@@ -14732,6 +14748,7 @@ export namespace Prisma {
     name?: StringFilter<"Trainer"> | string
     specialization?: StringFilter<"Trainer"> | string
     photoUrl?: StringNullableFilter<"Trainer"> | string | null
+    bio?: StringNullableFilter<"Trainer"> | string | null
     createdAt?: DateTimeFilter<"Trainer"> | Date | string
     updatedAt?: DateTimeFilter<"Trainer"> | Date | string
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
@@ -14743,6 +14760,7 @@ export namespace Prisma {
     name?: SortOrder
     specialization?: SortOrder
     photoUrl?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TrainerCountOrderByAggregateInput
@@ -14759,6 +14777,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Trainer"> | string
     specialization?: StringWithAggregatesFilter<"Trainer"> | string
     photoUrl?: StringNullableWithAggregatesFilter<"Trainer"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"Trainer"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Trainer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Trainer"> | Date | string
   }
@@ -15601,6 +15620,7 @@ export namespace Prisma {
     name: string
     specialization: string
     photoUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutTrainersInput
@@ -15612,6 +15632,7 @@ export namespace Prisma {
     name: string
     specialization: string
     photoUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15621,6 +15642,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     specialization?: StringFieldUpdateOperationsInput | string
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutTrainersNestedInput
@@ -15632,6 +15654,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     specialization?: StringFieldUpdateOperationsInput | string
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15642,6 +15665,7 @@ export namespace Prisma {
     name: string
     specialization: string
     photoUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15651,6 +15675,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     specialization?: StringFieldUpdateOperationsInput | string
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15661,6 +15686,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     specialization?: StringFieldUpdateOperationsInput | string
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16490,6 +16516,7 @@ export namespace Prisma {
     name?: SortOrder
     specialization?: SortOrder
     photoUrl?: SortOrder
+    bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16500,6 +16527,7 @@ export namespace Prisma {
     name?: SortOrder
     specialization?: SortOrder
     photoUrl?: SortOrder
+    bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16510,6 +16538,7 @@ export namespace Prisma {
     name?: SortOrder
     specialization?: SortOrder
     photoUrl?: SortOrder
+    bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18197,6 +18226,7 @@ export namespace Prisma {
     name: string
     specialization: string
     photoUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18206,6 +18236,7 @@ export namespace Prisma {
     name: string
     specialization: string
     photoUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18464,6 +18495,7 @@ export namespace Prisma {
     name?: StringFilter<"Trainer"> | string
     specialization?: StringFilter<"Trainer"> | string
     photoUrl?: StringNullableFilter<"Trainer"> | string | null
+    bio?: StringNullableFilter<"Trainer"> | string | null
     createdAt?: DateTimeFilter<"Trainer"> | Date | string
     updatedAt?: DateTimeFilter<"Trainer"> | Date | string
   }
@@ -20834,6 +20866,7 @@ export namespace Prisma {
     name: string
     specialization: string
     photoUrl?: string | null
+    bio?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21006,6 +21039,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     specialization?: StringFieldUpdateOperationsInput | string
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21015,6 +21049,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     specialization?: StringFieldUpdateOperationsInput | string
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21024,6 +21059,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     specialization?: StringFieldUpdateOperationsInput | string
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

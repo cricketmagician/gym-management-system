@@ -96,7 +96,7 @@ export default function MemberLayout({
                     left: 0;
                     right: 0;
                     height: 72px;
-                    background: rgba(255, 255, 255, 0.7);
+                    background: rgba(255, 255, 255, 0.95);
                     backdrop-filter: blur(24px);
                     -webkit-backdrop-filter: blur(24px);
                     border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -105,7 +105,7 @@ export default function MemberLayout({
                     align-items: center;
                     padding: 0 12px;
                     z-index: 1000;
-                    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.03);
+                    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
                 }
                 .nav-item {
                     position: relative;
@@ -128,25 +128,25 @@ export default function MemberLayout({
                     bottom: 8px;
                     width: 4px;
                     height: 4px;
-                    background: #2dd4bf;
+                    background: #f59e0b;
                     border-radius: 50%;
-                    box-shadow: 0 0 10px #2dd4bf;
+                    box-shadow: 0 0 10px #f59e0b;
                 }
                 .fab-container {
                     position: relative;
-                    top: -20px;
+                    top: -24px;
                 }
                 .fab {
-                    width: 58px;
-                    height: 58px;
-                    background: #000;
+                    width: 60px;
+                    height: 60px;
+                    background: #f59e0b;
                     border-radius: 20px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: #fff;
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-                    border: none;
+                    color: #000;
+                    box-shadow: 0 12px 24px rgba(245, 158, 11, 0.4);
+                    border: 4px solid #fff;
                     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                     cursor: pointer;
                 }

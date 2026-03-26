@@ -205,6 +205,7 @@ exports.Prisma.TrainerScalarFieldEnum = {
   name: 'name',
   specialization: 'specialization',
   photoUrl: 'photoUrl',
+  bio: 'bio',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

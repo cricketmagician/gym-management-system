@@ -157,6 +157,7 @@ model Trainer {
   name           String
   specialization String
   photoUrl       String?
+  bio            String? @db.Text
 
   gym Gym @relation(fields: [gymId], references: [id], onDelete: Cascade)
 

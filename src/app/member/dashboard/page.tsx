@@ -73,9 +73,9 @@ export default async function MemberDashboard() {
                 
                 <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                        <div style={{ padding: '3px 10px', background: 'rgba(255,255,255,0.08)', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <Zap size={10} color="#f59e0b" />
-                            <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Priority Pass</span>
+                        <div style={{ padding: '4px 12px', background: '#f59e0b', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <Zap size={10} color="#000" fill="#000" />
+                            <span style={{ fontSize: '0.6rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#000' }}>Priority Pass</span>
                         </div>
                     </div>
                     <h1 style={{ fontSize: '2.25rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1 }}>
@@ -166,7 +166,7 @@ export default async function MemberDashboard() {
                 </div>
                 <div>
                     <h4 style={{ fontSize: '1rem', fontWeight: 800 }}>Consistency is Key!</h4>
-                    <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>You've been active for 3 days this week. Keep hitting those goals!</p>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>You've been active for {thisWeekAttendance} {thisWeekAttendance === 1 ? 'day' : 'days'} this week. Keep hitting those goals!</p>
                 </div>
             </div>
 
@@ -174,26 +174,28 @@ export default async function MemberDashboard() {
             <section>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: 900 }}>Certified Trainers</h3>
-                    <Link href="/member/support" style={{ fontSize: '0.875rem', fontWeight: 700, color: '#f59e0b', textDecoration: 'none' }}>View All</Link>
+                    <Link href="/member/trainers" style={{ fontSize: '0.875rem', fontWeight: 700, color: '#f59e0b', textDecoration: 'none' }}>View All</Link>
                 </div>
                 <div className="horizontal-scroll" style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '12px' }}>
                     {trainers.map((trainer) => (
-                        <div key={trainer.id} style={{ 
-                            minWidth: '240px', 
-                            padding: '20px', 
-                            background: 'var(--surface-color)', 
-                            border: '1px solid var(--border-color)', 
-                            borderRadius: '20px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '16px'
-                        }}>
-                            <img src={trainer.photoUrl || `https://ui-avatars.com/api/?name=${trainer.name}&background=fde68a&color=b45309`} alt={trainer.name} style={{ width: '56px', height: '56px', borderRadius: '14px', objectFit: 'cover' }} />
-                            <div>
-                                <p style={{ fontSize: '0.9375rem', fontWeight: 800, marginBottom: '2px' }}>{trainer.name}</p>
-                                <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>{trainer.specialization}</p>
+                        <Link key={trainer.id} href={`/member/trainers/${trainer.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <div style={{ 
+                                minWidth: '240px', 
+                                padding: '20px', 
+                                background: 'var(--surface-color)', 
+                                border: '1px solid var(--border-color)', 
+                                borderRadius: '20px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '16px'
+                            }}>
+                                <img src={trainer.photoUrl || `https://ui-avatars.com/api/?name=${trainer.name}&background=fde68a&color=b45309`} alt={trainer.name} style={{ width: '56px', height: '56px', borderRadius: '14px', objectFit: 'cover' }} />
+                                <div>
+                                    <p style={{ fontSize: '0.9375rem', fontWeight: 800, marginBottom: '2px' }}>{trainer.name}</p>
+                                    <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>{trainer.specialization}</p>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </section>
