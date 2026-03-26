@@ -38,7 +38,7 @@ async function main() {
         console.log(`New Password: ${newPassword}`);
         console.log('---------------------------');
 
-    } catch (e) {
+    } catch (e: any) {
         console.error("ERROR:", e.message);
     } finally {
         await prisma.$disconnect();

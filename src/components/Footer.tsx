@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
-import { Instagram, MessageSquare, ShieldCheck, Heart, LogOut, ArrowUpRight, Zap, Trophy, User } from 'lucide-react';
+import React, { useState } from 'react';
+import { Instagram, MessageSquare, ShieldCheck, Heart, LogOut, ArrowUpRight, Zap, Trophy, User, KeyRound } from 'lucide-react';
 import { Session } from 'next-auth';
+import ChangePasswordModal from './ChangePasswordModal';
 
 interface FooterProps {
     gymName: string;
@@ -13,6 +14,7 @@ export default function Footer({ gymName, session }: FooterProps) {
     const amberColor = '#f59e0b'; // Elite Amber
     const isSuperAdmin = session?.user?.role === 'SUPER_ADMIN';
     const displayGymName = isSuperAdmin ? 'PULSEFIT GLOBAL' : gymName;
+    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
     return (
         <footer style={{ 
@@ -94,23 +96,44 @@ export default function Footer({ gymName, session }: FooterProps) {
                                 <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>{session.user?.email}</span>
                             </div>
                         </div>
-                        <a href="/api/auth/signout" style={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            justifyContent: 'center', 
-                            gap: '10px',
-                            padding: '14px',
-                            background: 'rgba(239, 68, 68, 0.1)',
-                            color: '#ef4444',
-                            borderRadius: '12px',
-                            fontSize: '0.875rem',
-                            fontWeight: 800,
-                            textDecoration: 'none',
-                            border: '1px solid rgba(239, 68, 68, 0.1)',
-                            transition: 'all 0.2s ease'
-                        }} className="scale-hover">
-                            <LogOut size={16} /> END SESSION
-                        </a>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            <button 
+                                onClick={() => setIsPasswordModalOpen(true)}
+                                style={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center', 
+                                    gap: '10px',
+                                    padding: '12px',
+                                    background: 'rgba(255,255,255,0.03)',
+                                    color: 'rgba(255,255,255,0.6)',
+                                    borderRadius: '12px',
+                                    fontSize: '0.8125rem',
+                                    fontWeight: 700,
+                                    border: '1px solid rgba(255,255,255,0.05)',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease'
+                                }} className="scale-hover">
+                                <KeyRound size={14} /> SECURITY ROTATION
+                            </button>
+                            <a href="/api/auth/signout" style={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center', 
+                                gap: '10px',
+                                padding: '14px',
+                                background: 'rgba(239, 68, 68, 0.1)',
+                                color: '#ef4444',
+                                borderRadius: '12px',
+                                fontSize: '0.875rem',
+                                fontWeight: 800,
+                                textDecoration: 'none',
+                                border: '1px solid rgba(239, 68, 68, 0.1)',
+                                transition: 'all 0.2s ease'
+                            }} className="scale-hover">
+                                <LogOut size={16} /> END SESSION
+                            </a>
+                        </div>
                     </div>
                 ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -135,6 +158,11 @@ export default function Footer({ gymName, session }: FooterProps) {
                     </div>
                 </div>
             </div>
+
+            <ChangePasswordModal 
+                isOpen={isPasswordModalOpen} 
+                onClose={() => setIsPasswordModalOpen(false)} 
+            />
 
             <style jsx>{`
                 .footer-link {
