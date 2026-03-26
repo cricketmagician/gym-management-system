@@ -365,6 +365,14 @@ export default function MemberDashboardClient({
                         .marquee-container:hover .marquee-content {
                             animation-play-state: paused;
                         }
+                        .pulse-amber {
+                            animation: pulse-amber 2s infinite;
+                        }
+                        @keyframes pulse-amber {
+                            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); opacity: 1; }
+                            70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); opacity: 0.5; }
+                            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); opacity: 1; }
+                        }
                     `}</style>
         
                     {/* Motivation Section */}
@@ -465,44 +473,48 @@ export default function MemberDashboardClient({
                         </div>
                     </section>
 
-                    {/* Announcement Marquee Section */}
+                    {/* Announcement Marquee Section - Midnight Luxe Overhaul */}
                     {announcements && announcements.length > 0 && (
-                        <section style={{ marginTop: '12px' }}>
+                        <section style={{ marginTop: '0px', marginBottom: '8px' }}>
                             <div style={{ 
-                                background: 'rgba(245, 158, 11, 0.08)', 
-                                border: '1px solid rgba(245, 158, 11, 0.2)',
-                                borderRadius: '18px',
-                                padding: '12px 0',
+                                background: 'rgba(0,0,0,0.4)', 
+                                backdropFilter: 'blur(20px)',
+                                border: '1px solid rgba(255,255,255,0.08)',
+                                borderRadius: '14px',
+                                padding: '14px 0',
                                 overflow: 'hidden',
                                 position: 'relative',
                                 display: 'flex',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                boxShadow: '0 10px 40px rgba(0,0,0,0.5)'
                             }}>
                                 <div style={{ 
-                                    paddingLeft: '20px', 
-                                    paddingRight: '12px', 
-                                    borderRight: '1px solid rgba(245, 158, 11, 0.3)',
+                                    paddingLeft: '24px', 
+                                    paddingRight: '16px', 
+                                    borderRight: '1px solid rgba(255,255,255,0.1)',
                                     color: '#f59e0b',
                                     zIndex: 2,
-                                    background: 'rgba(20, 20, 20, 0.9)',
+                                    background: 'rgba(8, 8, 8, 0.8)',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '6px'
+                                    gap: '10px'
                                 }}>
-                                    <Volume2 size={14} fill="#f59e0b" />
-                                    <span style={{ fontSize: '0.6rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Alert</span>
+                                    <div className="pulse-amber" style={{ width: '8px', height: '8px', background: '#f59e0b', borderRadius: '50%' }} />
+                                    <span style={{ fontSize: '0.65rem', fontWeight: 950, textTransform: 'uppercase', letterSpacing: '0.15em', opacity: 0.9 }}>Broadcast</span>
                                 </div>
                                 
                                 <div className="marquee-container" style={{ flex: 1, whiteSpace: 'nowrap', display: 'flex' }}>
-                                    <div className="marquee-content" style={{ display: 'flex', gap: '60px' }}>
+                                    <div className="marquee-content" style={{ display: 'flex', gap: '80px', alignItems: 'center' }}>
                                         {announcements.map((a: any) => (
-                                            <span key={a.id} style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>
+                                            <span key={a.id} style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'rgba(255,255,255,0.9)', letterSpacing: '0.01em', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                                <Sparkles size={14} className="text-amber-500 opacity-50" />
                                                 {a.content}
                                             </span>
                                         ))}
                                         {/* Duplicate for seamless scroll */}
                                         {announcements.map((a: any) => (
-                                            <span key={`${a.id}-dup`} style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>
+                                            <span key={`${a.id}-dup`} style={{ fontSize: '0.9375rem', fontWeight: 700, color: 'rgba(255,255,255,0.9)', letterSpacing: '0.01em', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                                <Sparkles size={14} className="text-amber-500 opacity-50" />
                                                 {a.content}
                                             </span>
                                         ))}
