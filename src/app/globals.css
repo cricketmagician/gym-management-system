@@ -30,7 +30,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --bg-color: #0B0F19;
     --surface-color: #111827;
     --text-primary: #F9FAFB;
@@ -46,6 +46,23 @@
     --glass-bg: rgba(17, 24, 39, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
   }
+}
+
+.dark {
+    --bg-color: #0B0F19;
+    --surface-color: #111827;
+    --text-primary: #F9FAFB;
+    --text-secondary: #9CA3AF;
+    --brand-primary: #6366F1;
+    --border-color: #1F2937;
+    --status-active-bg: rgba(4, 120, 87, 0.2);
+    --status-active-text: #34D399;
+    --status-expiring-bg: rgba(180, 83, 9, 0.2);
+    --status-expiring-text: #FBBF24;
+    --status-expired-bg: rgba(185, 28, 28, 0.2);
+    --status-expired-text: #F87171;
+    --glass-bg: rgba(17, 24, 39, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 * {

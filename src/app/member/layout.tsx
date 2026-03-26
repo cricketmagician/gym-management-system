@@ -1,8 +1,8 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Home, Dumbbell, Activity, User, Plus, X, QrCode, ClipboardList, TrendingUp, Sparkles } from 'lucide-react';
+import { Home, Dumbbell, Activity, User, Plus, X, QrCode, ClipboardList, TrendingUp, Sparkles, Sun, Moon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 export default function MemberLayout({
@@ -14,6 +14,25 @@ export default function MemberLayout({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+        if (savedTheme) {
+            setTheme(savedTheme);
+            document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
+            document.documentElement.classList.add('dark');
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+        document.documentElement.classList.toggle('dark');
+    };
 
     return (
         <div className="member-bg">
@@ -26,6 +45,30 @@ export default function MemberLayout({
             </div>
             
             <main style={{ position: 'relative', zIndex: 1, padding: '0 0 100px 0', maxWidth: '500px', margin: '0 auto' }}>
+                {/* Theme Toggle Button - Floating Top Right */}
+                <div style={{ position: 'absolute', top: '24px', right: '24px', zIndex: 50 }}>
+                    <button 
+                        onClick={toggleTheme}
+                        style={{ 
+                            width: '40px', 
+                            height: '40px', 
+                            borderRadius: '12px', 
+                            background: 'var(--surface-color)', 
+                            border: '1px solid var(--border-color)', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            boxShadow: 'var(--shadow-soft)',
+                            color: 'var(--text-primary)',
+                            backdropFilter: 'blur(8px)',
+                            WebkitBackdropFilter: 'blur(8px)'
+                        }}
+                        aria-label="Toggle Theme"
+                    >
+                        {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                    </button>
+                </div>
                 {children}
             </main>
 
