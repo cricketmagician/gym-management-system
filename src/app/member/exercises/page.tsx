@@ -42,7 +42,7 @@ export default function GymHubPage() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '110px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 20px 110px 20px' }}>
             <header>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                     <div style={{ padding: '6px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '8px' }}>

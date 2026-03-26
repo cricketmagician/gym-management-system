@@ -109,7 +109,7 @@ export default function WorkoutsPage() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '110px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 20px 110px 20px' }}>
             <header>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '8px' }}>Your Activity</h1>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', fontWeight: 500 }}>Tracking your consistency and growth.</p>

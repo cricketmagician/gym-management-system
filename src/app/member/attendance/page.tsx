@@ -24,7 +24,7 @@ export default async function MemberAttendancePage() {
     const thisYear = attendanceDates.filter(d => isWithinInterval(d, { start: startOfYear(now), end: endOfYear(now) })).length;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '40px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 20px 110px 20px' }}>
             <header>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '8px' }}>Attendance</h1>
                 <p style={{ color: '#666', fontSize: '0.9375rem' }}>Consistency is the foundation of greatness.</p>

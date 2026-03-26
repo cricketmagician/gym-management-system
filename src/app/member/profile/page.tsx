@@ -26,7 +26,7 @@ export default async function ProfilePage() {
     const activeMembership = userData.memberships[0];
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '40px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 20px 40px 20px' }}>
             {/* Profile Header */}
             <header style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                 <AvatarSection initialPhotoUrl={userData.photoUrl} userName={userData.name} />

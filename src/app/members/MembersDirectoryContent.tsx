@@ -151,8 +151,10 @@ function MemberCard({ member, delay }: { member: any, delay: number }) {
                 </div>
                 <div style={{ flex: 1 }}>
                     <h3 style={{ fontSize: '1.125rem', fontWeight: 800, marginBottom: '2px' }}>{member.name}</h3>
-                    <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <Phone size={12} /> {member.phone || 'No phone'}
+                        <span style={{ opacity: 0.3 }}>|</span>
+                        <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>#{member.id.slice(-8).toUpperCase()}</span>
                     </p>
                 </div>
                 <span className={`badge ${status.toLowerCase()}`} style={{ fontSize: '0.65rem', padding: '4px 10px' }}>{status}</span>

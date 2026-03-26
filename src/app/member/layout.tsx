@@ -25,7 +25,7 @@ export default function MemberLayout({
                 FOCUS
             </div>
             
-            <main style={{ position: 'relative', zIndex: 1, padding: '20px 20px 100px 20px', maxWidth: '500px', margin: '0 auto' }}>
+            <main style={{ position: 'relative', zIndex: 1, padding: '0 0 100px 0', maxWidth: '500px', margin: '0 auto' }}>
                 {children}
             </main>
 

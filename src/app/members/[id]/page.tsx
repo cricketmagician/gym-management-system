@@ -62,7 +62,7 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
                         <h1 style={{ fontSize: '4rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 0.9, marginBottom: '8px' }}>
                             {user.name.toUpperCase()}
                         </h1>
-                        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '1.125rem', fontWeight: 500 }}>ID: {user.id.slice(0, 8).toUpperCase()}</p>
+                        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '1.125rem', fontWeight: 500 }}>ID: #{user.id.slice(-8).toUpperCase()}</p>
                     </div>
 
                     <div style={{ position: 'relative', zIndex: 1 }}>
