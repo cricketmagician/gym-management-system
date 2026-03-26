@@ -95,12 +95,20 @@ export default async function RootLayout({
                 <div className="layout-wrapper">
                     <aside className="sidebar">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px' }}>
-                            {branding.logoUrl ? (
+                            {branding.logoUrl && session?.user?.role !== 'SUPER_ADMIN' ? (
                                 <img src={branding.logoUrl} alt={branding.name} style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'cover' }} />
                             ) : (
-                                <div style={{ width: '32px', height: '32px', background: 'var(--brand-primary)', borderRadius: '8px' }}></div>
+                                <div style={{ 
+                                    width: '32px', 
+                                    height: '32px', 
+                                    background: session?.user?.role === 'SUPER_ADMIN' ? '#f59e0b' : 'var(--brand-primary)', 
+                                    borderRadius: '8px',
+                                    boxShadow: session?.user?.role === 'SUPER_ADMIN' ? '0 0 15px rgba(245, 158, 11, 0.3)' : 'none'
+                                }}></div>
                             )}
-                            <h2 style={{ fontSize: '1.125rem', fontWeight: 700 }}>{branding.name}</h2>
+                            <h2 style={{ fontSize: '1.125rem', fontWeight: 900, letterSpacing: '-0.02em' }}>
+                                {session?.user?.role === 'SUPER_ADMIN' ? 'PULSEFIT GLOBAL' : branding.name}
+                            </h2>
                         </div>
                         <SidebarNav role={session?.user?.role} />
                     </aside>

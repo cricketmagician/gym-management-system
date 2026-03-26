@@ -7,6 +7,7 @@ export default function SidebarNav({ role }: { role?: string }) {
     const pathname = usePathname();
 
     const allItems = [
+        { name: 'Global Command', href: '/superadmin', roles: ['SUPER_ADMIN'] },
         { name: 'Dashboard', href: '/', roles: ['ADMIN', 'STAFF', 'MEMBER'] },
         { name: 'Members', href: '/members', roles: ['ADMIN', 'STAFF'] },
         { name: 'Trainers', href: '/members/trainers', roles: ['ADMIN', 'STAFF'] },
