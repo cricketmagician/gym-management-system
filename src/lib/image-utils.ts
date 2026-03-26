@@ -14,11 +14,13 @@ export function getDirectImageUrl(url: string | null | undefined): string {
         // - drive.google.com/file/d/[ID]/view...
         // - drive.google.com/open?id=[ID]
         // - drive.google.com/uc?id=[ID]
-        const driveMatch = cleanUrl.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=))([a-zA-Z0-9_-]+)/);
+        // - drive.google.com/thumbnail?id=[ID]
+        // - docs.google.com/file/d/[ID]
+        const driveMatch = cleanUrl.match(/(?:id=|\/d\/|uc\?id=)([a-zA-Z0-9_-]+)/);
         
-        if (driveMatch && driveMatch[1]) {
-            // Using direct link format that bypasses the viewer
-            return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+        if (driveMatch && driveMatch[1] && (cleanUrl.includes('drive.google.com') || cleanUrl.includes('docs.google.com'))) {
+            // Using Thumbnail API for maximum compatibility
+            return `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w1000`;
         }
         
         // Handle Dropbox links by forcing raw content
