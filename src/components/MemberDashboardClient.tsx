@@ -184,27 +184,63 @@ export default function MemberDashboardClient({
                 </header>
 
                 <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    {/* New Info Card: Member Welcome */}
-                    <div className="card" style={{ 
-                        padding: '24px 32px', 
-                        background: 'var(--surface-color)', 
-                        border: '1px solid var(--border-color)', 
-                        borderRadius: '24px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'flex-start',
-                        justifyContent: 'center',
-                        textAlign: 'left',
-                        gap: '6px',
+                    {/* Top Action Row: Greeting & Quick Scan */}
+                    <div style={{ 
+                        display: 'grid', 
+                        gridTemplateColumns: '1.1fr 0.9fr', 
+                        gap: '12px', 
                         marginTop: '-44px',
                         position: 'relative',
-                        zIndex: 10,
-                        boxShadow: '0 12px 30px rgba(0,0,0,0.12)'
+                        zIndex: 10
                     }}>
-                        <h2 className="font-premium" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.025em' }}>
-                            Hi <span style={{ textTransform: 'uppercase' }}>{user.name}</span>!
-                        </h2>
-                        <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.8, lineHeight: 1.4 }}>Make every workout count today.</p>
+                        {/* Member Welcome (Compact) */}
+                        <div className="glass-card" style={{ 
+                            padding: '16px 20px', 
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            justifyContent: 'center',
+                            textAlign: 'left',
+                            gap: '4px',
+                            boxShadow: '0 8px 24px rgba(0,0,0,0.1)'
+                        }}>
+                            <h2 className="font-premium" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.025em', lineHeight: 1.1 }}>
+                                Hi <span style={{ textTransform: 'uppercase' }}>{user.name}</span>!
+                            </h2>
+                            <p style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.8, lineHeight: 1.2 }}>Make every workout count.</p>
+                        </div>
+
+                        {/* Quick Scan (Side Tile) */}
+                        <Link href="/member/checkin" style={{ textDecoration: 'none' }}>
+                            <div className="glass-card" style={{ 
+                                padding: '16px', 
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                height: '100%',
+                                background: 'rgba(45, 212, 191, 0.1)',
+                                borderColor: 'rgba(45, 212, 191, 0.2)',
+                                boxShadow: '0 8px 24px rgba(45, 212, 191, 0.1)'
+                            }}>
+                                <div style={{ 
+                                    width: '44px', 
+                                    height: '44px', 
+                                    background: '#2dd4bf', 
+                                    color: '#fff', 
+                                    borderRadius: '12px', 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center',
+                                    flexShrink: 0
+                                }}>
+                                    <QrCode size={22} />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                    <h3 style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-primary)' }}>SCAN</h3>
+                                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.6rem', fontWeight: 700 }}>CHECK-IN</p>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
                         {/* Membership Card - Premium Amber Orange */}
@@ -256,43 +292,7 @@ export default function MemberDashboardClient({
                             </div>
                         </div>
         
-                        {/* Quick Scan Entry */}
-                        <Link href="/member/checkin" style={{ textDecoration: 'none' }}>
-                            <div className="card" style={{ 
-                                padding: '24px', 
-                                background: 'var(--surface-color)', 
-                                border: '1px solid var(--border-color)',
-                                borderRadius: '24px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                position: 'relative',
-                                overflow: 'hidden'
-                            }}>
-                                <div style={{ zIndex: 1 }}>
-                                    <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '4px' }}>Quick Scan</h3>
-                                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem', fontWeight: 600 }}>TAP TO CHECK IN NOW</p>
-                                </div>
-                                <div style={{ 
-                                    width: '56px', 
-                                    height: '56px', 
-                                    background: 'var(--brand-primary)', 
-                                    color: '#fff', 
-                                    borderRadius: '16px', 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'center',
-                                    boxShadow: '0 8px 20px rgba(79, 70, 229, 0.2)',
-                                    zIndex: 1
-                                }}>
-                                    <Camera size={28} />
-                                </div>
-                                {/* Background Decorative Element */}
-                                <div style={{ position: 'absolute', right: '-10px', bottom: '-10px', opacity: 0.05, transform: 'rotate(-15deg)' }}>
-                                    <Zap size={100} color="var(--brand-primary)" />
-                                </div>
-                            </div>
-                        </Link>
+                        {/* Quick Scan Entry moved to top row */}
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
