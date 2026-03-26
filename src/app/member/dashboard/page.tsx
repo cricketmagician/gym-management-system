@@ -56,35 +56,32 @@ export default async function MemberDashboard() {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 0' }}>
-            {/* Header / Hero Section */}
+            {/* Header / Hero Banner */}
             <header style={{ 
-                padding: '40px', 
+                padding: '32px 48px', 
                 background: '#000', 
-                borderRadius: '32px', 
+                borderRadius: '24px', 
                 color: '#fff', 
                 position: 'relative', 
                 overflow: 'hidden',
                 display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
+                flexDirection: 'column',
+                justifyContent: 'center',
+                minHeight: '160px'
             }}>
-                <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '200px', height: '200px', background: 'rgba(245, 158, 11, 0.2)', filter: 'blur(60px)', borderRadius: '50%' }}></div>
+                <div style={{ position: 'absolute', top: '-20%', right: '-5%', width: '300px', height: '300px', background: 'rgba(245, 158, 11, 0.15)', filter: 'blur(80px)', borderRadius: '50%' }}></div>
                 
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                        <div style={{ padding: '6px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <Zap size={14} color="#f59e0b" />
-                            <span style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Since 2026</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                        <div style={{ padding: '4px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <Zap size={12} color="#f59e0b" />
+                            <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Priority Access</span>
                         </div>
                     </div>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1 }}>
+                    <h1 style={{ fontSize: '3rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1 }}>
                         HEY, {user.name.split(' ')[0].toUpperCase()}! 🚀
                     </h1>
-                    <p style={{ marginTop: '8px', color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>Ready for your daily grind?</p>
-                </div>
-
-                <div style={{ position: 'relative', zIndex: 1, width: '80px', height: '80px', borderRadius: '24px', border: '2px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
-                    <img src={user.photoUrl || `https://ui-avatars.com/api/?name=${user.name}&background=f59e0b&color=fff`} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <p style={{ marginTop: '8px', color: 'rgba(255,255,255,0.5)', fontWeight: 500, fontSize: '0.95rem' }}>Ready to crush your workout today?</p>
                 </div>
             </header>
 
