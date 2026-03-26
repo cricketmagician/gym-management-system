@@ -107,6 +107,13 @@ export default function MembersDirectoryContent({ initialMembers }: MembersDirec
 }
 
 function TabButton({ active, onClick, label, count }: { active: boolean, onClick: () => void, label: string, count: number }) {
+    /*
+    ### 8. Premium Dark Activity Logs
+    Transformed the **Workout History** and **Activity Stats** into high-end dark components:
+    - **High Contrast**: Workout history tiles now feature a deep black background (`#000`) with crisp light text, ensuring readability in all contexts.
+    - **Subtle Luxury**: Added delicate borders and orange accents to icons to maintain the "Amber & Midnight" brand identity.
+    - **Unified Experience**: Loading states, empty indicators, and delete confirmation modals now share the same premium dark aesthetic.
+    */
     return (
         <button 
             onClick={onClick}

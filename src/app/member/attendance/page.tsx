@@ -26,8 +26,8 @@ export default async function MemberAttendancePage() {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 20px 110px 20px' }}>
             <header>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '8px' }}>Attendance</h1>
-                <p style={{ color: '#666', fontSize: '0.9375rem' }}>Consistency is the foundation of greatness.</p>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '8px', color: '#000' }}>Attendance</h1>
+                <p style={{ color: '#64748b', fontSize: '0.9375rem', fontWeight: 500 }}>Consistency is the foundation of greatness.</p>
             </header>
 
             {/* Frequency Stats Grid */}
@@ -41,13 +41,13 @@ export default async function MemberAttendancePage() {
             <AttendanceCalendar attendanceDates={attendanceDates} />
 
             {/* Achievement Badge */}
-            <div className="glass-card" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px', background: '#000', color: '#fff' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="card" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px', background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px' }}>
+                <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: 'rgba(251, 191, 36, 0.15)', color: '#fbbf24', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Award size={28} />
                 </div>
                 <div>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '2px' }}>Consistency King</h3>
-                    <p style={{ fontSize: '0.8125rem', color: '#888' }}>You've attended {thisMonth} days this month. Keep it up!</p>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '2px' }}>Consistency King</h3>
+                    <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>You've attended {thisMonth} days this month. Keep it up!</p>
                 </div>
             </div>
         </div>
@@ -56,12 +56,22 @@ export default async function MemberAttendancePage() {
 
 function StatCard({ title, value, icon, color, span }: { title: string, value: number, icon: React.ReactNode, color: string, span?: boolean }) {
     return (
-        <div className="glass-card" style={{ padding: '20px', gridColumn: span ? 'span 2' : 'span 1', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div className="card" style={{ 
+            padding: '24px', 
+            gridColumn: span ? 'span 2' : 'span 1', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '12px',
+            background: '#000',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '24px'
+        }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', color: color }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{title}</span>
+                <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{title}</span>
                 {icon}
             </div>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 900 }}>{value} Days</h3>
+            <h3 style={{ fontSize: '1.75rem', fontWeight: 900, letterSpacing: '-0.02em' }}>{value} <span style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>Days</span></h3>
         </div>
     );
 }
