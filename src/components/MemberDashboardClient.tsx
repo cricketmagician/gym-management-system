@@ -475,7 +475,7 @@ export default function MemberDashboardClient({
                         />
 
                         {/* Row 2: Left column with 2 stacked compact cards, Right column with Quick Connect */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                             <MetricCard 
                                 title="App Experience" 
                                 value="Get App" 
@@ -486,37 +486,16 @@ export default function MemberDashboardClient({
                                 variant="white"
                                 compact={true}
                             />
-                            <MetricCard 
-                                title="Profile" 
-                                value="Share" 
-                                unit="Invite" 
-                                icon={<Share />} 
-                                color="#2dd4bf" 
-                                onClick={() => {
-                                    if (navigator.share) {
-                                        navigator.share({
-                                            title: 'PulseFit Gym',
-                                            text: `Join me at ${user.gym?.name || 'PulseFit Gym'}!`,
-                                            url: window.location.origin
-                                        });
-                                    } else {
-                                        alert("Share link copied!");
-                                        navigator.clipboard.writeText(window.location.origin);
-                                    }
-                                }}
-                                variant="black"
-                                compact={true}
-                            />
                         </div>
                         
                         <MetricCard 
                             title="Gym Access" 
                             value="Quick Connect" 
                             unit="Wifi, WhatsApp & More" 
-                            icon={<Zap size={20} />} 
-                            color="#fff" 
+                            icon={<Zap size={18} />} 
+                            color="#f59e0b" 
                             onClick={() => setIsQuickConnectOpen(true)}
-                            variant="orange"
+                            variant="black"
                         />
                     </div>
 
