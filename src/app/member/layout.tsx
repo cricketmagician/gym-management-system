@@ -44,12 +44,13 @@ export default function MemberLayout({
     };
 
     return (
-        <div className="member-bg">
-            <div className="watermark-text" style={{ fontSize: '7rem' }}>
-                PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD
+        <div className={`member-bg ${theme}`} style={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+            {/* Global Motivational Watermark Background */}
+            <div className="watermark-text" style={{ fontSize: '7.5rem', opacity: 1 }}>
+                PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD
             </div>
             
-            <main style={{ position: 'relative', zIndex: 1, padding: '0 0 100px 0', maxWidth: '500px', margin: '0 auto' }}>
+            <main style={{ position: 'relative', zIndex: 10, padding: '0 0 100px 0', maxWidth: '500px', margin: '0 auto' }}>
                 {/* Theme Toggle Button - Floating Top Right */}
                 <div style={{ position: 'absolute', top: '24px', right: '24px', zIndex: 50 }}>
                     <button 
