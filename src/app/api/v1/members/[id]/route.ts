@@ -13,13 +13,13 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
 
         const gymId = session.user.gymId;
         const body = await req.json();
-        const { name, email, phone, gender, startDate, planId } = body;
+        const { name, email, phone, gender, photoUrl, startDate, planId } = body;
 
         // Update user and potentially their active membership's start date/plan
         const updatedUser = await prisma.$transaction(async (tx) => {
             const user = await tx.user.update({
                 where: { id: id, gymId: gymId },
-                data: { name, email, phone, gender }
+                data: { name, email, phone, gender, photoUrl }
             });
 
             if (startDate || planId) {

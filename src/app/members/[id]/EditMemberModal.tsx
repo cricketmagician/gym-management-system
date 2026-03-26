@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getDirectImageUrl } from '@/lib/image-utils';
 
 interface User {
     id: string;
@@ -9,6 +10,7 @@ interface User {
     email: string | null;
     phone: string;
     gender: string;
+    photoUrl?: string | null;
     memberships?: {
         startDate: Date;
         planId: string;
@@ -25,6 +27,7 @@ export default function EditMemberModal({ user }: { user: User }) {
         email: user.email || '',
         phone: user.phone,
         gender: user.gender,
+        photoUrl: user.photoUrl || '',
         startDate: user.memberships?.[0]?.startDate
             ? new Date(user.memberships[0].startDate).toISOString().split('T')[0]
             : new Date().toISOString().split('T')[0],
@@ -110,6 +113,26 @@ export default function EditMemberModal({ user }: { user: User }) {
                                     style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--border-color)', outline: 'none' }}
                                     placeholder="john@example.com"
                                 />
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <label style={{ fontSize: '0.875rem', fontWeight: 600 }}>Profile Photo URL</label>
+                                <input
+                                    type="url"
+                                    value={formData.photoUrl}
+                                    onChange={(e) => setFormData({ ...formData, photoUrl: e.target.value })}
+                                    style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--border-color)', outline: 'none' }}
+                                    placeholder="Google Drive or Dropbox link..."
+                                />
+                                {formData.photoUrl && (
+                                    <div style={{ marginTop: '8px' }}>
+                                        <p style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', textTransform: 'uppercase' }}>Photo Preview</p>
+                                        <img 
+                                            src={getDirectImageUrl(formData.photoUrl)} 
+                                            alt="Preview" 
+                                            style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '12px', border: '1px solid var(--border-color)' }} 
+                                        />
+                                    </div>
+                                )}
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <label style={{ fontSize: '0.875rem', fontWeight: 600 }}>Gender</label>

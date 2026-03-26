@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
         const gymId = session.user.gymId;
         const body = await req.json();
-        const { name, email, phone, planId, startDate, gender, amount, password } = body;
+        const { name, email, phone, planId, startDate, gender, amount, password, photoUrl } = body;
 
         // We use a transaction to create User and Membership atomically
         const result = await prisma.$transaction(async (tx) => {
@@ -41,6 +41,7 @@ export async function POST(req: Request) {
                     email: email || null,
                     phone,
                     gender,
+                    photoUrl,
                     role: "MEMBER",
                     passwordHash: await bcrypt.hash(password || "changeme123", 10),
                 }

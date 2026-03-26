@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getDirectImageUrl } from '@/lib/image-utils';
 
 export default function NewMemberPage() {
     const router = useRouter();
@@ -10,6 +11,7 @@ export default function NewMemberPage() {
     const [plans, setPlans] = useState<any[]>([]);
     const [selectedPlanId, setSelectedPlanId] = useState('');
     const [amount, setAmount] = useState<string>('');
+    const [photoUrl, setPhotoUrl] = useState<string>('');
     const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
     const [endDateDisplay, setEndDateDisplay] = useState<string>('');
 
@@ -62,7 +64,8 @@ export default function NewMemberPage() {
                     password: formData.get('password'),
                     amount: amount ? Number(amount) : 0,
                     planId: selectedPlanId || null,
-                    startDate: new Date(startDate).toISOString()
+                    startDate: new Date(startDate).toISOString(),
+                    photoUrl: photoUrl || null
                 })
             });
 
@@ -112,6 +115,24 @@ export default function NewMemberPage() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <label style={{ fontSize: '0.875rem', fontWeight: 600 }}>Email Address (Optional)</label>
                         <input name="email" type="email" style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--border-color)', outline: 'none' }} placeholder="john@example.com" />
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <label style={{ fontSize: '0.875rem', fontWeight: 600 }}>Profile Photo URL (Optional)</label>
+                        <input 
+                            name="photoUrl" 
+                            type="url" 
+                            value={photoUrl}
+                            onChange={(e) => setPhotoUrl(e.target.value)}
+                            style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--border-color)', outline: 'none' }} 
+                            placeholder="Google Drive link..." 
+                        />
+                        {photoUrl && (
+                            <div style={{ marginTop: '8px' }}>
+                                <p style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '8px', textTransform: 'uppercase' }}>Preview</p>
+                                <img src={getDirectImageUrl(photoUrl)} alt="Preview" style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--border-color)' }} />
+                            </div>
+                        )}
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

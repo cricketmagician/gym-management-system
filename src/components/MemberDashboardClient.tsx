@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2 } from 'lucide-react';
+import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2, MapPin, User as UserIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { signOut } from 'next-auth/react';
 import { getDirectImageUrl } from '@/lib/image-utils';
@@ -154,12 +154,37 @@ export default function MemberDashboardClient({
                             </div>
                             <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Portal</span>
                         </div>
-                        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>{user.gym?.name || 'PulseFit'}</h1>
-                        <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9375rem', fontWeight: 500, marginTop: '4px' }}>Welcome back, {user.name.split(' ')[0]}!</p>
+                        <h1 style={{ fontSize: '1rem', fontWeight: 800, color: '#fff', letterSpacing: '0.05em', lineHeight: 1, opacity: 0.7, textTransform: 'uppercase' }}>{user.gym?.name || 'PulseFit'}</h1>
                     </div>
                 </header>
 
-                <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    {/* New Info Card: Member Name & Address */}
+                    <div className="card" style={{ 
+                        padding: '16px 20px', 
+                        background: 'var(--surface-color)', 
+                        border: '1px solid var(--border-color)', 
+                        borderRadius: '20px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        gap: '12px',
+                        marginTop: '-40px', // Pull up slightly into the banner area
+                        position: 'relative',
+                        zIndex: 10,
+                        boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <div style={{ width: '32px', height: '32px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <UserIcon size={16} />
+                            </div>
+                            <span style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--text-primary)' }}>{user.name}</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.8 }}>
+                            <MapPin size={14} color="var(--brand-primary)" />
+                            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{user.gym?.locationDesc || 'PulseFit HQ'}</span>
+                        </div>
+                    </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
                         {/* Membership Card - Premium Amber Orange */}
                         <div className="card" style={{ 
