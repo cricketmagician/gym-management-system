@@ -16,8 +16,8 @@ interface MemberDashboardClientProps {
     trainers: any[];
 }
 
-function MetricCard({ title, value, unit, icon, color }: { title: string, value: number, unit: string, icon: React.ReactNode, color: string }) {
-    return (
+function MetricCard({ title, value, unit, icon, color, href }: { title: string, value: number, unit: string, icon: React.ReactNode, color: string, href?: string }) {
+    const cardContent = (
         <div className="card" style={{ 
             padding: '24px', 
             borderRadius: '24px', 
@@ -27,18 +27,37 @@ function MetricCard({ title, value, unit, icon, color }: { title: string, value:
             flexDirection: 'column',
             gap: '12px',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
+            cursor: href ? 'pointer' : 'default',
+            boxShadow: `0 10px 30px -10px rgba(0,0,0,0.1), 0 0 20px -5px ${color}20` // Subtle color-tinted glow
         }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', color: color }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>{title}</span>
-                {icon}
+                <div style={{ padding: '8px', background: `${color}10`, borderRadius: '10px' }}>
+                    {icon}
+                </div>
             </div>
             <div>
-                <h4 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1 }}>{value}</h4>
+                <h4 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1 }}>{value}</h4>
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, marginTop: '4px' }}>{unit}</p>
             </div>
+            {/* Glossy overlay effect for interactivity */}
+            {href && <div className="card-gloss" />}
         </div>
     );
+
+    if (href) {
+        return (
+            <Link href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div className="scale-hover">
+                    {cardContent}
+                </div>
+            </Link>
+        );
+    }
+
+    return cardContent;
 }
 
 export default function MemberDashboardClient({ 
@@ -275,9 +294,24 @@ export default function MemberDashboardClient({
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
-                        <MetricCard title="This Week" value={thisWeekAttendance} unit="Days" icon={<Timer size={18} />} color="#2dd4bf" />
-                        <MetricCard title="Workout history" value={workoutCount} unit="Sess" icon={<Activity size={18} />} color="#fb923c" />
+                        <MetricCard title="This Week" value={thisWeekAttendance} unit="Days" icon={<Timer size={18} />} color="#2dd4bf" href="/member/attendance" />
+                        <MetricCard title="Workout history" value={workoutCount} unit="Sess" icon={<Activity size={18} />} color="#fb923c" href="/member/workouts" />
                     </div>
+
+                    <style jsx>{`
+                        .scale-hover {
+                            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                        }
+                        .scale-hover:hover {
+                            transform: scale(1.02);
+                        }
+                        .card-gloss {
+                            position: absolute;
+                            inset: 0;
+                            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+                            pointer-events: none;
+                        }
+                    `}</style>
         
                     {/* Motivation Section */}
                     <div style={{ 
