@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 
 export async function GET() {
     try {
-        const admin = await prisma.user.findUnique({
+        const admin = await prisma.user.findFirst({
             where: { email: 'admin@pulsefit.com' },
             select: { gymId: true }
         });
