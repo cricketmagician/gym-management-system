@@ -147,50 +147,75 @@ export default async function DashboardPage() {
         redirect('/member/dashboard');
     }
 
-    // AUTH: ADMIN / STAFF Dashboard
-    const totalMembers = await prisma.user.count({ where: { gymId, role: 'MEMBER' } });
-    
     // Proactive Intelligence Metrics
     const now = new Date();
     const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
-    const [activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym] = await Promise.all([
-        prisma.membership.count({ where: { gymId, status: 'ACTIVE' } }),
-        prisma.membership.count({ where: { gymId, status: 'EXPIRED' } }),
-        prisma.membership.count({ 
-            where: { 
-                gymId, 
-                status: 'ACTIVE',
-                endDate: { gt: now, lte: sevenDaysFromNow }
-            } 
-        }),
-        prisma.user.findMany({
-            where: { 
-                gymId, 
-                role: 'MEMBER',
-                memberships: { some: { status: 'ACTIVE', endDate: { gt: now, lte: sevenDaysFromNow } } }
-            },
-            include: { memberships: { where: { status: 'ACTIVE' }, include: { plan: true } } },
-            take: 10
-        }),
-        prisma.user.findMany({
-            where: { 
-                gymId, 
-                role: 'MEMBER',
-                memberships: { some: { status: 'EXPIRED' } }
-            },
-            include: { memberships: { where: { status: 'EXPIRED' }, include: { plan: true }, orderBy: { endDate: 'desc' }, take: 1 } },
-            take: 10
-        }),
-        prisma.gym.findUnique({ where: { id: gymId } })
-    ]);
+    let dashboardData = {
+        totalMembers: 0,
+        activeCount: 0,
+        expiredCount: 0,
+        expiringSoonCount: 0,
+        expiringMembers: [] as any[],
+        expiredMembers: [] as any[],
+        gym: null as any,
+        recentAttendance: [] as any[]
+    };
 
-    const recentAttendance = await prisma.attendance.findMany({
-        where: { gymId },
-        include: { user: true },
-        orderBy: { timestamp: 'desc' },
-        take: 8
-    });
+    try {
+        const [totalMembers, activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym, recentAttendance] = await Promise.all([
+            prisma.user.count({ where: { gymId, role: 'MEMBER' } }),
+            prisma.membership.count({ where: { gymId, status: 'ACTIVE' } }),
+            prisma.membership.count({ where: { gymId, status: 'EXPIRED' } }),
+            prisma.membership.count({ 
+                where: { 
+                    gymId, 
+                    status: 'ACTIVE',
+                    endDate: { gt: now, lte: sevenDaysFromNow }
+                } 
+            }),
+            prisma.user.findMany({
+                where: { 
+                    gymId, 
+                    role: 'MEMBER',
+                    memberships: { some: { status: 'ACTIVE', endDate: { gt: now, lte: sevenDaysFromNow } } }
+                },
+                include: { memberships: { where: { status: 'ACTIVE' }, include: { plan: true } } },
+                take: 10
+            }),
+            prisma.user.findMany({
+                where: { 
+                    gymId, 
+                    role: 'MEMBER',
+                    memberships: { some: { status: 'EXPIRED' } }
+                },
+                include: { memberships: { where: { status: 'EXPIRED' }, include: { plan: true }, orderBy: { endDate: 'desc' }, take: 1 } },
+                take: 10
+            }),
+            prisma.gym.findUnique({ where: { id: gymId } }),
+            prisma.attendance.findMany({
+                where: { gymId },
+                include: { user: true },
+                orderBy: { timestamp: 'desc' },
+                take: 8
+            })
+        ]);
+
+        dashboardData = {
+            totalMembers,
+            activeCount,
+            expiredCount,
+            expiringSoonCount,
+            expiringMembers,
+            expiredMembers,
+            gym,
+            recentAttendance
+        };
+    } catch (error) {
+        console.error("Dashboard data fetch failed:", error);
+    }
+
+    const { totalMembers, activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym, recentAttendance } = dashboardData;
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', minHeight: '100vh', padding: '24px' }} className="admin-dashboard">

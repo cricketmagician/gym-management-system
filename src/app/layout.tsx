@@ -34,25 +34,30 @@ export default async function RootLayout({
     };
 
     if (session?.user?.gymId) {
-        const gym = await prisma.gym.findUnique({
-            where: { id: session.user.gymId },
-            select: {
-                name: true,
-                primaryColor: true,
-                secondaryColor: true,
-                fontFamily: true,
-                logoUrl: true
-            }
-        });
+        try {
+            const gym = await prisma.gym.findUnique({
+                where: { id: session.user.gymId },
+                select: {
+                    name: true,
+                    primaryColor: true,
+                    secondaryColor: true,
+                    fontFamily: true,
+                    logoUrl: true
+                }
+            });
 
-        if (gym) {
-            branding = {
-                primaryColor: gym.primaryColor || branding.primaryColor,
-                secondaryColor: gym.secondaryColor || branding.secondaryColor,
-                fontFamily: gym.fontFamily || branding.fontFamily,
-                name: gym.name,
-                logoUrl: gym.logoUrl
-            };
+            if (gym) {
+                branding = {
+                    primaryColor: gym.primaryColor || branding.primaryColor,
+                    secondaryColor: gym.secondaryColor || branding.secondaryColor,
+                    fontFamily: gym.fontFamily || branding.fontFamily,
+                    name: gym.name,
+                    logoUrl: gym.logoUrl
+                };
+            }
+        } catch (dbError) {
+            console.error("Layout branding fetch failed:", dbError);
+            // Fallback to default branding already initialized
         }
     }
 
