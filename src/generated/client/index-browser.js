@@ -137,6 +137,8 @@ exports.Prisma.GymScalarFieldEnum = {
   upiId: 'upiId',
   upiNumber: 'upiNumber',
   upiQrUrl: 'upiQrUrl',
+  wifiSsid: 'wifiSsid',
+  wifiPassword: 'wifiPassword',
   loginBackgroundUrl: 'loginBackgroundUrl',
   instagramLink: 'instagramLink',
   locationDesc: 'locationDesc',

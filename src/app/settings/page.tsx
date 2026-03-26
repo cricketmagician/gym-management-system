@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import QRCode from "react-qr-code";
-import { Download, Save, Instagram, Phone, MapPin, Globe, Loader2, CheckCircle2, Building, QrCode as QrIcon } from 'lucide-react';
+import { Download, Save, Instagram, Phone, MapPin, Globe, Loader2, CheckCircle2, Building, QrCode as QrIcon, Wifi } from 'lucide-react';
 import { getDirectImageUrl } from '@/lib/image-utils';
 import UPIQRCode from '@/components/UPIQRCode';
 
@@ -181,6 +181,33 @@ export default function SettingsPage() {
                                     onChange={(e) => setGym({...gym, upiNumber: e.target.value})}
                                     style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
                                     placeholder="9876543210"
+                                />
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                            <div>
+                                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
+                                    Gym Wifi SSID
+                                </label>
+                                <input 
+                                    type="text" 
+                                    value={gym.wifiSsid || ''}
+                                    onChange={(e) => setGym({...gym, wifiSsid: e.target.value})}
+                                    style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
+                                    placeholder="PulseFit_5G"
+                                />
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
+                                    Wifi Password
+                                </label>
+                                <input 
+                                    type="text" 
+                                    value={gym.wifiPassword || ''}
+                                    onChange={(e) => setGym({...gym, wifiPassword: e.target.value})}
+                                    style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
+                                    placeholder="password123"
                                 />
                             </div>
                         </div>

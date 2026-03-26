@@ -52,6 +52,8 @@ export async function PATCH(req: Request) {
                 bannerUrl: body.bannerUrl,
                 upiId: body.upiId,
                 upiNumber: body.upiNumber,
+                wifiSsid: body.wifiSsid,
+                wifiPassword: body.wifiPassword,
             }
         });
 

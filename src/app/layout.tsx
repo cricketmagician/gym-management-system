@@ -32,7 +32,9 @@ export default async function RootLayout({
         name: 'PulseFit',
         logoUrl: null as string | null,
         instagramLink: null as string | null,
-        whatsappNumber: null as string | null
+        whatsappNumber: null as string | null,
+        wifiSsid: null as string | null,
+        wifiPassword: null as string | null
     };
 
     if (session?.user?.gymId) {
@@ -46,7 +48,9 @@ export default async function RootLayout({
                     fontFamily: true,
                     logoUrl: true,
                     instagramLink: true,
-                    whatsappNumber: true
+                    whatsappNumber: true,
+                    wifiSsid: true,
+                    wifiPassword: true
                 }
             });
 
@@ -58,7 +62,9 @@ export default async function RootLayout({
                     name: gym.name,
                     logoUrl: gym.logoUrl,
                     instagramLink: gym.instagramLink,
-                    whatsappNumber: gym.whatsappNumber
+                    whatsappNumber: gym.whatsappNumber,
+                    wifiSsid: gym.wifiSsid,
+                    wifiPassword: gym.wifiPassword
                 };
             }
         } catch (dbError) {

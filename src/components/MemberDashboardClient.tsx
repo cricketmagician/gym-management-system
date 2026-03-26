@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2, MapPin, User as UserIcon, Volume2, Smartphone, Share, PlusSquare } from 'lucide-react';
+import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2, MapPin, User as UserIcon, Volume2, Smartphone, Share, PlusSquare, Wifi, Phone, MessageSquare, Instagram, Copy } from 'lucide-react';
 import { format } from 'date-fns';
 import { signOut } from 'next-auth/react';
 import { getDirectImageUrl } from '@/lib/image-utils';
@@ -96,6 +96,7 @@ export default function MemberDashboardClient({
 }: MemberDashboardClientProps) {
     const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
     const [isA2HSOpen, setIsA2HSOpen] = useState(false);
+    const [isQuickConnectOpen, setIsQuickConnectOpen] = useState(false);
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
     useEffect(() => {
@@ -112,10 +113,20 @@ export default function MemberDashboardClient({
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
             if (outcome === 'accepted') {
+                setDeferredPrompt(deferredPrompt);
                 setDeferredPrompt(null);
             }
         } else {
             setIsA2HSOpen(true);
+        }
+    };
+
+    const handleCopyWifi = async () => {
+        if (user.gym?.wifiPassword) {
+            await navigator.clipboard.writeText(user.gym.wifiPassword);
+            alert(`WiFi Password copied! SSID: ${user.gym.wifiSsid || 'PulseFit'}`);
+        } else {
+            alert("No WiFi details configured yet.");
         }
     };
 
@@ -459,6 +470,16 @@ export default function MemberDashboardClient({
                             onClick={handleInstall}
                             variant="black"
                         />
+                        
+                        <MetricCard 
+                            title="Gym Access" 
+                            value="QUICK CONNECT" 
+                            unit="Wifi, WhatsApp & More" 
+                            icon={<Zap size={20} />} 
+                            color="#f59e0b" 
+                            onClick={() => setIsQuickConnectOpen(true)}
+                            variant="black"
+                        />
                     </div>
 
                     <style jsx>{`
@@ -651,6 +672,77 @@ export default function MemberDashboardClient({
                         </section>
                     )}
                 </div>
+                
+                {/* Quick Connect Modal */}
+                {isQuickConnectOpen && (
+                    <div style={{ 
+                        position: 'fixed', 
+                        top: 0, 
+                        left: 0, 
+                        right: 0, 
+                        bottom: 0, 
+                        background: 'rgba(0,0,0,0.85)', 
+                        backdropFilter: 'blur(20px)',
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        zIndex: 1000, 
+                        padding: '24px' 
+                    }} onClick={() => setIsQuickConnectOpen(false)}>
+                        <div style={{ 
+                            background: '#0a0a0a', 
+                            width: '100%', 
+                            maxWidth: '400px', 
+                            borderRadius: '32px', 
+                            padding: '32px', 
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '32px',
+                            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)',
+                            animation: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                        }} onClick={e => e.stopPropagation()}>
+                            <div style={{ textAlign: 'center' }}>
+                                <h3 style={{ fontSize: '1.5rem', fontWeight: 950, marginBottom: '8px', color: '#fff' }}>GYM CONNECT</h3>
+                                <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', fontWeight: 600 }}>Get instant access to facility resources.</p>
+                            </div>
+                            
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                                <div onClick={handleCopyWifi} style={{ padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.05)' }} className="scale-hover">
+                                    <span style={{ padding: '12px', background: 'rgba(45, 212, 191, 0.1)', borderRadius: '16px' }}>
+                                        <Wifi size={24} color="#2dd4bf" />
+                                    </span>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.05em' }}>GYM WIFI</span>
+                                </div>
+                                
+                                <a href={`tel:${(user.gym?.whatsappNumber || '').replace(/\s/g, '')}`} style={{ textDecoration: 'none', padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', border: '1px solid rgba(255,255,255,0.05)' }} className="scale-hover">
+                                    <span style={{ padding: '12px', background: 'rgba(251, 146, 60, 0.1)', borderRadius: '16px' }}>
+                                        <Phone size={24} color="#fb923c" />
+                                    </span>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.05em' }}>CALL NOW</span>
+                                </a>
+                                
+                                <a href={`https://wa.me/${(user.gym?.whatsappNumber || '').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', border: '1px solid rgba(255,255,255,0.05)' }} className="scale-hover">
+                                    <span style={{ padding: '12px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '16px' }}>
+                                        <MessageSquare size={24} color="#22c55e" />
+                                    </span>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.05em' }}>WHATSAPP</span>
+                                </a>
+                                
+                                <a href={user.gym?.instagramLink || '#'} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', border: '1px solid rgba(255,255,255,0.05)' }} className="scale-hover">
+                                    <span style={{ padding: '12px', background: 'rgba(225, 48, 108, 0.1)', borderRadius: '16px' }}>
+                                        <Instagram size={24} color="#e1306c" />
+                                    </span>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.05em' }}>INSTAGRAM</span>
+                                </a>
+                            </div>
+                            
+                            <button onClick={() => setIsQuickConnectOpen(false)} style={{ padding: '16px', background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.6)', borderRadius: '18px', border: 'none', fontWeight: 800, fontSize: '0.875rem', cursor: 'pointer' }}>
+                                CLOSE
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
