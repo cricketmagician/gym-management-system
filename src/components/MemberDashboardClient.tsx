@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut } from 'lucide-react';
+import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode } from 'lucide-react';
 import { format } from 'date-fns';
 import { signOut } from 'next-auth/react';
 import { getDirectImageUrl } from '@/lib/image-utils';
@@ -25,7 +25,6 @@ export default function MemberDashboardClient({
     trainers 
 }: MemberDashboardClientProps) {
     const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
-    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
     const handleWhatsApp = () => {
         const adminPhone = (user.gym?.whatsappNumber || '').replace(/\D/g, '');
@@ -124,19 +123,11 @@ export default function MemberDashboardClient({
                     />
                     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8))' }} />
                     <div style={{ position: 'absolute', bottom: '32px', left: '24px', right: '24px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                                <div style={{ padding: '6px', background: 'var(--brand-primary)', borderRadius: '8px' }}>
-                                    <Zap size={16} color="#fff" />
-                                </div>
-                                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Portal</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                            <div style={{ padding: '6px', background: 'var(--brand-primary)', borderRadius: '8px' }}>
+                                <Zap size={16} color="#fff" />
                             </div>
-                            <button 
-                                onClick={() => setIsLogoutModalOpen(true)}
-                                style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '10px 16px', borderRadius: '14px', fontSize: '0.75rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                            >
-                                <LogOut size={16} /> LOGOUT
-                            </button>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Portal</span>
                         </div>
                         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>{user.gym?.name || 'PulseFit'}</h1>
                         <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9375rem', fontWeight: 500, marginTop: '4px' }}>Welcome back, {user.name.split(' ')[0]}!</p>
@@ -195,27 +186,27 @@ export default function MemberDashboardClient({
                         </div>
         
                         {/* Quick Stats Grid */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                            <Link href="/member/checkin" style={{ textDecoration: 'none' }}>
+                                <div className="card" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: 'linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%)', color: '#fff', border: 'none', borderRadius: '24px', boxShadow: '0 10px 20px rgba(45, 212, 191, 0.2)' }}>
+                                    <div style={{ padding: '8px', background: 'rgba(255, 255, 255, 0.2)', borderRadius: '12px', width: 'fit-content' }}>
+                                        <QrCode size={20} color="#fff" />
+                                    </div>
+                                    <div>
+                                        <h4 style={{ fontSize: '1.125rem', fontWeight: 900, letterSpacing: '-0.02em' }}>QUICK SCAN</h4>
+                                        <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase' }}>Check-in Now</p>
+                                    </div>
+                                </div>
+                            </Link>
+
                             <Link href="/member/attendance" style={{ textDecoration: 'none' }}>
                                 <div className="card" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px' }}>
                                     <div style={{ padding: '8px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', width: 'fit-content' }}>
                                         <Calendar size={20} color="#f59e0b" />
                                     </div>
                                     <div>
-                                        <h4 style={{ fontSize: '2rem', fontWeight: 900 }}>{thisWeekAttendance}</h4>
-                                        <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>Attendance This Week</p>
-                                    </div>
-                                </div>
-                            </Link>
-        
-                            <Link href="/member/workouts" style={{ textDecoration: 'none' }}>
-                                <div className="card" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '24px' }}>
-                                    <div style={{ padding: '8px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', width: 'fit-content' }}>
-                                        <Dumbbell size={20} color="#f59e0b" />
-                                    </div>
-                                    <div>
-                                        <h4 style={{ fontSize: '2rem', fontWeight: 900 }}>{workoutCount}</h4>
-                                        <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Workout Sessions</p>
+                                        <h4 style={{ fontSize: '1.5rem', fontWeight: 900 }}>{thisWeekAttendance}</h4>
+                                        <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase' }}>This Week</p>
                                     </div>
                                 </div>
                             </Link>
