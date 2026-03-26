@@ -66,9 +66,9 @@ export default async function DashboardPage() {
             }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
                     <div>
-                        <div style={{ background: '#2dd4bf', color: '#000', padding: '4px 12px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.05em', width: 'fit-content', marginBottom: '12px' }}>MANAGEMENT</div>
-                        <h1 style={{ fontSize: '2.25rem', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', lineHeight: 1 }}>Command Center</h1>
-                        <p style={{ color: '#666', marginTop: '8px', fontSize: '0.9375rem', fontWeight: 500 }}>Live gym operations and member activity.</p>
+                        <div style={{ background: 'var(--brand-primary)', color: '#fff', padding: '6px 14px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.05em', width: 'fit-content', marginBottom: '12px', boxShadow: '0 4px 12px rgba(45, 212, 191, 0.2)' }}>MANAGEMENT</div>
+                        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-0.03em', color: 'var(--text-primary)', lineHeight: 1 }}>Command Center</h1>
+                        <p style={{ color: 'var(--text-secondary)', marginTop: '10px', fontSize: '1rem', fontWeight: 500, opacity: 0.9 }}>Live gym operations and member activity monitoring.</p>
                     </div>
                     <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                         <AdminLogoutButton />
@@ -128,20 +128,20 @@ export default async function DashboardPage() {
             </section>
 
             {/* Recent Activity Section */}
-            <section className="glass-card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <section className="glass-card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '24px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Recent Verified Activity</h2>
-                    <Link href="/attendance" style={{ color: '#2dd4bf', fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none' }}>View All Records →</Link>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Recent Verified Activity</h2>
+                    <Link href="/attendance" style={{ color: 'var(--brand-primary)', fontWeight: 800, fontSize: '0.8125rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.05em' }}>View All Records →</Link>
                 </div>
 
                 <div className="modern-table-container" style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 12px' }}>
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 8px' }}>
                         <thead>
-                            <tr style={{ textAlign: 'left', color: '#888', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                <th style={{ padding: '0 16px' }}>Member</th>
-                                <th style={{ padding: '0 16px' }}>Timing</th>
-                                <th style={{ padding: '0 16px' }}>Verification</th>
-                                <th style={{ padding: '0 16px', textAlign: 'right' }}>Actions</th>
+                            <tr style={{ textAlign: 'left', color: 'var(--text-secondary)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800 }}>
+                                <th style={{ padding: '12px 16px' }}>Member</th>
+                                <th style={{ padding: '12px 16px' }}>Timing</th>
+                                <th style={{ padding: '12px 16px' }}>Verification</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'right' }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -185,37 +185,41 @@ export default async function DashboardPage() {
 import { CheckCircle2 } from 'lucide-react';
 
 function MetricCard({ title, value, icon, subtitle, glowColor, variant = 'light' }: { title: string, value: string | number, icon: React.ReactNode, subtitle: string, glowColor: string, variant?: 'light' | 'dark' }) {
-    const isDark = variant === 'dark';
     return (
-        <div className={isDark ? "glass-card-dark" : "glass-card"} style={{ 
+        <div className="card" style={{ 
             padding: '24px', 
+            borderRadius: '24px',
+            background: 'var(--surface-color)',
+            border: '1px solid var(--border-color)',
             display: 'flex', 
             flexDirection: 'column', 
             gap: '16px',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            transition: 'transform 0.2s ease'
         }}>
             <div style={{ 
                 position: 'absolute', 
                 top: '-20px', 
                 right: '-20px', 
-                width: '80px', 
-                height: '80px', 
+                width: '100px', 
+                height: '100px', 
                 background: glowColor, 
                 borderRadius: '50%', 
-                filter: 'blur(30px)' 
+                filter: 'blur(35px)',
+                opacity: 0.6
             }}></div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#fff' : '#000' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(var(--brand-primary-rgb, 45, 212, 191), 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-primary)' }}>
                     {icon}
                 </div>
             </div>
             
-            <div>
-                <p style={{ color: isDark ? 'rgba(255,255,255,0.5)' : '#666', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{title}</p>
-                <h3 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.03em' }}>{value}</h3>
-                <p style={{ fontSize: '0.8125rem', color: isDark ? 'rgba(255,255,255,0.4)' : '#999' }}>{subtitle}</p>
+            <div style={{ position: 'relative', zIndex: 1 }}>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>{title}</p>
+                <h3 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.04em', color: 'var(--text-primary)', lineHeight: 1 }}>{value}</h3>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500, opacity: 0.8 }}>{subtitle}</p>
             </div>
         </div>
     );

@@ -46,12 +46,13 @@ export default function MembersDirectoryContent({ initialMembers }: MembersDirec
             }}>
                 <div style={{ 
                     display: 'flex', 
-                    background: 'rgba(0,0,0,0.03)', 
-                    padding: '6px', 
-                    borderRadius: '16px', 
-                    gap: '4px',
+                    background: 'var(--bg-color)', 
+                    padding: '8px', 
+                    borderRadius: '20px', 
+                    gap: '6px',
                     width: '100%',
-                    overflowX: 'auto'
+                    overflowX: 'auto',
+                    border: '1px solid var(--border-color)'
                 }}>
                     <TabButton active={filter === 'ALL'} onClick={() => setFilter('ALL')} label="All" count={initialMembers.length} />
                     <TabButton active={filter === 'MALE'} onClick={() => setFilter('MALE')} label="Male" count={initialMembers.filter(m => m.gender === 'MALE').length} />
@@ -107,38 +108,35 @@ export default function MembersDirectoryContent({ initialMembers }: MembersDirec
 }
 
 function TabButton({ active, onClick, label, count }: { active: boolean, onClick: () => void, label: string, count: number }) {
-    /*
-    ### 8. Premium Dark Activity Logs
-    Transformed the **Workout History** and **Activity Stats** into high-end dark components:
-    - **High Contrast**: Workout history tiles now feature a deep black background (`#000`) with crisp light text, ensuring readability in all contexts.
-    - **Subtle Luxury**: Added delicate borders and orange accents to icons to maintain the "Amber & Midnight" brand identity.
-    - **Unified Experience**: Loading states, empty indicators, and delete confirmation modals now share the same premium dark aesthetic.
-    */
     return (
         <button 
             onClick={onClick}
             style={{
-                padding: '8px 20px',
-                borderRadius: '12px',
+                padding: '10px 24px',
+                borderRadius: '14px',
                 border: 'none',
-                background: active ? '#000' : 'transparent',
-                color: active ? '#fff' : 'var(--text-secondary)',
-                fontWeight: 700,
-                fontSize: '0.875rem',
+                background: active ? 'var(--text-primary)' : 'transparent',
+                color: active ? 'var(--surface-color)' : 'var(--text-secondary)',
+                fontWeight: 800,
+                fontSize: '0.8125rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                transition: 'all 0.2s ease',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
             }}
         >
             {label}
             <span style={{ 
                 fontSize: '0.7rem', 
-                opacity: 0.6, 
-                background: active ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.05)',
+                opacity: 0.8, 
+                background: active ? 'rgba(var(--bg-color-rgb, 0, 0, 0), 0.1)' : 'var(--border-color)',
+                color: active ? 'var(--surface-color)' : 'var(--text-primary)',
                 padding: '2px 8px',
-                borderRadius: '100px'
+                borderRadius: '100px',
+                fontWeight: 900
             }}>{count}</span>
         </button>
     );
@@ -177,7 +175,7 @@ function MemberCard({ member, delay }: { member: any, delay: number }) {
                 <span className={`badge ${status.toLowerCase()}`} style={{ fontSize: '0.65rem', padding: '4px 10px' }}>{status}</span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', background: 'rgba(0,0,0,0.02)', padding: '12px', borderRadius: '14px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', background: 'var(--bg-color)', padding: '16px', borderRadius: '18px', border: '1px solid var(--border-color)' }}>
                 <div>
                     <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Plan</p>
                     <p style={{ fontSize: '0.8125rem', fontWeight: 700 }}>{latestMembership?.plan.name || 'No Plan'}</p>
@@ -198,19 +196,20 @@ function MemberCard({ member, delay }: { member: any, delay: number }) {
                         display: 'flex', 
                         alignItems: 'center', 
                         justifyContent: 'center', 
-                        gap: '8px', 
-                        padding: '12px', 
-                        background: '#000', 
-                        color: '#fff', 
-                        borderRadius: '14px', 
+                        gap: '10px', 
+                        padding: '14px', 
+                        background: 'var(--text-primary)', 
+                        color: 'var(--surface-color)', 
+                        borderRadius: '16px', 
                         textDecoration: 'none', 
-                        fontSize: '0.8125rem',
-                        fontWeight: 700,
-                        transition: 'transform 0.2s ease'
+                        fontSize: '0.875rem',
+                        fontWeight: 900,
+                        transition: 'all 0.2s ease',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                     }}
                 >
                     Manage
-                    <ArrowRight size={14} />
+                    <ArrowRight size={16} />
                 </Link>
                 {member.phone && (
                     <a 

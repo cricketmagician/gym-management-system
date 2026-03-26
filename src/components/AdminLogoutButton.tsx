@@ -16,16 +16,16 @@ export default function AdminLogoutButton() {
             <button 
                 onClick={() => setIsOpen(true)}
                 style={{ 
-                    background: 'rgba(0,0,0,0.05)', 
+                    background: 'var(--border-color)', 
                     border: 'none', 
-                    padding: '10px 16px', 
-                    borderRadius: '12px', 
-                    color: '#111', 
-                    fontWeight: 700, 
+                    padding: '12px 18px', 
+                    borderRadius: '14px', 
+                    color: 'var(--text-primary)', 
+                    fontWeight: 800, 
                     fontSize: '0.8125rem', 
                     display: 'flex', 
                     alignItems: 'center', 
-                    gap: '8px',
+                    gap: '10px',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease'
                 }}
@@ -44,22 +44,23 @@ export default function AdminLogoutButton() {
                         position: 'relative', 
                         width: '100%', 
                         maxWidth: '400px', 
-                        background: '#fff', 
+                        background: 'var(--surface-color)', 
+                        border: '1px solid var(--border-color)',
                         borderRadius: '32px', 
-                        padding: '32px',
+                        padding: '40px 32px',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '24px',
                         animation: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                        color: '#000'
+                        color: 'var(--text-primary)'
                     }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '16px' }}>
-                            <div style={{ width: '64px', height: '64px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <LogOut size={32} />
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '20px' }}>
+                            <div style={{ width: '72px', height: '72px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <LogOut size={36} />
                             </div>
                             <div>
-                                <h2 style={{ fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.02em' }}>Admin Log Out</h2>
-                                <p style={{ color: '#666', fontSize: '0.9375rem', marginTop: '4px', fontWeight: 500 }}>Are you sure you want to end your administration session?</p>
+                                <h2 style={{ fontSize: '1.75rem', fontWeight: 900, letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>Admin Log Out</h2>
+                                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', marginTop: '8px', fontWeight: 500, lineHeight: 1.5 }}>Are you sure you want to end your current administration session?</p>
                             </div>
                         </div>
 

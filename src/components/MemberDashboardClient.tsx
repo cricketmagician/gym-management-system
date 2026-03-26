@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode } from 'lucide-react';
+import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { signOut } from 'next-auth/react';
 import { getDirectImageUrl } from '@/lib/image-utils';
@@ -14,6 +14,31 @@ interface MemberDashboardClientProps {
     thisWeekAttendance: number;
     workoutCount: number;
     trainers: any[];
+}
+
+function MetricCard({ title, value, unit, icon, color }: { title: string, value: number, unit: string, icon: React.ReactNode, color: string }) {
+    return (
+        <div className="card" style={{ 
+            padding: '24px', 
+            borderRadius: '24px', 
+            background: 'var(--surface-color)', 
+            border: '1px solid var(--border-color)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            position: 'relative',
+            overflow: 'hidden'
+        }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: color }}>
+                <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>{title}</span>
+                {icon}
+            </div>
+            <div>
+                <h4 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1 }}>{value}</h4>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, marginTop: '4px' }}>{unit}</p>
+            </div>
+        </div>
+    );
 }
 
 export default function MemberDashboardClient({ 
@@ -185,67 +210,66 @@ export default function MemberDashboardClient({
                             </div>
                         </div>
         
-                        {/* Quick Actions & Stats Grid */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
-                            <Link href="/member/checkin" style={{ textDecoration: 'none' }}>
-                                <div className="card" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px', background: 'linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%)', color: '#fff', border: 'none', borderRadius: '24px', boxShadow: '0 10px 20px rgba(45, 212, 191, 0.2)' }}>
-                                    <div style={{ padding: '12px', background: 'rgba(255, 255, 255, 0.2)', borderRadius: '16px' }}>
-                                        <QrCode size={24} color="#fff" />
-                                    </div>
-                                    <div>
-                                        <h4 style={{ fontSize: '1.25rem', fontWeight: 900, letterSpacing: '-0.02em' }}>QUICK SCAN</h4>
-                                        <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tap to check-in now</p>
-                                    </div>
-                                    <div style={{ marginLeft: 'auto' }}>
-                                        <ArrowRight size={20} color="rgba(255,255,255,0.5)" />
-                                    </div>
+                        {/* Quick Scan Entry */}
+                        <Link href="/member/checkin" style={{ textDecoration: 'none' }}>
+                            <div className="card" style={{ 
+                                padding: '24px', 
+                                background: 'var(--surface-color)', 
+                                border: '1px solid var(--border-color)',
+                                borderRadius: '24px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                position: 'relative',
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{ zIndex: 1 }}>
+                                    <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '4px' }}>Quick Scan</h3>
+                                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem', fontWeight: 600 }}>TAP TO CHECK IN NOW</p>
                                 </div>
-                            </Link>
-                        </div>
+                                <div style={{ 
+                                    width: '56px', 
+                                    height: '56px', 
+                                    background: 'var(--brand-primary)', 
+                                    color: '#fff', 
+                                    borderRadius: '16px', 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center',
+                                    boxShadow: '0 8px 20px rgba(79, 70, 229, 0.2)',
+                                    zIndex: 1
+                                }}>
+                                    <Camera size={28} />
+                                </div>
+                                {/* Background Decorative Element */}
+                                <div style={{ position: 'absolute', right: '-10px', bottom: '-10px', opacity: 0.05, transform: 'rotate(-15deg)' }}>
+                                    <Zap size={100} color="var(--brand-primary)" />
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                            <Link href="/member/attendance" style={{ textDecoration: 'none' }}>
-                                <div className="card" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px' }}>
-                                    <div style={{ padding: '8px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', width: 'fit-content' }}>
-                                        <Calendar size={20} color="#f59e0b" />
-                                    </div>
-                                    <div>
-                                        <h4 style={{ fontSize: '1.75rem', fontWeight: 900 }}>{thisWeekAttendance}</h4>
-                                        <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase' }}>Attendance</p>
-                                    </div>
-                                </div>
-                            </Link>
-
-                            <Link href="/member/workouts" style={{ textDecoration: 'none' }}>
-                                <div className="card" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fff', border: '1px solid rgba(0,0,0,0.05)', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
-                                    <div style={{ padding: '8px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', width: 'fit-content' }}>
-                                        <Dumbbell size={20} color="#f59e0b" />
-                                    </div>
-                                    <div>
-                                        <h4 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#000' }}>{workoutCount}</h4>
-                                        <p style={{ fontSize: '0.65rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Workouts</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
+                        <MetricCard title="This Week" value={thisWeekAttendance} unit="Days" icon={<Timer size={18} />} color="#2dd4bf" />
+                        <MetricCard title="Workout history" value={workoutCount} unit="Sess" icon={<Activity size={18} />} color="#fb923c" />
                     </div>
         
                     {/* Motivation Section */}
                     <div style={{ 
                         padding: '24px', 
                         background: 'rgba(245, 158, 11, 0.05)', 
-                        border: '1px dashed #f59e0b', 
+                        border: '1px dashed rgba(245, 158, 11, 0.3)', 
                         borderRadius: '24px',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '20px'
                     }}>
-                        <div style={{ padding: '12px', background: '#fff', borderRadius: '16px', boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }}>
+                        <div style={{ padding: '12px', background: 'var(--surface-color)', borderRadius: '16px', boxShadow: '0 10px 20px rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <TrendingUp size={24} color="#f59e0b" />
                         </div>
                         <div>
-                            <h4 style={{ fontSize: '1rem', fontWeight: 800 }}>Consistency is Key!</h4>
-                            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>You've been active for {thisWeekAttendance} {thisWeekAttendance === 1 ? 'day' : 'days'} this week. Keep hitting those goals!</p>
+                            <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)' }}>Consistency is Key!</h4>
+                            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', opacity: 0.8 }}>You've been active for {thisWeekAttendance} {thisWeekAttendance === 1 ? 'day' : 'days'} this week. Keep hitting those goals!</p>
                         </div>
                     </div>
         
@@ -261,22 +285,22 @@ export default function MemberDashboardClient({
                                     <div style={{ 
                                         minWidth: '280px', 
                                         padding: '24px', 
-                                        background: '#fff', 
-                                        border: '1px solid rgba(0,0,0,0.04)', 
+                                        background: 'var(--surface-color)', 
+                                        border: '1px solid var(--border-color)', 
                                         borderRadius: '28px',
                                         display: 'flex',
                                         alignItems: 'center',
                                         gap: '20px',
-                                        boxShadow: '0 10px 25px rgba(0,0,0,0.04)',
+                                        boxShadow: 'var(--shadow-soft)',
                                         transition: 'all 0.3s ease',
                                         cursor: 'pointer'
                                     }} className="card-hover-bright">
                                         <div style={{ position: 'relative' }}>
                                             <img src={trainer.photoUrl || `https://ui-avatars.com/api/?name=${trainer.name}&background=fde68a&color=b45309`} alt={trainer.name} style={{ width: '72px', height: '72px', borderRadius: '20px', objectFit: 'cover', boxShadow: '0 5px 15px rgba(0,0,0,0.1)' }} />
-                                            <div style={{ position: 'absolute', bottom: '-4px', right: '-4px', width: '20px', height: '20px', background: '#2dd4bf', border: '3px solid #fff', borderRadius: '50%' }}></div>
+                                            <div style={{ position: 'absolute', bottom: '-4px', right: '-4px', width: '20px', height: '20px', background: '#2dd4bf', border: '3px solid var(--surface-color)', borderRadius: '50%' }}></div>
                                         </div>
                                         <div>
-                                            <p style={{ fontSize: '1.0625rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.02em' }}>{trainer.name}</p>
+                                            <p style={{ fontSize: '1.0625rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>{trainer.name}</p>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                                 <span style={{ fontSize: '0.65rem', color: '#f59e0b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', background: 'rgba(245, 158, 11, 0.1)', padding: '2px 8px', borderRadius: '6px' }}>{trainer.specialization}</span>
                                             </div>

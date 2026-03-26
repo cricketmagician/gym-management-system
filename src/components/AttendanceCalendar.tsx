@@ -22,14 +22,14 @@ export default function AttendanceCalendar({ attendanceDates }: AttendanceCalend
     const nextMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
 
     return (
-        <div style={{ padding: '28px', background: '#000', borderRadius: '32px', color: '#fff', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
+        <div className="card" style={{ padding: '28px', background: 'var(--surface-color)', borderRadius: '32px', color: 'var(--text-primary)', boxShadow: 'var(--shadow-premium)', border: '1px solid var(--border-color)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 900, letterSpacing: '-0.02em' }}>{format(currentMonth, 'MMMM yyyy')}</h2>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button onClick={prevMonth} style={{ padding: '10px', borderRadius: '12px', background: 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', color: '#fff' }}>
+                    <button onClick={prevMonth} style={{ padding: '10px', borderRadius: '12px', background: 'rgba(var(--text-primary-rgb), 0.05)', border: 'none', cursor: 'pointer', color: 'var(--text-primary)' }}>
                         <ChevronLeft size={20} />
                     </button>
-                    <button onClick={nextMonth} style={{ padding: '10px', borderRadius: '12px', background: 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', color: '#fff' }}>
+                    <button onClick={nextMonth} style={{ padding: '10px', borderRadius: '12px', background: 'rgba(var(--text-primary-rgb), 0.05)', border: 'none', cursor: 'pointer', color: 'var(--text-primary)' }}>
                         <ChevronRight size={20} />
                     </button>
                 </div>
@@ -37,7 +37,7 @@ export default function AttendanceCalendar({ attendanceDates }: AttendanceCalend
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '12px', textAlign: 'center' }}>
                 {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
-                    <div key={day} style={{ fontSize: '0.75rem', fontWeight: 900, color: '#555', marginBottom: '12px', textTransform: 'uppercase' }}>{day}</div>
+                    <div key={day} style={{ fontSize: '0.75rem', fontWeight: 900, color: 'var(--text-secondary)', marginBottom: '12px', textTransform: 'uppercase', opacity: 0.5 }}>{day}</div>
                 ))}
                 
                 {calendarDays.map((day, idx) => {
@@ -54,10 +54,11 @@ export default function AttendanceCalendar({ attendanceDates }: AttendanceCalend
                             position: 'relative',
                             borderRadius: '14px',
                             fontSize: '0.9375rem',
-                            fontWeight: isTodayDate ? 900 : 600,
-                            color: isCurrentMonth ? (isAttended ? '#fbbf24' : '#fff') : '#333',
-                            background: isAttended ? 'rgba(251, 191, 36, 0.15)' : 'transparent',
-                            border: isTodayDate ? '2px solid #555' : 'none',
+                            fontWeight: isTodayDate ? 900 : 700,
+                            color: isCurrentMonth ? (isAttended ? '#eab308' : 'var(--text-primary)') : 'var(--text-secondary)',
+                            background: isAttended ? 'rgba(234, 179, 8, 0.1)' : 'transparent',
+                            border: isTodayDate ? '2px solid var(--border-color)' : 'none',
+                            opacity: isCurrentMonth ? 1 : 0.3,
                             transition: 'all 0.2s ease'
                         }}>
                             {format(day, 'd')}
@@ -68,8 +69,8 @@ export default function AttendanceCalendar({ attendanceDates }: AttendanceCalend
                                     width: '5px', 
                                     height: '5px', 
                                     borderRadius: '50%', 
-                                    background: '#fbbf24',
-                                    boxShadow: '0 0 10px #fbbf24'
+                                    background: '#eab308',
+                                    boxShadow: '0 0 10px #eab308'
                                 }}></div>
                             )}
                         </div>
@@ -77,13 +78,13 @@ export default function AttendanceCalendar({ attendanceDates }: AttendanceCalend
                 })}
             </div>
 
-            <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', gap: '20px', fontSize: '0.8125rem', color: '#888' }}>
+            <div style={{ marginTop: '32px', display: 'flex', alignItems: 'center', gap: '20px', fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '10px', height: '10px', borderRadius: '3px', background: '#fbbf24' }}></div>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '30%', background: '#eab308' }}></div>
                     <span style={{ fontWeight: 600 }}>Attended</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '10px', height: '10px', borderRadius: '3px', border: '2px solid #555' }}></div>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '30%', border: '2px solid var(--border-color)' }}></div>
                     <span style={{ fontWeight: 600 }}>Today</span>
                 </div>
             </div>

@@ -58,18 +58,18 @@ export default function SettingsPage() {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             <header>
-                <h1 style={{ fontSize: '1.875rem', fontWeight: 900, letterSpacing: '-0.025em' }}>Gym Settings & Assets</h1>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '4px', fontWeight: 500 }}>Configure your facility profile and manage check-in assets.</p>
+                <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '8px', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Gym Settings & Assets</h1>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', fontWeight: 500, opacity: 0.9 }}>Global configuration and facility access management.</p>
             </header>
 
             <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
                 {/* Left Column: QR Assets */}
                 <div className="card" style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px', padding: '48px', border: '2px dashed var(--brand-primary)', borderRadius: '24px' }}>
                     <div style={{ textAlign: 'center' }}>
-                         <div style={{ background: 'var(--brand-primary)', color: 'white', padding: '8px', borderRadius: '12px', width: 'fit-content', margin: '0 auto 16px' }}>
+                        <div style={{ background: 'var(--brand-primary)', color: 'white', padding: '8px', borderRadius: '12px', width: 'fit-content', margin: '0 auto 16px' }}>
                             <QrIcon size={24} />
                         </div>
-                        <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Check-in QR Code</h2>
+                        <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>Check-in QR Code</h2>
                         <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '8px', fontWeight: 500 }}>Print and display this QR code at your entrance.</p>
                     </div>
 
@@ -77,7 +77,7 @@ export default function SettingsPage() {
                         {qrValue && <QRCode value={qrValue} size={250} />}
                     </div>
 
-                    <p style={{ fontSize: '0.75rem', color: '#888', fontWeight: 600 }}>Unique ID: {gym?.id}</p>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Unique ID: {gym?.id}</p>
                     
                     <button className="btn btn-primary" style={{ width: '100%', maxWidth: '240px', display: 'flex', gap: '8px', justifyContent: 'center', fontWeight: 'bold', padding: '14px', borderRadius: '14px' }}>
                         <Download size={18} /> Download Print-Ready
@@ -85,43 +85,46 @@ export default function SettingsPage() {
                 </div>
 
                 {/* Right Column: Configuration Form */}
-                <div className="card" style={{ flex: '1 1 500px', padding: '32px', borderRadius: '24px' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <Building size={22} className="text-brand-primary" /> Facility Profile
+                <div className="card" style={{ flex: '1 1 500px', padding: '32px', borderRadius: '24px', background: 'var(--surface-color)', border: '1px solid var(--border-color)' }}>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-primary)' }}>
+                        <Building size={22} color="var(--brand-primary)" /> Facility Profile
                     </h2>
                     
                     <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                         <div>
-                            <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, color: '#aaa', textTransform: 'uppercase', marginBottom: '6px' }}>Gym Display Name</label>
+                            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Gym Display Name</label>
                             <input 
                                 type="text" 
                                 value={gym.name}
                                 onChange={(e) => setGym({...gym, name: e.target.value})}
-                                style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--surface-color)', fontWeight: 600 }}
+                                style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
                             />
                         </div>
 
                         <div>
-                            <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, color: '#aaa', textTransform: 'uppercase', marginBottom: '6px' }}>Location Description</label>
+                            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Location Description</label>
                             <textarea 
                                 value={gym.locationDesc || ''}
                                 onChange={(e) => setGym({...gym, locationDesc: e.target.value})}
-                                style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--surface-color)', fontWeight: 600, minHeight: '80px' }}
+                                style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem', minHeight: '100px', resize: 'none' }}
                                 placeholder="Sector 18, NOIDA..."
                             />
                         </div>
 
                         <div>
-                            <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, color: '#aaa', textTransform: 'uppercase', marginBottom: '6px' }}>Dashboard Banner URL</label>
+                            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Dashboard Banner URL</label>
                             <input 
                                 type="url" 
                                 value={gym.bannerUrl || ''}
                                 onChange={(e) => setGym({...gym, bannerUrl: e.target.value})}
                                 placeholder="https://images.unsplash.com/your-gym-photo"
-                                style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--surface-color)', fontWeight: 600 }}
+                                style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
                             />
                             {gym.bannerUrl && (
-                                <img src={getDirectImageUrl(gym.bannerUrl)} alt="Preview" style={{ width: '100%', height: '80px', objectFit: 'cover', borderRadius: '12px', marginTop: '8px', border: '1px solid #eee' }} />
+                                <div style={{ marginTop: '12px' }}>
+                                    <p style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-secondary)', marginBottom: '8px', textTransform: 'uppercase' }}>Preview</p>
+                                    <img src={getDirectImageUrl(gym.bannerUrl)} alt="Preview" style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--border-color)' }} />
+                                </div>
                             )}
                         </div>
 
@@ -129,26 +132,26 @@ export default function SettingsPage() {
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                             <div>
-                                <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, color: '#aaa', textTransform: 'uppercase', marginBottom: '6px' }}>
-                                    <Phone size={10} style={{ marginRight: '4px' }} /> WhatsApp Number
+                                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
+                                    WhatsApp Number
                                 </label>
                                 <input 
                                     type="text" 
                                     value={gym.whatsappNumber || ''}
                                     onChange={(e) => setGym({...gym, whatsappNumber: e.target.value})}
-                                    style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--surface-color)', fontWeight: 600 }}
+                                    style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
                                     placeholder="+91 9876543210"
                                 />
                             </div>
                             <div>
-                                <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, color: '#aaa', textTransform: 'uppercase', marginBottom: '6px' }}>
-                                    <Instagram size={10} style={{ marginRight: '4px' }} /> Instagram Link
+                                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
+                                    Instagram Link
                                 </label>
                                 <input 
                                     type="text" 
                                     value={gym.instagramLink || ''}
                                     onChange={(e) => setGym({...gym, instagramLink: e.target.value})}
-                                    style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--surface-color)', fontWeight: 600 }}
+                                    style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
                                     placeholder="https://instagram.com/..."
                                 />
                             </div>
@@ -159,22 +162,27 @@ export default function SettingsPage() {
                             disabled={saving}
                             style={{ 
                                 marginTop: '12px',
-                                background: 'black', 
-                                color: 'white', 
-                                padding: '16px', 
-                                borderRadius: '16px', 
+                                background: 'var(--text-primary)', 
+                                color: 'var(--surface-color)', 
+                                padding: '18px', 
+                                borderRadius: '18px', 
                                 border: 'none', 
-                                fontWeight: 800, 
+                                fontWeight: 900, 
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 justifyContent: 'center', 
-                                gap: '8px', 
+                                gap: '10px', 
                                 cursor: 'pointer',
-                                opacity: saving ? 0.7 : 1
+                                transition: 'all 0.2s ease',
+                                opacity: saving ? 0.7 : 1,
+                                width: '100%',
+                                fontSize: '1rem',
+                                letterSpacing: '0.02em',
+                                boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
                             }}
                         >
                             {saving ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
-                            Update Facility Profile
+                            {saving ? "SAVING UPDATES..." : "UPDATE FACILITY PROFILE"}
                         </button>
 
                         {status && (

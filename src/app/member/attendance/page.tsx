@@ -26,8 +26,8 @@ export default async function MemberAttendancePage() {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 20px 110px 20px' }}>
             <header>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '8px', color: '#000' }}>Attendance</h1>
-                <p style={{ color: '#64748b', fontSize: '0.9375rem', fontWeight: 500 }}>Consistency is the foundation of greatness.</p>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '8px', color: 'var(--text-primary)' }}>Attendance</h1>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', fontWeight: 500 }}>Consistency is the foundation of greatness.</p>
             </header>
 
             {/* Frequency Stats Grid */}
@@ -41,13 +41,13 @@ export default async function MemberAttendancePage() {
             <AttendanceCalendar attendanceDates={attendanceDates} />
 
             {/* Achievement Badge */}
-            <div className="card" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px', background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px' }}>
+            <div className="card" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px', background: 'var(--surface-color)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRadius: '24px' }}>
                 <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: 'rgba(251, 191, 36, 0.15)', color: '#fbbf24', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Award size={28} />
                 </div>
                 <div>
                     <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '2px' }}>Consistency King</h3>
-                    <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>You've attended {thisMonth} days this month. Keep it up!</p>
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500, opacity: 0.8 }}>You've attended {thisMonth} days this month. Keep it up!</p>
                 </div>
             </div>
         </div>
@@ -62,16 +62,16 @@ function StatCard({ title, value, icon, color, span }: { title: string, value: n
             display: 'flex', 
             flexDirection: 'column', 
             gap: '12px',
-            background: '#000',
-            color: '#fff',
-            border: '1px solid rgba(255,255,255,0.1)',
+            background: 'var(--surface-color)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border-color)',
             borderRadius: '24px'
         }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', color: color }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{title}</span>
                 {icon}
             </div>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: 900, letterSpacing: '-0.02em' }}>{value} <span style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>Days</span></h3>
+            <h3 style={{ fontSize: '1.75rem', fontWeight: 900, letterSpacing: '-0.02em' }}>{value} <span style={{ fontSize: '1rem', color: 'var(--text-secondary)', fontWeight: 600, opacity: 0.7 }}>Days</span></h3>
         </div>
     );
 }
