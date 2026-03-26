@@ -25,6 +25,9 @@ model Gym {
   users         User[]
   memberships   Membership[]
   attendances   Attendance[]
+  trainers      Trainer[]
+  workouts      Workout[]
+  weightGoals   WeightGoal[]
   payments      Payment[]
   auditLogs     AuditLog[]
   
@@ -51,6 +54,8 @@ model User {
   gym           Gym          @relation(fields: [gymId], references: [id], onDelete: Cascade)
   memberships   Membership[]
   attendances   Attendance[]
+  workouts      Workout[]
+  weightGoals   WeightGoal[]
   payments      Payment[]
   
   // For relations where the user is an actor or target in audit logs
@@ -140,6 +145,46 @@ model Payment {
   
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+}
+
+model Trainer {
+  id             String   @id @default(uuid())
+  gymId          String
+  name           String
+  specialization String
+  photoUrl       String?
+  
+  gym            Gym      @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Workout {
+  id          String   @id @default(uuid())
+  userId      String
+  gymId       String
+  title       String   // e.g., "Leg Day", "Cardio"
+  calories    Int?
+  duration    Int?     // in minutes
+  date        DateTime @default(now())
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gym         Gym      @relation(fields: [gymId], references: [id], onDelete: Cascade)
+}
+
+model WeightGoal {
+  id            String   @id @default(uuid())
+  userId        String
+  gymId         String
+  currentWeight Float
+  targetWeight  Float
+  caloriesBurned Int     @default(0)
+  
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gym           Gym      @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  
+  updatedAt     DateTime @updatedAt
 }
 
 model AuditLog {

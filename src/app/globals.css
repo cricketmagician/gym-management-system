@@ -143,6 +143,134 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
+/* Member Dashboard Specific Styles */
+.member-bg {
+    background: linear-gradient(135deg, #FFEDD5 0%, #FED7AA 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.watermark-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 8rem;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.03);
+    line-height: 0.8;
+    z-index: 0;
+    pointer-events: none;
+    text-transform: uppercase;
+    white-space: pre-wrap;
+    padding-top: 20px;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.glass-card-dark {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    color: white;
+}
+
+.btn-renew {
+    background: #CCFBF1;
+    color: #115E59;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    box-shadow: 0 0 15px rgba(20, 184, 166, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.btn-renew:active {
+    transform: scale(0.95);
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #000;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #666;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.nav-item.active {
+    color: #2DD4BF;
+}
+
+.fab-container {
+    position: relative;
+    top: -20px;
+}
+
+.fab {
+    width: 60px;
+    height: 60px;
+    background: #99F6E4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.4);
+    border: 4px solid #000;
+}
+
+.horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 8px 0;
+    scrollbar-width: none; /* Firefox */
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.trainer-card {
+    min-width: 200px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
 th {
   text-align: left;

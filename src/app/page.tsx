@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Search, Plus, TrendingUp, Users, AlertCircle, TrendingDown, Clock } from 'lucide-react';
+import { redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import MemberDashboard from '@/components/MemberDashboard';
 import AdminQrControl from '@/components/AdminQrControl';
 
 export default async function DashboardPage() {
@@ -17,41 +17,7 @@ export default async function DashboardPage() {
     const role = session.user.role;
 
     if (role === 'MEMBER') {
-        const user = await prisma.user.findUnique({
-            where: { id: session.user.id },
-            include: {
-                memberships: {
-                    where: { gymId },
-                    orderBy: { endDate: 'desc' },
-                    take: 1,
-                    include: { plan: true }
-                },
-                attendances: {
-                    where: { gymId },
-                    orderBy: { timestamp: 'desc' },
-                    take: 10
-                }
-            }
-        });
-
-        if (!user) return <div>User data not found.</div>;
-
-        const latestMembership = user.memberships[0];
-
-        return (
-            <MemberDashboard
-                user={{ id: user.id, name: user.name, gymId: user.gymId }}
-                membership={latestMembership ? {
-                    status: latestMembership.status,
-                    endDate: latestMembership.endDate.toISOString(),
-                    planName: latestMembership.plan.name
-                } : null}
-                attendance={user.attendances.map(a => ({
-                    id: a.id,
-                    timestamp: a.timestamp.toISOString()
-                }))}
-            />
-        );
+        redirect('/member/dashboard');
     }
 
     // AUTH: ADMIN / STAFF Dashboard

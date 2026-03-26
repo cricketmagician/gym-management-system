@@ -195,6 +195,36 @@ exports.Prisma.PaymentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TrainerScalarFieldEnum = {
+  id: 'id',
+  gymId: 'gymId',
+  name: 'name',
+  specialization: 'specialization',
+  photoUrl: 'photoUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WorkoutScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gymId: 'gymId',
+  title: 'title',
+  calories: 'calories',
+  duration: 'duration',
+  date: 'date'
+};
+
+exports.Prisma.WeightGoalScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gymId: 'gymId',
+  currentWeight: 'currentWeight',
+  targetWeight: 'targetWeight',
+  caloriesBurned: 'caloriesBurned',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.AuditLogScalarFieldEnum = {
   id: 'id',
   gymId: 'gymId',
@@ -258,6 +288,9 @@ exports.Prisma.ModelName = {
   Membership: 'Membership',
   Attendance: 'Attendance',
   Payment: 'Payment',
+  Trainer: 'Trainer',
+  Workout: 'Workout',
+  WeightGoal: 'WeightGoal',
   AuditLog: 'AuditLog'
 };
 
