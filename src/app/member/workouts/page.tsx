@@ -1,74 +1,207 @@
-import React from 'react';
-import { Calendar, Activity, Timer, Zap, CheckCircle2 } from 'lucide-react';
+"use client"
 
-const WORKOUT_HISTORY = [
-  { day: 'Today', name: 'Upper Body Power', time: '10:30 AM', duration: '45m', status: 'Completed', color: '#2dd4bf' },
-  { day: 'Yesterday', name: 'Lower Body Strength', time: '05:15 PM', duration: '60m', status: 'Completed', color: '#fb923c' },
-  { day: '24 Mar', name: 'Core & Cardio', time: '08:00 AM', duration: '30m', status: 'Completed', color: '#818cf8' },
+import React, { useState, useEffect } from 'react';
+import { Calendar, Activity, Timer, Zap, CheckCircle2, ChevronRight, Plus, X } from 'lucide-react';
+import { format, isToday, isYesterday } from 'date-fns';
+
+const WORKOUT_TYPES = [
+    { id: 'chest', label: 'Chest', icon: '💪' },
+    { id: 'back', label: 'Back', icon: '🦅' },
+    { id: 'legs', label: 'Legs', icon: '🦵' },
+    { id: 'shoulders', label: 'Shoulders', icon: '🛡️' },
+    { id: 'biceps', label: 'Biceps', icon: '🔥' },
+    { id: 'triceps', label: 'Triceps', icon: '⚡' },
+    { id: 'cardio', label: 'Cardio', icon: '🏃' },
+    { id: 'abs', label: 'Abs', icon: '💎' },
 ];
 
 export default function WorkoutsPage() {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <header>
-        <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '8px' }}>Your Activity</h1>
-        <p style={{ color: '#666', fontSize: '0.9375rem' }}>Tracking your consistency and growth.</p>
-      </header>
+    const [workouts, setWorkouts] = useState<any[]>([]);
+    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [isSaving, setIsSaving] = useState(false);
 
-      {/* Summary Stats Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        <div className="glass-card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#2dd4bf' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Weekly Hours</span>
-            <Timer size={18} />
-          </div>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>4.5h</h3>
-        </div>
-        <div className="glass-card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#fb923c' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Avg Calories</span>
-            <Activity size={18} />
-          </div>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: 800 }}>450</h3>
-        </div>
-      </div>
+    useEffect(() => {
+        fetchWorkouts();
+    }, []);
 
-      {/* Activity Timeline */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <h2 style={{ fontSize: '1.125rem', fontWeight: 700 }}>Workout History</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative', paddingLeft: '24px' }}>
-          {/* Vertical Line */}
-          <div style={{ position: 'absolute', left: '7px', top: '10px', bottom: '10px', width: '2px', background: 'rgba(0,0,0,0.05)' }}></div>
+    const fetchWorkouts = async () => {
+        try {
+            const res = await fetch('/api/v1/workouts');
+            const data = await res.json();
+            setWorkouts(data);
+        } catch (error) {
+            console.error("Failed to fetch workouts", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-          {WORKOUT_HISTORY.map((item, idx) => (
-            <div key={idx} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {/* Timeline Dot */}
-              <div style={{ position: 'absolute', left: '-20px', top: '6px', width: '8px', height: '8px', borderRadius: '50%', background: item.color, boxShadow: `0 0 10px ${item.color}80` }}></div>
-              
-              <div className="glass-card" style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                    <p style={{ fontSize: '0.75rem', color: '#888', fontWeight: 600 }}>{item.day}</p>
-                    <span style={{ padding: '2px 8px', borderRadius: '20px', background: 'rgba(45, 212, 191, 0.1)', color: '#2dd4bf', fontSize: '0.625rem', fontWeight: 800 }}>{item.status}</span>
-                  </div>
-                  <p style={{ fontSize: '1rem', fontWeight: 800 }}>{item.name}</p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '8px', opacity: 0.6 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Calendar size={12} /> <span style={{ fontSize: '0.7rem' }}>{item.time}</span>
+    const toggleType = (id: string) => {
+        setSelectedTypes(prev => 
+            prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
+        );
+    };
+
+    const handleSaveWorkout = async () => {
+        if (selectedTypes.length === 0) return;
+        setIsSaving(true);
+        
+        const title = selectedTypes.map(id => WORKOUT_TYPES.find(t => t.id === id)?.label).join(' + ');
+
+        try {
+            const res = await fetch('/api/v1/workouts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    title,
+                    duration: 60, // Default for now
+                    calories: selectedTypes.length * 150 // Estimation
+                })
+            });
+
+            if (res.ok) {
+                setSelectedTypes([]);
+                fetchWorkouts();
+            }
+        } catch (error) {
+            console.error("Failed to save workout", error);
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    const formatDateHeader = (dateStr: string) => {
+        const date = new Date(dateStr);
+        if (isToday(date)) return 'Today';
+        if (isYesterday(date)) return 'Yesterday';
+        return format(date, 'dd MMM');
+    };
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '100px' }}>
+            <header>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '8px' }}>Your Activity</h1>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', fontWeight: 500 }}>Tracking your consistency and growth.</p>
+            </header>
+
+            {/* Quick Stats Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#2dd4bf' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Weekly Hours</span>
+                        <Timer size={18} />
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Timer size={12} /> <span style={{ fontSize: '0.7rem' }}>{item.duration}</span>
+                    <h3 style={{ fontSize: '1.75rem', fontWeight: 900 }}>4.5h</h3>
+                </div>
+                <div className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#fb923c' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg Calories</span>
+                        <Activity size={18} />
                     </div>
-                  </div>
+                    <h3 style={{ fontSize: '1.75rem', fontWeight: 900 }}>450</h3>
                 </div>
-                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(0,0,0,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <CheckCircle2 size={20} color="#2dd4bf" />
-                </div>
-              </div>
             </div>
-          ))}
+
+            {/* Workout Logger Section */}
+            <section className="card" style={{ padding: '32px', background: '#000', color: '#fff', border: 'none', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: '-50%', right: '-20%', width: '200px', height: '200px', background: 'rgba(245, 158, 11, 0.15)', filter: 'blur(60px)', borderRadius: '50%' }}></div>
+                
+                <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '20px', position: 'relative' }}>Today's Workout</h2>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '24px', position: 'relative' }}>
+                    {WORKOUT_TYPES.map((type) => {
+                        const isSelected = selectedTypes.includes(type.id);
+                        return (
+                            <button
+                                key={type.id}
+                                onClick={() => toggleType(type.id)}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    padding: '12px 8px',
+                                    background: isSelected ? 'rgba(245, 158, 11, 0.2)' : 'rgba(255,255,255,0.05)',
+                                    border: isSelected ? '1px solid #f59e0b' : '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '16px',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                    color: isSelected ? '#f59e0b' : '#fff'
+                                }}
+                            >
+                                <span style={{ fontSize: '1.25rem' }}>{type.icon}</span>
+                                <span style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase' }}>{type.label}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                <button 
+                    onClick={handleSaveWorkout}
+                    disabled={selectedTypes.length === 0 || isSaving}
+                    style={{ 
+                        width: '100%', 
+                        padding: '16px', 
+                        background: selectedTypes.length > 0 ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' : 'rgba(255,255,255,0.1)', 
+                        color: selectedTypes.length > 0 ? '#fff' : 'rgba(255,255,255,0.3)', 
+                        border: 'none', 
+                        borderRadius: '16px', 
+                        fontWeight: 800, 
+                        fontSize: '1rem',
+                        cursor: selectedTypes.length > 0 ? 'pointer' : 'default',
+                        transition: 'all 0.3s ease',
+                        boxShadow: selectedTypes.length > 0 ? '0 10px 25px rgba(245, 158, 11, 0.3)' : 'none'
+                    }}
+                >
+                    {isSaving ? 'Logging...' : 'Finish Workout'}
+                </button>
+            </section>
+
+            {/* Activity Timeline */}
+            <section style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Workout History</h2>
+                
+                {loading ? (
+                    <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '40px' }}>Loading history...</p>
+                ) : workouts.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '60px 20px', background: 'rgba(0,0,0,0.02)', borderRadius: '24px', border: '2px dashed var(--border-color)' }}>
+                        <Zap size={32} color="var(--text-secondary)" style={{ marginBottom: '12px', opacity: 0.5 }} />
+                        <p style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>No workouts logged yet. Start today!</p>
+                    </div>
+                ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative', paddingLeft: '24px' }}>
+                        <div style={{ position: 'absolute', left: '7px', top: '10px', bottom: '10px', width: '2px', background: 'rgba(0,0,0,0.05)' }}></div>
+
+                        {workouts.map((item, idx) => (
+                            <div key={item.id} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div style={{ position: 'absolute', left: '-20px', top: '6px', width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b', boxShadow: '0 0 10px rgba(245, 158, 11, 0.5)' }}></div>
+                                
+                                <div className="card" style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff' }}>
+                                    <div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                                            <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 700 }}>{formatDateHeader(item.date)}</p>
+                                            <span style={{ padding: '2px 8px', borderRadius: '20px', background: 'rgba(45, 212, 191, 0.1)', color: '#2dd4bf', fontSize: '0.625rem', fontWeight: 800 }}>COMPLETED</span>
+                                        </div>
+                                        <p style={{ fontSize: '1.125rem', fontWeight: 900 }}>{item.title}</p>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '12px', opacity: 0.6 }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                <Calendar size={12} /> <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{format(new Date(item.date), 'hh:mm a')}</span>
+                                            </div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                <Timer size={12} /> <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{item.duration}m</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style={{ width: '48px', height: '48px', borderRadius: '16px', background: 'rgba(45, 212, 191, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <CheckCircle2 size={24} color="#2dd4bf" />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
         </div>
-      </section>
-    </div>
-  );
+    );
 }
