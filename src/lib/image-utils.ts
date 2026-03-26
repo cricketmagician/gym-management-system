@@ -29,11 +29,15 @@ export function getDirectImageUrl(url: string | null | undefined): string {
         }
 
         // Handle Unsplash photo page links
-        // Example: https://unsplash.com/photos/gym-equipment-inside-room-20jx9
+        // Example: https://unsplash.com/photos/gym-equipment-inside-room-20jX9b35r_M
         if (cleanUrl.includes('unsplash.com/photos/')) {
-            const unsplashId = cleanUrl.split('/').pop()?.split('-').pop();
-            if (unsplashId) {
-                return `https://images.unsplash.com/photo-${unsplashId}?auto=format&fit=crop&q=80&w=1400`;
+            // Extract the ID which is the last segment of the path (even if it contains dashes)
+            const urlParts = cleanUrl.split('?')[0].split('/').filter(Boolean);
+            const photoId = urlParts[urlParts.length - 1];
+            
+            if (photoId) {
+                // The /download?force=true endpoint is a reliable redirect to the actual image
+                return `https://unsplash.com/photos/${photoId}/download?force=true`;
             }
         }
         
