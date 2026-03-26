@@ -117,19 +117,19 @@ export default function WorkoutsPage() {
 
             {/* Quick Stats Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', color: '#2dd4bf' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Weekly Hours</span>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Weekly Hours</span>
                         <Timer size={18} />
                     </div>
                     <h3 style={{ fontSize: '1.75rem', fontWeight: 900 }}>4.5h</h3>
                 </div>
-                <div className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', color: '#fb923c' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg Calories</span>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Calories burned</span>
                         <Activity size={18} />
                     </div>
-                    <h3 style={{ fontSize: '1.75rem', fontWeight: 900 }}>450</h3>
+                    <h3 style={{ fontSize: '1.75rem', fontWeight: 900, letterSpacing: '-0.02em' }}>2,450</h3>
                 </div>
             </div>
 
@@ -211,9 +211,9 @@ export default function WorkoutsPage() {
                 {loading ? (
                     <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '40px' }}>Loading history...</p>
                 ) : workouts.length === 0 ? (
-                    <div style={{ textAlign: 'center', padding: '60px 20px', background: 'rgba(0,0,0,0.02)', borderRadius: '24px', border: '2px dashed var(--border-color)' }}>
-                        <Zap size={32} color="var(--text-secondary)" style={{ marginBottom: '12px', opacity: 0.5 }} />
-                        <p style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>No workouts logged yet. Start today!</p>
+                    <div style={{ textAlign: 'center', padding: '60px 20px', background: 'rgba(0,0,0,0.4)', borderRadius: '24px', border: '2px dashed rgba(255,255,255,0.1)' }}>
+                        <Zap size={32} color="#f59e0b" style={{ marginBottom: '12px', opacity: 0.5 }} />
+                        <p style={{ fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>No workouts logged yet. Start today!</p>
                     </div>
                 ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative', paddingLeft: '24px' }}>
@@ -221,21 +221,21 @@ export default function WorkoutsPage() {
 
                         {workouts.map((item, idx) => (
                             <div key={item.id} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                <div style={{ position: 'absolute', left: '-20px', top: '6px', width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b', boxShadow: '0 0 10px rgba(245, 158, 11, 0.5)' }}></div>
+                                <div style={{ position: 'absolute', left: '-20px', top: '10px', width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b', boxShadow: '0 0 10px rgba(245, 158, 11, 0.5)', zIndex: 2 }}></div>
                                 
-                                <div className="card" style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#fff' }}>
+                                <div className="card" style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px' }}>
                                     <div style={{ flex: 1 }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                            <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 700 }}>{formatDateHeader(item.date)}</p>
-                                            <span style={{ padding: '2px 8px', borderRadius: '20px', background: 'rgba(45, 212, 191, 0.1)', color: '#2dd4bf', fontSize: '0.625rem', fontWeight: 800 }}>COMPLETED</span>
+                                            <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{formatDateHeader(item.date)}</p>
+                                            <span style={{ padding: '3px 10px', borderRadius: '20px', background: 'rgba(45, 212, 191, 0.1)', color: '#2dd4bf', fontSize: '0.55rem', fontWeight: 900, letterSpacing: '0.05em' }}>COMPLETED</span>
                                         </div>
                                         <p style={{ fontSize: '1.125rem', fontWeight: 900 }}>{item.title}</p>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '12px', opacity: 0.6 }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                <Calendar size={12} /> <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{format(new Date(item.date), 'hh:mm a')}</span>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '12px', opacity: 0.5 }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                <Calendar size={12} color="#f59e0b" /> <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{format(new Date(item.date), 'hh:mm a')}</span>
                                             </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                <Timer size={12} /> <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{item.duration}m</span>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                <Timer size={12} color="#f59e0b" /> <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{item.duration}m</span>
                                             </div>
                                         </div>
                                     </div>
@@ -243,11 +243,11 @@ export default function WorkoutsPage() {
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                         <button 
                                             onClick={() => setConfirmDeleteId(item.id)}
-                                            style={{ padding: '10px', borderRadius: '12px', background: 'rgba(220, 38, 38, 0.05)', color: '#dc2626', border: 'none', cursor: 'pointer' }}
+                                            style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(220, 38, 38, 0.1)', color: '#ef4444', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                         >
                                             <Trash2 size={18} />
                                         </button>
-                                        <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(45, 212, 191, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(45, 212, 191, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                             <CheckCircle2 size={20} color="#2dd4bf" />
                                         </div>
                                     </div>
@@ -274,18 +274,18 @@ export default function WorkoutsPage() {
                     justifyContent: 'center',
                     padding: '24px'
                 }}>
-                    <div className="card" style={{ padding: '32px', maxWidth: '400px', width: '100%', textAlign: 'center', background: '#fff' }}>
+                    <div className="card" style={{ padding: '32px', maxWidth: '400px', width: '100%', textAlign: 'center', background: '#000', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }}>
                         <div style={{ width: '64px', height: '64px', background: 'rgba(220, 38, 38, 0.1)', color: '#dc2626', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
                             <Trash2 size={32} />
                         </div>
                         <h3 style={{ fontSize: '1.25rem', fontWeight: 900, marginBottom: '12px' }}>Delete Session?</h3>
-                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', marginBottom: '32px', lineHeight: 1.5 }}>
+                        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9375rem', marginBottom: '32px', lineHeight: 1.5 }}>
                             This will permanently remove this workout from your activity history. This action cannot be undone.
                         </p>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                             <button 
                                 onClick={() => setConfirmDeleteId(null)}
-                                style={{ padding: '16px', borderRadius: '16px', background: 'rgba(0,0,0,0.05)', border: 'none', color: '#000', fontWeight: 700, cursor: 'pointer' }}
+                                style={{ padding: '16px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', border: 'none', color: '#fff', fontWeight: 700, cursor: 'pointer' }}
                             >
                                 Cancel
                             </button>
