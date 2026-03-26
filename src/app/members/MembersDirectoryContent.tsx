@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Search, User, Phone, Calendar, ArrowRight, MessageSquare, Filter, MoreVertical, LayoutGrid, List } from 'lucide-react';
+import { Search, User, Filter, ArrowRight, Phone, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
-import { formatMemberDate } from '@/lib/date-utils';
 
 interface Member {
     id: string;
@@ -13,8 +12,6 @@ interface Member {
     photoUrl: string | null;
     memberships: {
         status: string;
-        startDate: Date;
-        endDate: Date;
         plan: { name: string };
     }[];
 }
@@ -25,7 +22,7 @@ interface MembersDirectoryContentProps {
 
 export default function MembersDirectoryContent({ initialMembers }: MembersDirectoryContentProps) {
     const [search, setSearch] = useState('');
-    const [filter, setFilter] = useState<'ALL' | 'MALE' | 'FEMALE' | 'OTHER'>('ALL');
+    const [filter, setFilter] = useState<'ALL' | 'MALE' | 'FEMALE'>('ALL');
 
     const filteredMembers = useMemo(() => {
         return initialMembers.filter(m => {
@@ -36,31 +33,15 @@ export default function MembersDirectoryContent({ initialMembers }: MembersDirec
         });
     }, [search, filter, initialMembers]);
 
-    return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-            {/* Unified Controls Wrap */}
-            <div style={{ 
-                display: 'flex', 
-                flexDirection: 'column', 
-                gap: '16px' 
-            }}>
-                <div style={{ 
-                    display: 'flex', 
-                    background: 'var(--bg-color)', 
-                    padding: '8px', 
-                    borderRadius: '20px', 
-                    gap: '6px',
-                    width: '100%',
-                    overflowX: 'auto',
-                    border: '1px solid var(--border-color)'
-                }}>
-                    <TabButton active={filter === 'ALL'} onClick={() => setFilter('ALL')} label="All" count={initialMembers.length} />
-                    <TabButton active={filter === 'MALE'} onClick={() => setFilter('MALE')} label="Male" count={initialMembers.filter(m => m.gender === 'MALE').length} />
-                    <TabButton active={filter === 'FEMALE'} onClick={() => setFilter('FEMALE')} label="Female" count={initialMembers.filter(m => m.gender === 'FEMALE').length} />
-                </div>
+    const boys = filteredMembers.filter(m => m.gender === 'MALE');
+    const girls = filteredMembers.filter(m => m.gender === 'FEMALE');
 
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '48px', paddingBottom: '80px' }}>
+            {/* Elite Controls Wrap */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 <div style={{ position: 'relative', width: '100%' }}>
-                    <Search style={{ position: 'absolute', top: '16px', left: '16px', color: 'var(--text-secondary)' }} size={20} />
+                    <Search style={{ position: 'absolute', top: '20px', left: '24px', color: 'rgba(255,255,255,0.3)' }} size={24} />
                     <input 
                         type="text" 
                         placeholder="Search names or numbers..." 
@@ -68,41 +49,74 @@ export default function MembersDirectoryContent({ initialMembers }: MembersDirec
                         onChange={(e) => setSearch(e.target.value)}
                         style={{ 
                             width: '100%',
-                            padding: '16px 16px 16px 48px', 
-                            borderRadius: '18px', 
-                            border: '1px solid var(--border-color)', 
-                            background: 'var(--surface-color)', 
-                            fontSize: '1rem',
-                            fontWeight: 600,
+                            padding: '20px 24px 20px 64px', 
+                            borderRadius: '24px', 
+                            border: '1px solid rgba(255,255,255,0.08)', 
+                            background: 'rgba(255,255,255,0.03)', 
+                            color: '#fff',
+                            fontSize: '1.125rem',
+                            fontWeight: 700,
                             outline: 'none',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+                            transition: 'all 0.3s ease',
+                            boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
                         }} 
+                        className="focus:border-amber-500/50 focus:bg-white/5"
                     />
+                </div>
+
+                <div style={{ 
+                    display: 'flex', 
+                    background: 'rgba(255,255,255,0.02)', 
+                    padding: '8px', 
+                    borderRadius: '50px', 
+                    gap: '4px',
+                    width: 'fit-content',
+                    border: '1px solid rgba(255,255,255,0.05)'
+                }}>
+                    <TabButton active={filter === 'ALL'} onClick={() => setFilter('ALL')} label="Roster" count={initialMembers.length} />
+                    <TabButton active={filter === 'MALE'} onClick={() => setFilter('MALE')} label="Boys" count={initialMembers.filter(m => m.gender === 'MALE').length} />
+                    <TabButton active={filter === 'FEMALE'} onClick={() => setFilter('FEMALE')} label="Girls" count={initialMembers.filter(m => m.gender === 'FEMALE').length} />
                 </div>
             </div>
 
-            {/* Grid View */}
-            <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
-                gap: '20px' 
-            }}>
-                {filteredMembers.length > 0 ? filteredMembers.map((member, idx) => (
-                    <MemberCard key={member.id} member={member} delay={idx * 0.05} />
-                )) : (
-                    <div style={{ gridColumn: '1 / -1', padding: '80px', textAlign: 'center', color: 'var(--text-secondary)' }}>
-                        <Filter size={48} style={{ opacity: 0.1, marginBottom: '20px' }} />
-                        <p style={{ fontWeight: 600 }}>No members found matching your criteria.</p>
+            {/* Categorized View */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '64px' }}>
+                {(filter === 'ALL' || filter === 'MALE') && boys.length > 0 && (
+                    <section style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#3b82f6' }}></div>
+                            Boys Category
+                        </h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                            {boys.map((member, idx) => (
+                                <MinimalMemberCard key={member.id} member={member} delay={idx * 0.03} />
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {(filter === 'ALL' || filter === 'FEMALE') && girls.length > 0 && (
+                    <section style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ec4899' }}></div>
+                            Girls Category
+                        </h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                            {girls.map((member, idx) => (
+                                <MinimalMemberCard key={member.id} member={member} delay={idx * 0.03} />
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {filteredMembers.length === 0 && (
+                    <div style={{ padding: '120px 40px', textAlign: 'center', color: 'rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.01)', borderRadius: '48px', border: '1px dashed rgba(255,255,255,0.05)' }}>
+                        <Filter size={64} style={{ opacity: 0.1, marginBottom: '24px' }} />
+                        <p style={{ fontSize: '1.25rem', fontWeight: 700 }}>No members found in this category.</p>
+                        <p style={{ fontSize: '0.875rem', marginTop: '8px', opacity: 0.5 }}>Try adjusting your search or filter settings.</p>
                     </div>
                 )}
             </div>
-            
-            <style jsx>{`
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `}</style>
         </div>
     );
 }
@@ -112,18 +126,18 @@ function TabButton({ active, onClick, label, count }: { active: boolean, onClick
         <button 
             onClick={onClick}
             style={{
-                padding: '10px 24px',
-                borderRadius: '14px',
+                padding: '12px 28px',
+                borderRadius: '40px',
                 border: 'none',
-                background: active ? 'var(--text-primary)' : 'transparent',
-                color: active ? 'var(--surface-color)' : 'var(--text-secondary)',
+                background: active ? '#fff' : 'transparent',
+                color: active ? '#000' : 'rgba(255,255,255,0.4)',
                 fontWeight: 800,
                 fontSize: '0.8125rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                transition: 'all 0.2s ease',
+                transition: 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em'
             }}
@@ -132,9 +146,9 @@ function TabButton({ active, onClick, label, count }: { active: boolean, onClick
             <span style={{ 
                 fontSize: '0.7rem', 
                 opacity: 0.8, 
-                background: active ? 'rgba(var(--bg-color-rgb, 0, 0, 0), 0.1)' : 'var(--border-color)',
-                color: active ? 'var(--surface-color)' : 'var(--text-primary)',
-                padding: '2px 8px',
+                background: active ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.05)',
+                color: active ? '#000' : 'rgba(255,255,255,0.3)',
+                padding: '2px 10px',
                 borderRadius: '100px',
                 fontWeight: 900
             }}>{count}</span>
@@ -142,102 +156,58 @@ function TabButton({ active, onClick, label, count }: { active: boolean, onClick
     );
 }
 
-function MemberCard({ member, delay }: { member: any, delay: number }) {
-    const latestMembership = member.memberships[0];
-    const status = latestMembership?.status || 'INACTIVE';
-    const isExpired = status === 'EXPIRED';
+function MinimalMemberCard({ member, delay }: { member: any, delay: number }) {
+    const status = member.memberships[0]?.status || 'INACTIVE';
 
     return (
-        <div style={{ 
-            animation: `fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) ${delay}s both`,
-            background: 'var(--surface-color)',
-            border: '1px solid var(--border-color)',
-            borderRadius: '24px',
-            padding: '24px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            transition: 'all 0.3s ease',
-            cursor: 'default'
-        }} className="member-card-hover">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#000', overflow: 'hidden' }}>
-                    <img src={member.photoUrl || `https://ui-avatars.com/api/?name=${member.name}&background=000&color=fff`} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <Link 
+            href={`/members/${member.id}`}
+            style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '16px', 
+                padding: '16px', 
+                background: 'rgba(255,255,255,0.03)', 
+                border: '1px solid rgba(255,255,255,0.05)', 
+                borderRadius: '24px', 
+                textDecoration: 'none',
+                color: '#fff',
+                transition: 'all 0.3s cubic-bezier(0.19, 1, 0.22, 1)',
+                animation: `fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s both`
+            }}
+            className="member-card-minimal"
+        >
+            <div style={{ width: '48px', height: '48px', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <img src={member.photoUrl || `https://ui-avatars.com/api/?name=${member.name}&background=111&color=fff&bold=true`} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>{member.name}</h3>
+                    {status === 'ACTIVE' && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }}></div>}
                 </div>
-                <div style={{ flex: 1 }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: 800, marginBottom: '2px' }}>{member.name}</h3>
-                    <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Phone size={12} /> {member.phone || 'No phone'}
-                        <span style={{ opacity: 0.3 }}>|</span>
-                        <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>#{member.id.slice(-8).toUpperCase()}</span>
-                    </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', opacity: 0.3, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    #{member.id.slice(-6).toUpperCase()}
                 </div>
-                <span className={`badge ${status.toLowerCase()}`} style={{ fontSize: '0.65rem', padding: '4px 10px' }}>{status}</span>
+            </div>
+            <div style={{ width: '36px', height: '36px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'all 0.3s ease' }} className="member-card-arrow">
+                <ArrowRight size={16} />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', background: 'var(--bg-color)', padding: '16px', borderRadius: '18px', border: '1px solid var(--border-color)' }}>
-                <div>
-                    <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Plan</p>
-                    <p style={{ fontSize: '0.8125rem', fontWeight: 700 }}>{latestMembership?.plan.name || 'No Plan'}</p>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                    <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Expiry</p>
-                    <p style={{ fontSize: '0.8125rem', fontWeight: 700, color: isExpired ? '#ef4444' : 'inherit' }}>
-                        {latestMembership ? formatMemberDate(latestMembership.endDate) : 'N/A'}
-                    </p>
-                </div>
-            </div>
-
-            <div style={{ display: 'flex', gap: '10px' }}>
-                <Link 
-                    href={`/members/${member.id}`} 
-                    style={{ 
-                        flex: 1,
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        gap: '10px', 
-                        padding: '14px', 
-                        background: 'var(--text-primary)', 
-                        color: 'var(--surface-color)', 
-                        borderRadius: '16px', 
-                        textDecoration: 'none', 
-                        fontSize: '0.875rem',
-                        fontWeight: 900,
-                        transition: 'all 0.2s ease',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                    }}
-                >
-                    Manage
-                    <ArrowRight size={16} />
-                </Link>
-                {member.phone && (
-                    <a 
-                        href={`https://wa.me/${member.phone.replace(/\D/g, '')}`} 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ 
-                            padding: '12px',
-                            background: 'rgba(37, 211, 102, 0.1)',
-                            color: '#25D366',
-                            borderRadius: '14px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
-                    >
-                        <MessageSquare size={18} />
-                    </a>
-                )}
-            </div>
-            
             <style jsx>{`
-                .member-card-hover:hover {
-                    transform: translateY(-8px);
-                    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-                    border-color: rgba(0,0,0,0.1);
+                .member-card-minimal:hover {
+                    background: rgba(255,255,255,0.06);
+                    border-color: rgba(255,255,255,0.15);
+                    transform: translateX(8px);
+                }
+                .member-card-minimal:hover .member-card-arrow {
+                    opacity: 1;
+                    transform: translateX(4px);
+                }
+                @keyframes fadeInUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
                 }
             `}</style>
-        </div>
+        </Link>
     );
 }
