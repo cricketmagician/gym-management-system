@@ -8,9 +8,11 @@ import ChangePasswordModal from './ChangePasswordModal';
 interface FooterProps {
     gymName: string;
     session?: Session | null;
+    instagramLink?: string | null;
+    whatsappNumber?: string | null;
 }
 
-export default function Footer({ gymName, session }: FooterProps) {
+export default function Footer({ gymName, session, instagramLink, whatsappNumber }: FooterProps) {
     const amberColor = '#f59e0b'; // Elite Amber
     const isSuperAdmin = session?.user?.role === 'SUPER_ADMIN';
     const displayGymName = isSuperAdmin ? 'PULSEFIT GLOBAL' : gymName;
@@ -41,8 +43,16 @@ export default function Footer({ gymName, session }: FooterProps) {
                         Crafting elite fitness ecosystems for the next generation of performance athletes.
                     </p>
                     <div style={{ display: 'flex', gap: '16px' }}>
-                        <a href="#" className="footer-icon-link"><Instagram size={20} /></a>
-                        <a href="#" className="footer-icon-link"><MessageSquare size={20} /></a>
+                        {instagramLink && (
+                            <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="footer-icon-link">
+                                <Instagram size={20} />
+                            </a>
+                        )}
+                        {whatsappNumber && (
+                            <a href={`https://wa.me/${whatsappNumber.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="footer-icon-link">
+                                <MessageSquare size={20} />
+                            </a>
+                        )}
                     </div>
                 </div>
 

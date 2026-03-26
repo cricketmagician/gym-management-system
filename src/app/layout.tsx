@@ -30,7 +30,9 @@ export default async function RootLayout({
         secondaryColor: '#8B5CF6',
         fontFamily: "'Inter', sans-serif",
         name: 'PulseFit',
-        logoUrl: null as string | null
+        logoUrl: null as string | null,
+        instagramLink: null as string | null,
+        whatsappNumber: null as string | null
     };
 
     if (session?.user?.gymId) {
@@ -42,7 +44,9 @@ export default async function RootLayout({
                     primaryColor: true,
                     secondaryColor: true,
                     fontFamily: true,
-                    logoUrl: true
+                    logoUrl: true,
+                    instagramLink: true,
+                    whatsappNumber: true
                 }
             });
 
@@ -52,7 +56,9 @@ export default async function RootLayout({
                     secondaryColor: gym.secondaryColor || branding.secondaryColor,
                     fontFamily: gym.fontFamily || branding.fontFamily,
                     name: gym.name,
-                    logoUrl: gym.logoUrl
+                    logoUrl: gym.logoUrl,
+                    instagramLink: gym.instagramLink,
+                    whatsappNumber: gym.whatsappNumber
                 };
             }
         } catch (dbError) {
@@ -84,7 +90,12 @@ export default async function RootLayout({
                 <body>
                     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
                         {children}
-                        <Footer gymName={branding.name} session={session} />
+                        <Footer 
+                            gymName={branding.name} 
+                            session={session} 
+                            instagramLink={branding.instagramLink}
+                            whatsappNumber={branding.whatsappNumber}
+                        />
                     </main>
                 </body>
             </html>
@@ -97,6 +108,13 @@ export default async function RootLayout({
                 <link rel="manifest" href="/manifest.json" />
                 <meta name="theme-color" content="#f59e0b" />
                 <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+                <script dangerouslySetInnerHTML={{ __html: `
+                  if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', function() {
+                      navigator.serviceWorker.register('/sw.js');
+                    });
+                  }
+                ` }} />
                 <style dangerouslySetInnerHTML={{ __html: dynamicStyles }} />
             </head>
             <body>
@@ -125,7 +143,12 @@ export default async function RootLayout({
                             {children}
                         </div>
                         {(session?.user?.role === 'ADMIN' || session?.user?.role === 'STAFF') && <AdminBottomNav />}
-                        <Footer gymName={branding.name} session={session} />
+                        <Footer 
+                            gymName={branding.name} 
+                            session={session} 
+                            instagramLink={branding.instagramLink}
+                            whatsappNumber={branding.whatsappNumber}
+                        />
                     </main>
                 </div>
             </body>
