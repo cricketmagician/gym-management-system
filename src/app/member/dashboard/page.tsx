@@ -154,7 +154,7 @@ export default async function MemberDashboard() {
                         </div>
                     </div>
                 </Link>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
                     {/* Membership Card - Premium Amber Orange */}
                     <div className="card" style={{ 
                         padding: '20px', 
@@ -263,19 +263,27 @@ export default async function MemberDashboard() {
                         {trainers.map((trainer) => (
                             <Link key={trainer.id} href={`/member/trainers/${trainer.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div style={{ 
-                                    minWidth: '240px', 
-                                    padding: '20px', 
-                                    background: 'var(--surface-color)', 
-                                    border: '1px solid var(--border-color)', 
-                                    borderRadius: '20px',
+                                    minWidth: '280px', 
+                                    padding: '24px', 
+                                    background: '#fff', 
+                                    border: '1px solid rgba(0,0,0,0.04)', 
+                                    borderRadius: '28px',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '16px'
-                                }}>
-                                    <img src={trainer.photoUrl || `https://ui-avatars.com/api/?name=${trainer.name}&background=fde68a&color=b45309`} alt={trainer.name} style={{ width: '56px', height: '56px', borderRadius: '14px', objectFit: 'cover' }} />
+                                    gap: '20px',
+                                    boxShadow: '0 10px 25px rgba(0,0,0,0.04)',
+                                    transition: 'all 0.3s ease',
+                                    cursor: 'pointer'
+                                }} className="card-hover-bright">
+                                    <div style={{ position: 'relative' }}>
+                                        <img src={trainer.photoUrl || `https://ui-avatars.com/api/?name=${trainer.name}&background=fde68a&color=b45309`} alt={trainer.name} style={{ width: '72px', height: '72px', borderRadius: '20px', objectFit: 'cover', boxShadow: '0 5px 15px rgba(0,0,0,0.1)' }} />
+                                        <div style={{ position: 'absolute', bottom: '-4px', right: '-4px', width: '20px', height: '20px', background: '#2dd4bf', border: '3px solid #fff', borderRadius: '50%' }}></div>
+                                    </div>
                                     <div>
-                                        <p style={{ fontSize: '0.9375rem', fontWeight: 800, marginBottom: '2px' }}>{trainer.name}</p>
-                                        <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>{trainer.specialization}</p>
+                                        <p style={{ fontSize: '1.0625rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.02em' }}>{trainer.name}</p>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <span style={{ fontSize: '0.65rem', color: '#f59e0b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', background: 'rgba(245, 158, 11, 0.1)', padding: '2px 8px', borderRadius: '6px' }}>{trainer.specialization}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </Link>
