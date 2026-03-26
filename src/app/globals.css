@@ -190,9 +190,9 @@ table {
 .watermark-text {
     position: absolute;
     top: 5vh;
-    left: -50px;
+    left: 0;
     right: 0;
-    font-size: 14rem;
+    font-size: 10rem;
     font-weight: 900;
     color: rgba(0, 0, 0, 0.025);
     line-height: 1.1;
@@ -200,9 +200,8 @@ table {
     pointer-events: none;
     text-transform: uppercase;
     white-space: pre-wrap;
-    transform: rotate(-10deg);
+    text-align: center;
     user-select: none;
-    padding: 40px;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -49,8 +49,9 @@ export default function MemberLayout({
             <div className="watermark-text">
                 PULSE FIT<br /><br /><br />
                 GO GYM<br /><br /><br />
-                PULSE FIT<br /><br /><br />
-                GO GYM
+                FOCUS TRAIN<br /><br /><br />
+                STAY HARD<br /><br /><br />
+                PULSE FIT
             </div>
             
             <main style={{ position: 'relative', zIndex: 10, padding: '0 0 100px 0', maxWidth: '500px', margin: '0 auto' }}>
