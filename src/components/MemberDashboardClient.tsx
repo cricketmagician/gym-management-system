@@ -185,28 +185,45 @@ export default function MemberDashboardClient({
                             </div>
                         </div>
         
-                        {/* Quick Stats Grid */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                        {/* Quick Actions & Stats Grid */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
                             <Link href="/member/checkin" style={{ textDecoration: 'none' }}>
-                                <div className="card" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: 'linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%)', color: '#fff', border: 'none', borderRadius: '24px', boxShadow: '0 10px 20px rgba(45, 212, 191, 0.2)' }}>
-                                    <div style={{ padding: '8px', background: 'rgba(255, 255, 255, 0.2)', borderRadius: '12px', width: 'fit-content' }}>
-                                        <QrCode size={20} color="#fff" />
+                                <div className="card" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px', background: 'linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%)', color: '#fff', border: 'none', borderRadius: '24px', boxShadow: '0 10px 20px rgba(45, 212, 191, 0.2)' }}>
+                                    <div style={{ padding: '12px', background: 'rgba(255, 255, 255, 0.2)', borderRadius: '16px' }}>
+                                        <QrCode size={24} color="#fff" />
                                     </div>
                                     <div>
-                                        <h4 style={{ fontSize: '1.125rem', fontWeight: 900, letterSpacing: '-0.02em' }}>QUICK SCAN</h4>
-                                        <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase' }}>Check-in Now</p>
+                                        <h4 style={{ fontSize: '1.25rem', fontWeight: 900, letterSpacing: '-0.02em' }}>QUICK SCAN</h4>
+                                        <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tap to check-in now</p>
+                                    </div>
+                                    <div style={{ marginLeft: 'auto' }}>
+                                        <ArrowRight size={20} color="rgba(255,255,255,0.5)" />
                                     </div>
                                 </div>
                             </Link>
+                        </div>
 
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                             <Link href="/member/attendance" style={{ textDecoration: 'none' }}>
                                 <div className="card" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px' }}>
                                     <div style={{ padding: '8px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', width: 'fit-content' }}>
                                         <Calendar size={20} color="#f59e0b" />
                                     </div>
                                     <div>
-                                        <h4 style={{ fontSize: '1.5rem', fontWeight: 900 }}>{thisWeekAttendance}</h4>
-                                        <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase' }}>This Week</p>
+                                        <h4 style={{ fontSize: '1.75rem', fontWeight: 900 }}>{thisWeekAttendance}</h4>
+                                        <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase' }}>Attendance</p>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            <Link href="/member/workouts" style={{ textDecoration: 'none' }}>
+                                <div className="card" style={{ padding: '24px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fff', border: '1px solid rgba(0,0,0,0.05)', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.03)' }}>
+                                    <div style={{ padding: '8px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', width: 'fit-content' }}>
+                                        <Dumbbell size={20} color="#f59e0b" />
+                                    </div>
+                                    <div>
+                                        <h4 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#000' }}>{workoutCount}</h4>
+                                        <p style={{ fontSize: '0.65rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Workouts</p>
                                     </div>
                                 </div>
                             </Link>
