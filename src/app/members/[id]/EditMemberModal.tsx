@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { X, User as UserIcon, Shield, Save } from 'lucide-react';
 import { getDirectImageUrl } from '@/lib/image-utils';
 
 interface User {
@@ -68,20 +69,60 @@ export default function EditMemberModal({ user }: { user: User }) {
         <>
             <button
                 onClick={() => setShowModal(true)}
-                className="btn"
-                style={{ background: 'var(--brand-primary)', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 600 }}
+                className="scale-hover"
+                style={{ 
+                    background: 'var(--brand-primary)', 
+                    color: 'white', 
+                    border: 'none', 
+                    padding: '12px 24px', 
+                    borderRadius: '14px', 
+                    fontSize: '0.875rem', 
+                    fontWeight: 800,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    boxShadow: '0 10px 20px rgba(79, 70, 229, 0.2)'
+                }}
             >
-                Manage Profile
+                <UserIcon size={16} /> Manage Profile
             </button>
 
             {showModal && (
                 <div style={{
                     position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
-                    alignItems: 'center', justifyContent: 'center', zIndex: 100
+                    backgroundColor: 'rgba(0,0,0,0.8)', 
+                    backdropFilter: 'blur(20px)',
+                    display: 'flex',
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    zIndex: 1000,
+                    padding: '20px'
                 }}>
-                    <div className="card" style={{ padding: '32px', width: '100%', maxWidth: '400px' }}>
-                        <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '24px' }}>Edit Member Profile</h2>
+                    <div className="card" style={{ 
+                        padding: '40px', 
+                        width: '100%', 
+                        maxWidth: '480px', 
+                        maxHeight: '90vh', 
+                        overflowY: 'auto',
+                        background: '#080808',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: '32px',
+                        position: 'relative',
+                        boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
+                        scrollbarWidth: 'thin',
+                        scrollbarColor: 'rgba(255,255,255,0.1) transparent'
+                    }}>
+                        <button 
+                            onClick={() => setShowModal(false)}
+                            style={{ position: 'absolute', top: '24px', right: '24px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer' }}
+                        >
+                            <X size={20} />
+                        </button>
+                        
+                        <div style={{ marginBottom: '32px' }}>
+                            <div style={{ color: 'var(--brand-primary)', background: 'rgba(79, 70, 229, 0.1)', width: 'fit-content', padding: '6px 12px', borderRadius: '10px', fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>Operational Command</div>
+                            <h2 style={{ fontSize: '1.75rem', fontWeight: 950, letterSpacing: '-0.04em' }}>Edit Member Profile</h2>
+                        </div>
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <label style={{ fontSize: '0.875rem', fontWeight: 600 }}>Full Name</label>
@@ -171,15 +212,18 @@ export default function EditMemberModal({ user }: { user: User }) {
                                     ))}
                                 </select>
                             </div>
-                            <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
-                                <button type="button" onClick={() => setShowModal(false)} className="btn" style={{ flex: 1, border: '1px solid var(--border-color)', background: 'transparent' }}>Cancel</button>
-                                <button type="submit" disabled={loading} className="btn btn-primary" style={{ flex: 2 }}>
-                                    {loading ? 'Saving...' : 'Save Changes'}
+                            <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+                                <button type="button" onClick={() => setShowModal(false)} className="btn" style={{ flex: 1, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', borderRadius: '14px', fontWeight: 700 }}>Cancel</button>
+                                <button type="submit" disabled={loading} className="btn btn-primary" style={{ flex: 2, borderRadius: '14px', fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                                    {loading ? 'Saving...' : <><Save size={18} /> SAVE CHANGES</>}
                                 </button>
                             </div>
 
-                            <div style={{ padding: '24px', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '20px', border: '1px solid rgba(239, 68, 68, 0.1)', marginTop: '16px' }}>
-                                <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#ef4444', textTransform: 'uppercase', marginBottom: '12px' }}>Security Zone</p>
+                            <div style={{ padding: '24px', background: 'rgba(239, 68, 68, 0.03)', borderRadius: '24px', border: '1px solid rgba(239, 68, 68, 0.1)', marginTop: '24px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+                                    <Shield size={16} className="text-red-500" />
+                                    <p style={{ fontSize: '0.75rem', fontWeight: 800, color: '#ef4444', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Security Zone</p>
+                                </div>
                                 <button 
                                     type="button"
                                     onClick={async () => {
@@ -194,9 +238,9 @@ export default function EditMemberModal({ user }: { user: User }) {
                                         }
                                     }}
                                     className="scale-hover"
-                                    style={{ width: '100%', padding: '12px', background: '#ef4444', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 800, fontSize: '0.875rem' }}
+                                    style={{ width: '100%', padding: '14px', background: '#ef4444', color: '#fff', border: 'none', borderRadius: '14px', fontWeight: 900, fontSize: '0.875rem' }}
                                 >
-                                    Reset Password (gym123)
+                                    RESET PASSWORD (gym123)
                                 </button>
                             </div>
                         </form>
