@@ -170,7 +170,7 @@ export default function MemberDashboardClient({
                     </div>
                     <div style={{ position: 'absolute', bottom: '28px', left: '24px', right: '24px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                            <h1 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#fff', letterSpacing: '0.02em', lineHeight: 1.2, opacity: 0.9 }}>{user.gym?.name || 'PulseFit'}</h1>
+                            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', letterSpacing: '0.02em', lineHeight: 1.2, opacity: 0.75 }}>{user.gym?.name || 'PulseFit'}</h1>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', opacity: 0.6 }}>
                                 <MapPin size={12} color="#fff" />
                                 <span style={{ fontSize: '0.7rem', fontWeight: 500, color: '#fff' }}>{user.gym?.locationDesc || 'Facility Location'}</span>
@@ -197,7 +197,7 @@ export default function MemberDashboardClient({
                         zIndex: 10,
                         boxShadow: '0 12px 30px rgba(0,0,0,0.12)'
                     }}>
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Hi {user.name}!</h2>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>Hi {user.name}!</h2>
                         <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.8, lineHeight: 1.4 }}>Make every workout count today.</p>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
