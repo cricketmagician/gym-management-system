@@ -92,21 +92,20 @@ export default function MemberLayout({
             <style jsx>{`
                 .bottom-nav {
                     position: fixed;
-                    bottom: 24px;
-                    left: 20px;
-                    right: 20px;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
                     height: 72px;
-                    background: rgba(0, 0, 0, 0.7);
+                    background: rgba(255, 255, 255, 0.7);
                     backdrop-filter: blur(24px);
                     -webkit-backdrop-filter: blur(24px);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    border-radius: 24px;
+                    border-top: 1px solid rgba(0, 0, 0, 0.05);
                     display: flex;
                     justify-content: space-around;
                     align-items: center;
                     padding: 0 12px;
                     z-index: 1000;
-                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.03);
                 }
                 .nav-item {
                     position: relative;
@@ -114,17 +113,15 @@ export default function MemberLayout({
                     flex-direction: column;
                     align-items: center;
                     gap: 4px;
-                    color: rgba(255, 255, 255, 0.4);
+                    color: rgba(0, 0, 0, 0.4);
                     text-decoration: none;
-                    font-size: 10px;
-                    font-weight: 700;
                     transition: all 0.3s ease;
                     flex: 1;
                     height: 100%;
                     justify-content: center;
                 }
                 .nav-item.active {
-                    color: #fff;
+                    color: #000;
                 }
                 .active-glow {
                     position: absolute;
@@ -133,39 +130,33 @@ export default function MemberLayout({
                     height: 4px;
                     background: #2dd4bf;
                     border-radius: 50%;
-                    box-shadow: 0 0 10px #2dd4bf, 0 0 20px #2dd4bf;
+                    box-shadow: 0 0 10px #2dd4bf;
                 }
                 .fab-container {
                     position: relative;
-                    top: -24px;
+                    top: -20px;
                 }
                 .fab {
-                    width: 56px;
-                    height: 56px;
-                    background: #2dd4bf;
-                    border-radius: 18px;
+                    width: 58px;
+                    height: 58px;
+                    background: #000;
+                    border-radius: 20px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: #000;
-                    box-shadow: 0 10px 25px rgba(45, 212, 191, 0.4);
-                    border: 4px solid #000;
+                    color: #fff;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                    border: none;
                     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                     cursor: pointer;
                 }
                 .fab.open {
                     transform: rotate(90deg) scale(0.9);
-                    background: #FF8B7A; /* Peach Highlight */
-                }
-                .animate-fade-in {
-                    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-                }
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
+                    background: #FF8B7A;
                 }
                 .nav-label {
-                    font-size: 9px;
+                    font-size: 8px;
+                    font-weight: 800;
                     text-transform: uppercase;
                     letter-spacing: 0.05em;
                 }
