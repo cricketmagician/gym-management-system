@@ -137,6 +137,10 @@ export default async function DashboardPage() {
     const gymId = session.user.gymId;
     const role = session.user.role;
 
+    if (role === 'SUPER_ADMIN') {
+        redirect('/superadmin');
+    }
+
     if (role === 'MEMBER') {
         redirect('/member/dashboard');
     }

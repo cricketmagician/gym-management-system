@@ -68,7 +68,9 @@ export default async function RootLayout({
         }
     `;
 
-    if (isLoginPage || pathname === '/' || pathname === '/member' || pathname.startsWith('/member/')) {
+    const isNoSidebarPage = isLoginPage || (pathname === '/' && !session) || pathname === '/member' || pathname.startsWith('/member/');
+
+    if (isNoSidebarPage) {
         return (
             <html lang="en">
                 <head>
