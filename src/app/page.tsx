@@ -10,7 +10,28 @@ import AdminQrControl from '@/components/AdminQrControl';
 export default async function DashboardPage() {
     const session = await getServerSession(authOptions);
     if (!session) {
-        return <div style={{ padding: '48px', textAlign: 'center' }}>Please sign in to view your dashboard.</div>;
+        return (
+            <div style={{ 
+                height: 'calc(100vh - 100px)', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                gap: '24px',
+                textAlign: 'center'
+            }}>
+                <div style={{ width: '64px', height: '64px', background: 'var(--brand-primary)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', marginBottom: '8px' }}>
+                    <Plus size={32} />
+                </div>
+                <div>
+                    <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '8px' }}>Welcome to PulseFit</h1>
+                    <p style={{ color: 'var(--text-secondary)', maxWidth: '400px' }}>Your premium gym management partner. Please sign in to access your dashboard.</p>
+                </div>
+                <Link href="/login" className="btn btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700, textDecoration: 'none' }}>
+                    Sign In to Continue
+                </Link>
+            </div>
+        );
     }
 
     const gymId = session.user.gymId;
