@@ -197,7 +197,9 @@ export default function MemberDashboardClient({
                         zIndex: 10,
                         boxShadow: '0 12px 30px rgba(0,0,0,0.12)'
                     }}>
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>Hi {user.name}!</h2>
+                        <h2 className="font-premium" style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.025em' }}>
+                            Hi <span style={{ textTransform: 'uppercase' }}>{user.name}</span>!
+                        </h2>
                         <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.8, lineHeight: 1.4 }}>Make every workout count today.</p>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
