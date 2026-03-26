@@ -1,7 +1,15 @@
-import { PrismaClient } from '@prisma/client';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '../src/generated/client';
 import bcrypt from 'bcryptjs';
+import * as dotenv from 'dotenv';
 
-const prisma = new PrismaClient();
+dotenv.config();
+
+const connectionString = `${process.env.DATABASE_URL}`;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
     const gymId = 'gym_01_pulsefit';
@@ -60,6 +68,8 @@ async function main() {
             endDate.setDate(now.getDate() + 20); // Expires in 20 days
         }
 
+        const membershipStatus = (u.status === 'EXPIRING' ? 'ACTIVE' : u.status) as any;
+
         // Create membership
         await prisma.membership.create({
             data: {
@@ -68,7 +78,7 @@ async function main() {
                 gym: { connect: { id: gym.id } },
                 startDate,
                 endDate,
-                status: u.status as any, // Bypass TS enum strictness for simplicity in seeding
+                status: membershipStatus,
             }
         });
 
