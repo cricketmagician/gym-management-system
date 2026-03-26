@@ -48,7 +48,6 @@ export default async function DashboardPage() {
         prisma.membership.count({ where: { gymId, status: 'EXPIRED' } })
     ]);
 
-    // Fetch Recent Attendance Activity for Admin
     const recentAttendance = await prisma.attendance.findMany({
         where: { gymId },
         include: { user: true },
@@ -57,83 +56,98 @@ export default async function DashboardPage() {
     });
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }} className="dashboard-container">
-            <header className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', minHeight: '100vh', padding: '24px' }} className="admin-dashboard">
+            <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
                 <div>
-                    <h1 style={{ fontSize: '1.875rem', fontWeight: 700, letterSpacing: '-0.025em' }}>Overview</h1>
-                    <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Welcome back, PulseFit activity today.</p>
+                    <div style={{ background: '#2dd4bf', color: '#000', padding: '4px 12px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.05em', width: 'fit-content', marginBottom: '12px' }}>MANAGEMENT</div>
+                    <h1 style={{ fontSize: '2.25rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#111' }}>Command Center</h1>
+                    <p style={{ color: '#666', marginTop: '4px' }}>Real-time overview of your gym's performance and activity.</p>
                 </div>
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                     <AdminQrControl gymId={gymId} />
-                    <div style={{ position: 'relative', flex: '1 1 200px' }}>
-                        <Search style={{ position: 'absolute', top: '10px', left: '12px', color: 'var(--text-secondary)' }} size={18} />
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            style={{
-                                padding: '10px 16px 10px 40px',
-                                borderRadius: '8px',
-                                border: '1px solid var(--border-color)',
-                                background: 'var(--surface-color)',
-                                color: 'var(--text-primary)',
-                                width: '100%',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-                    <Link href="/members/new" className="btn btn-primary" style={{ textDecoration: 'none', whiteSpace: 'nowrap' }}>
-                        <Plus size={18} style={{ marginRight: '8px' }} />
-                        Add Member
+                    <Link href="/members/new" className="btn-renew" style={{ textDecoration: 'none', background: '#000', color: '#fff', padding: '12px 24px', borderRadius: '14px', border: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Plus size={18} /> Add New Member
                     </Link>
                 </div>
             </header>
 
-            <section className="metric-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
-                <MetricCard title="Total Members" value={totalMembers} icon={<Users size={20} />} trend="All time accounts" trendUp={true} />
-                <MetricCard title="Active Members" value={activeMemberships} icon={<TrendingUp size={20} />} trend="Currently permitted" trendUp={true} color="var(--status-active-text)" bg="var(--status-active-bg)" />
-                <MetricCard title="Recent Punch-Ins" value={recentAttendance.length} icon={<Clock size={20} />} trend="Last 24 hours activity" trendUp={true} color="var(--brand-primary)" bg="rgba(79,70,229,0.1)" />
-                <MetricCard title="Expired" value={expiredMemberships} icon={<TrendingDown size={20} />} trend="Lapsed access" trendUp={false} color="var(--status-expired-text)" bg="var(--status-expired-bg)" />
+            {/* Metric Grid */}
+            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
+                <MetricCard 
+                    title="Total Population" 
+                    value={totalMembers} 
+                    icon={<Users size={22} />} 
+                    subtitle="Registered members" 
+                    glowColor="rgba(45, 212, 191, 0.2)"
+                />
+                <MetricCard 
+                    title="Active Access" 
+                    value={activeMemberships} 
+                    icon={<TrendingUp size={22} />} 
+                    subtitle="Current permissions" 
+                    glowColor="rgba(56, 189, 248, 0.2)"
+                    variant="dark"
+                />
+                <MetricCard 
+                    title="Recent Check-ins" 
+                    value={recentAttendance.length} 
+                    icon={<Clock size={22} />} 
+                    subtitle="Last 24 hours" 
+                    glowColor="rgba(251, 146, 60, 0.2)"
+                />
+                <MetricCard 
+                    title="Lapsed Members" 
+                    value={expiredMemberships} 
+                    icon={<AlertCircle size={22} />} 
+                    subtitle="Requires attention" 
+                    glowColor="rgba(239, 68, 68, 0.2)"
+                />
             </section>
 
-            <section style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {/* Recent Activity Section */}
+            <section className="glass-card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>Recent Activity (Verified Attendance)</h2>
-                    <Link href="/attendance" className="btn" style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-primary)', textDecoration: 'none' }}>View All Attendance</Link>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Recent Verified Activity</h2>
+                    <Link href="/attendance" style={{ color: '#2dd4bf', fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none' }}>View All Records →</Link>
                 </div>
 
-                <div className="table-container">
-                    <table>
+                <div className="modern-table-container" style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 12px' }}>
                         <thead>
-                            <tr>
-                                <th>Member Name</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                            <tr style={{ textAlign: 'left', color: '#888', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                <th style={{ padding: '0 16px' }}>Member</th>
+                                <th style={{ padding: '0 16px' }}>Timing</th>
+                                <th style={{ padding: '0 16px' }}>Verification</th>
+                                <th style={{ padding: '0 16px', textAlign: 'right' }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {recentAttendance.length > 0 ? recentAttendance.map((record) => {
-                                return (
-                                    <tr key={record.id}>
-                                        <td style={{ fontWeight: 500 }}>{record.user?.name || 'Unknown'}</td>
-                                        <td style={{ color: 'var(--text-secondary)' }}>
-                                            {new Date(record.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                        </td>
-                                        <td>
-                                            <span className="badge active">VERIFIED</span>
-                                        </td>
-                                        <td>
-                                            <Link href={`/members/${record.userId}`} style={{ background: 'none', border: 'none', color: 'var(--brand-primary)', fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>View History</Link>
-                                        </td>
-                                    </tr>
-                                );
-                            }) : (
-                                <tr>
-                                    <td colSpan={4} style={{ textAlign: 'center', padding: '48px', color: 'var(--text-secondary)' }}>
-                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-                                            <AlertCircle size={32} opacity={0.5} />
-                                            <p>No recent activity logged.</p>
+                            {recentAttendance.length > 0 ? recentAttendance.map((record) => (
+                                <tr key={record.id} style={{ background: 'rgba(0,0,0,0.02)', borderRadius: '16px' }}>
+                                    <td style={{ padding: '16px', borderRadius: '16px 0 0 16px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#000', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.75rem' }}>
+                                                {record.user?.name?.[0] || '?'}
+                                            </div>
+                                            <span style={{ fontWeight: 700, fontSize: '0.9375rem' }}>{record.user?.name || 'Unknown User'}</span>
                                         </div>
+                                    </td>
+                                    <td style={{ padding: '16px', color: '#666', fontSize: '0.875rem' }}>
+                                        {new Date(record.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    </td>
+                                    <td style={{ padding: '16px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 700, fontSize: '0.75rem' }}>
+                                            <CheckCircle2 size={14} /> SECURE
+                                        </div>
+                                    </td>
+                                    <td style={{ padding: '16px', textAlign: 'right', borderRadius: '0 16px 16px 0' }}>
+                                        <Link href={`/members/${record.userId}`} className="btn-action" style={{ padding: '8px 16px', background: '#fff', border: '1px solid #eee', borderRadius: '8px', fontSize: '0.75rem', fontWeight: 700, textDecoration: 'none', color: '#000' }}>View Profile</Link>
+                                    </td>
+                                </tr>
+                            )) : (
+                                <tr>
+                                    <td colSpan={4} style={{ textAlign: 'center', padding: '60px', color: '#999' }}>
+                                        <p>No recent check-ins recorded.</p>
                                     </td>
                                 </tr>
                             )}
@@ -145,21 +159,40 @@ export default async function DashboardPage() {
     );
 }
 
-// Micro-component for encapsulation
-function MetricCard({ title, value, icon, trend, trendUp, color = 'var(--brand-primary)', bg = 'rgba(79,70,229,0.1)' }: { title: string, value: string | number, icon: React.ReactNode, trend: string, trendUp: boolean, color?: string, bg?: string }) {
+import { CheckCircle2 } from 'lucide-react';
+
+function MetricCard({ title, value, icon, subtitle, glowColor, variant = 'light' }: { title: string, value: string | number, icon: React.ReactNode, subtitle: string, glowColor: string, variant?: 'light' | 'dark' }) {
+    const isDark = variant === 'dark';
     return (
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className={isDark ? "glass-card-dark" : "glass-card"} style={{ 
+            padding: '24px', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '16px',
+            position: 'relative',
+            overflow: 'hidden'
+        }}>
+            <div style={{ 
+                position: 'absolute', 
+                top: '-20px', 
+                right: '-20px', 
+                width: '80px', 
+                height: '80px', 
+                background: glowColor, 
+                borderRadius: '50%', 
+                filter: 'blur(30px)' 
+            }}></div>
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{title}</p>
-                    <p className="numbers" style={{ fontSize: '2.5rem', color: 'var(--text-primary)', marginTop: '4px', lineHeight: 1 }}>{value}</p>
-                </div>
-                <div style={{ padding: '8px', borderRadius: '8px', background: bg, color: color }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isDark ? '#fff' : '#000' }}>
                     {icon}
                 </div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.875rem', color: trendUp ? 'var(--status-active-text)' : 'var(--text-secondary)' }}>
-                {trend}
+            
+            <div>
+                <p style={{ color: isDark ? 'rgba(255,255,255,0.5)' : '#666', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{title}</p>
+                <h3 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.03em' }}>{value}</h3>
+                <p style={{ fontSize: '0.8125rem', color: isDark ? 'rgba(255,255,255,0.4)' : '#999' }}>{subtitle}</p>
             </div>
         </div>
     );

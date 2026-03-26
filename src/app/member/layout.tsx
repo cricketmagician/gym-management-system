@@ -48,10 +48,10 @@ export default function MemberLayout({
                     onClick={toggleMenu}
                 >
                     <div className="glass-card animate-fade-in" style={{ padding: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }} onClick={e => e.stopPropagation()}>
-                        <QuickActionItem icon={<QrCode size={20} />} label="Scan QR (Check-in)" />
-                        <QuickActionItem icon={<ClipboardList size={20} />} label="Log New Workout" />
-                        <QuickActionItem icon={<TrendingUp size={20} />} label="Update Weight Goal" />
-                        <QuickActionItem icon={<User size={20} />} label="Book Personal Trainer" last />
+                        <QuickActionItem icon={<QrCode size={20} />} label="Scan QR (Check-in)" href="/member/checkin" onClick={toggleMenu} />
+                        <QuickActionItem icon={<ClipboardList size={20} />} label="Log New Workout" href="/member/workouts/new" onClick={toggleMenu} />
+                        <QuickActionItem icon={<TrendingUp size={20} />} label="Update Weight Goal" href="/member/profile/goals" onClick={toggleMenu} />
+                        <QuickActionItem icon={<User size={20} />} label="Manage Profile" href="/member/profile" onClick={toggleMenu} last />
                     </div>
                 </div>
             )}
@@ -104,18 +104,20 @@ export default function MemberLayout({
     );
 }
 
-function QuickActionItem({ icon, label, last }: { icon: React.ReactNode, label: string, last?: boolean }) {
+function QuickActionItem({ icon, label, last, href, onClick }: { icon: React.ReactNode, label: string, last?: boolean, href: string, onClick: () => void }) {
     return (
-        <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '16px', 
-            padding: '16px', 
-            borderBottom: last ? 'none' : '1px solid rgba(0,0,0,0.05)',
-            cursor: 'pointer'
-        }}>
-            <div style={{ color: '#2dd4bf' }}>{icon}</div>
-            <span style={{ fontSize: '0.9375rem', fontWeight: 600 }}>{label}</span>
-        </div>
+        <Link href={href} onClick={onClick} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '16px', 
+                padding: '16px', 
+                borderBottom: last ? 'none' : '1px solid rgba(0,0,0,0.05)',
+                cursor: 'pointer'
+            }}>
+                <div style={{ color: '#2dd4bf' }}>{icon}</div>
+                <span style={{ fontSize: '0.9375rem', fontWeight: 600 }}>{label}</span>
+            </div>
+        </Link>
     );
 }
