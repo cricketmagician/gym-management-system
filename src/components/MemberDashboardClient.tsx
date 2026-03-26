@@ -25,7 +25,8 @@ function MetricCard({
     color, 
     href,
     onClick,
-    variant = 'default' 
+    variant = 'default',
+    compact = false
 }: { 
     title: string, 
     value: number | string, 
@@ -34,7 +35,8 @@ function MetricCard({
     color: string, 
     href?: string,
     onClick?: () => void,
-    variant?: 'default' | 'black' | 'orange' | 'white'
+    variant?: 'default' | 'black' | 'orange' | 'white',
+    compact?: boolean
 }) {
     const isBlack = variant === 'black';
     const isOrange = variant === 'orange';
@@ -42,13 +44,13 @@ function MetricCard({
 
     const cardContent = (
         <div className="card" style={{ 
-            padding: '24px', 
+            padding: compact ? '16px 20px' : '24px', 
             borderRadius: '24px', 
             background: isWhite ? '#ffffff' : (isOrange ? 'linear-gradient(135deg, #f59e0b, #ea580c)' : (isBlack ? '#1a1a1a' : 'var(--surface-color)')), 
             border: (isOrange || isWhite) ? 'none' : (isBlack ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--border-color)'),
             display: 'flex',
             flexDirection: 'column',
-            gap: '12px',
+            gap: compact ? '8px' : '12px',
             position: 'relative',
             overflow: 'hidden',
             transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
@@ -63,13 +65,13 @@ function MetricCard({
         >
             <div style={{ display: 'flex', justifyContent: 'space-between', color: isWhite ? '#666' : (isOrange ? '#fff' : color) }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: (isOrange || isWhite) ? 0.9 : 0.8 }}>{title}</span>
-                <div style={{ padding: '8px', background: isWhite ? '#f3f4f6' : (isOrange ? 'rgba(255,255,255,0.2)' : (isBlack ? 'rgba(255,255,255,0.1)' : `${color}10`)), borderRadius: '10px' }}>
-                    {icon}
+                <div style={{ padding: compact ? '4px' : '8px', background: isWhite ? '#f3f4f6' : (isOrange ? 'rgba(255,255,255,0.2)' : (isBlack ? 'rgba(255,255,255,0.1)' : `${color}10`)), borderRadius: '10px' }}>
+                    {compact ? React.cloneElement(icon as any, { size: 16 }) : icon}
                 </div>
             </div>
             <div>
                 <h4 style={{ 
-                    fontSize: (typeof value === 'string' && value.length > 8) ? '1.5rem' : '2rem', 
+                    fontSize: compact ? '1.25rem' : ((typeof value === 'string' && value.length > 8) ? '1.5rem' : '2rem'), 
                     fontWeight: 900, 
                     color: isWhite ? '#000' : ((isBlack || isOrange) ? '#fff' : 'var(--text-primary)'), 
                     letterSpacing: '-0.02em', 
@@ -474,11 +476,12 @@ export default function MemberDashboardClient({
                         <MetricCard 
                             title="App Experience" 
                             value="Get App" 
-                            unit="Setup PulseFit" 
-                            icon={<Smartphone size={20} />} 
+                            unit="Setup" 
+                            icon={<Smartphone />} 
                             color="#a78bfa" 
                             onClick={handleInstall}
                             variant="white"
+                            compact={true}
                         />
                         
                         <MetricCard 
