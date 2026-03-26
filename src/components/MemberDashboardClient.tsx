@@ -182,15 +182,15 @@ export default function MemberDashboardClient({
                 <div style={{ padding: '0 20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     {/* New Info Card: Member Welcome */}
                     <div className="card" style={{ 
-                        padding: '24px', 
+                        padding: '24px 32px', 
                         background: 'var(--surface-color)', 
                         border: '1px solid var(--border-color)', 
                         borderRadius: '24px',
                         display: 'flex',
                         flexDirection: 'column',
-                        alignItems: 'center',
+                        alignItems: 'flex-start',
                         justifyContent: 'center',
-                        textAlign: 'center',
+                        textAlign: 'left',
                         gap: '6px',
                         marginTop: '-44px',
                         position: 'relative',
@@ -198,7 +198,7 @@ export default function MemberDashboardClient({
                         boxShadow: '0 12px 30px rgba(0,0,0,0.12)'
                     }}>
                         <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Hi {user.name}!</h2>
-                        <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.8, maxWidth: '280px', lineHeight: 1.4 }}>"Your only limit is you. Let's make today count!"</p>
+                        <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-secondary)', opacity: 0.8, lineHeight: 1.4 }}>Make every workout count today.</p>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
                         {/* Membership Card - Premium Amber Orange */}
@@ -290,8 +290,8 @@ export default function MemberDashboardClient({
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
-                        <MetricCard title="Attendance" value={thisWeekAttendance} unit="Days" icon={<Timer size={18} />} color="#2dd4bf" href="/member/attendance" />
-                        <MetricCard title="Workout Session" value={workoutCount} unit="Sess" icon={<Activity size={18} />} color="#fb923c" href="/member/workouts" />
+                        <MetricCard title="Attendance" value={thisWeekAttendance} unit="Days this week" icon={<Timer size={18} />} color="#2dd4bf" href="/member/attendance" />
+                        <MetricCard title="Workout Session" value={workoutCount} unit="Sessions" icon={<Activity size={18} />} color="#fb923c" href="/member/workouts" />
                     </div>
 
                     <style jsx>{`
