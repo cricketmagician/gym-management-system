@@ -15,12 +15,22 @@ export default function NewMemberPage() {
     const [photoUrl, setPhotoUrl] = useState<string>('');
     const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
     const [endDateDisplay, setEndDateDisplay] = useState<string>('');
+    const [gymName, setGymName] = useState<string>('');
 
     useEffect(() => {
+        // Fetch Plans
         fetch('/api/v1/plans')
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) setPlans(data);
+            })
+            .catch(console.error);
+
+        // Fetch Gym Name
+        fetch('/api/v1/admin/gym-hub')
+            .then(res => res.json())
+            .then(data => {
+                if (data.name) setGymName(data.name);
             })
             .catch(console.error);
     }, []);
@@ -86,7 +96,7 @@ export default function NewMemberPage() {
                 <div>
                     <div style={{ background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', padding: '6px 14px', borderRadius: '12px', fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.1em', width: 'fit-content', marginBottom: '16px', border: '1px solid rgba(245, 158, 11, 0.2)' }}>REGISTRATION PORTAL</div>
                     <h1 style={{ fontSize: '3.5rem', fontWeight: 950, letterSpacing: '-0.04em', lineHeight: 1, display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        Join PulseFit <Sparkles className="text-amber-500" size={48} />
+                        Join {gymName || 'PulseFit'} <Sparkles className="text-amber-500" size={48} />
                     </h1>
                     <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '16px', fontSize: '1.125rem', fontWeight: 500 }}>Onboard a new athlete into the elite fitness ecosystem.</p>
                 </div>
