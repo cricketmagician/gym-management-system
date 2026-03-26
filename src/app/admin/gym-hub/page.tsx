@@ -1,21 +1,24 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Zap, Trophy, Timer, Sparkles, X, Loader2, Dumbbell, ArrowUpRight, Megaphone, LayoutGrid, Clock, ShieldCheck } from 'lucide-react';
+import { Plus, Trash2, Zap, Trophy, Timer, Sparkles, X, Loader2, Dumbbell, ArrowUpRight, Megaphone, LayoutGrid, Clock, Volume2 } from 'lucide-react';
 
 export default function AdminGymHubPage() {
     const [offers, setOffers] = useState<any[]>([]);
     const [services, setServices] = useState<any[]>([]);
     const [timings, setTimings] = useState<any[]>([]);
+    const [announcements, setAnnouncements] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
     const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
     const [isTimingModalOpen, setIsTimingModalOpen] = useState(false);
+    const [isAnnouncementModalOpen, setIsAnnouncementModalOpen] = useState(false);
 
     const [newOffer, setNewOffer] = useState<any>({ title: '', description: '', code: '', color: '#f59e0b' });
     const [newService, setNewService] = useState<any>({ name: '', description: '', priceLabel: '' });
     const [newTiming, setNewTiming] = useState<any>({ dayRange: '', timeRange: '' });
+    const [newAnnouncement, setNewAnnouncement] = useState<any>({ content: '' });
 
     useEffect(() => {
         fetchHubData();
@@ -28,6 +31,7 @@ export default function AdminGymHubPage() {
             setOffers(data.offers || []);
             setServices(data.services || []);
             setTimings(data.timings || []);
+            setAnnouncements(data.announcements || []);
         } catch (error) {
             console.error("Failed to fetch hub data", error);
         } finally {
@@ -52,6 +56,9 @@ export default function AdminGymHubPage() {
                 } else if (type === 'timing') {
                     setIsTimingModalOpen(false);
                     setNewTiming({ dayRange: '', timeRange: '' });
+                } else if (type === 'announcement') {
+                    setIsAnnouncementModalOpen(false);
+                    setNewAnnouncement({ content: '' });
                 }
                 fetchHubData();
             }
@@ -90,6 +97,27 @@ export default function AdminGymHubPage() {
             {/* Layout Sections */}
             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: '40px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+                    {/* Announcements Section */}
+                    <section style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <h2 style={{ fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <Volume2 size={16} className="text-amber-500" /> Member Announcements
+                            </h2>
+                            <button onClick={() => setIsAnnouncementModalOpen(true)} style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '6px 12px', borderRadius: '10px', fontSize: '0.65rem', fontWeight: 900, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }} className="scale-hover"><Plus size={14} /> ADD NEWS</button>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            {announcements.map((announcement) => (
+                                <div key={announcement.id} className="glass-card-dark" style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderLeft: '4px solid #f59e0b' }}>
+                                    <p style={{ fontSize: '0.875rem', fontWeight: 700 }}>{announcement.content}</p>
+                                    <button onClick={() => handleDelete('announcement', announcement.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.15)', cursor: 'pointer' }}><Trash2 size={16} /></button>
+                                </div>
+                            ))}
+                            {announcements.length === 0 && (
+                                <p style={{ textAlign: 'center', padding: '24px', color: 'rgba(255,255,255,0.15)', fontSize: '0.875rem', fontWeight: 700, border: '1px dashed rgba(255,255,255,0.05)', borderRadius: '16px' }}>No active news broadcasts.</p>
+                            )}
+                        </div>
+                    </section>
+
                     {/* Offers Section */}
                     <section style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -187,21 +215,21 @@ export default function AdminGymHubPage() {
                             <ArrowUpRight size={24} />
                         </div>
                         <h3 style={{ fontSize: '1.5rem', fontWeight: 900, lineHeight: 1.1, marginBottom: '12px' }}>Promotion Intelligence</h3>
-                        <p style={{ fontSize: '0.875rem', fontWeight: 700, opacity: 0.8 }}>Active promos are broadcasted instantly to every member's dashboard.</p>
+                        <p style={{ fontSize: '0.875rem', fontWeight: 700, opacity: 0.8 }}>Active promos and news are broadcasted instantly to every member's dashboard.</p>
                     </div>
                 </div>
             </div>
 
-            {/* Modals - Offer, Service, Timing */}
+            {/* Modals - Offer, Service, Timing, Announcement */}
             {isOfferModalOpen && (
-                <HubModal title="New Promotion" icon={<Megaphone size={24} />} onClose={() => setIsOfferModalOpen(false)} onSubmit={(e) => handleAdd('offer', newOffer)}>
-                    <HubInput label="Title" value={newOffer.title} onChange={v => setNewOffer({...newOffer, title: v})} placeholder="e.g. Summer Shred 50%" />
-                    <HubTextarea label="Description" value={newOffer.description} onChange={v => setNewOffer({...newOffer, description: v})} placeholder="Write a compelling copy..." />
+                <HubModal title="New Promotion" icon={<Megaphone size={24} />} onClose={() => setIsOfferModalOpen(false)} onSubmit={() => handleAdd('offer', newOffer)}>
+                    <HubInput label="Title" value={newOffer.title} onChange={(v: string) => setNewOffer({...newOffer, title: v})} placeholder="e.g. Summer Shred 50%" />
+                    <HubTextarea label="Description" value={newOffer.description} onChange={(v: string) => setNewOffer({...newOffer, description: v})} placeholder="Write a compelling copy..." />
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                        <HubInput label="Promo Code" value={newOffer.code} onChange={v => setNewOffer({...newOffer, code: v})} placeholder="GYM50" />
+                        <HubInput label="Promo Code" value={newOffer.code} onChange={(v: string) => setNewOffer({...newOffer, code: v})} placeholder="GYM50" />
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             <label style={{ fontSize: '0.65rem', fontWeight: 900, textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em' }}>Theme</label>
-                            <select style={{ width: '100%', padding: '16px 20px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', color: '#fff', fontWeight: 700, fontSize: '0.875rem', appearance: 'none' }} value={newOffer.color} onChange={e => setNewOffer({...newOffer, color: e.target.value})}>
+                            <select style={{ width: '100%', padding: '16px 20px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', color: '#fff', fontWeight: 700, fontSize: '0.875rem', appearance: 'none' }} value={newOffer.color} onChange={(e: any) => setNewOffer({...newOffer, color: e.target.value})}>
                                 <option value="#f59e0b" style={{ background: '#000' }}>Amber</option>
                                 <option value="#2dd4bf" style={{ background: '#000' }}>Teal</option>
                                 <option value="#3b82f6" style={{ background: '#000' }}>Power Blue</option>
@@ -212,17 +240,24 @@ export default function AdminGymHubPage() {
             )}
 
             {isServiceModalOpen && (
-                <HubModal title="Add Facility Perk" icon={<Plus size={24} />} onClose={() => setIsServiceModalOpen(false)} onSubmit={(e) => handleAdd('service', newService)}>
-                    <HubInput label="Service Name" value={newService.name} onChange={v => setNewService({...newService, name: v})} placeholder="e.g. Personal Training" />
-                    <HubTextarea label="Service Description" value={newService.description} onChange={v => setNewService({...newService, description: v})} placeholder="Detailed description..." />
-                    <HubInput label="Price / Label" value={newService.priceLabel} onChange={v => setNewService({...newService, priceLabel: v})} placeholder="e.g. $49.00 / session" />
+                <HubModal title="Add Facility Perk" icon={<Plus size={24} />} onClose={() => setIsServiceModalOpen(false)} onSubmit={() => handleAdd('service', newService)}>
+                    <HubInput label="Service Name" value={newService.name} onChange={(v: string) => setNewService({...newService, name: v})} placeholder="e.g. Personal Training" />
+                    <HubTextarea label="Service Description" value={newService.description} onChange={(v: string) => setNewService({...newService, description: v})} placeholder="Detailed description..." />
+                    <HubInput label="Price / Label" value={newService.priceLabel} onChange={(v: string) => setNewService({...newService, priceLabel: v})} placeholder="e.g. $49.00 / session" />
                 </HubModal>
             )}
 
             {isTimingModalOpen && (
-                <HubModal title="Manage Timings" icon={<Clock size={24} />} onClose={() => setIsTimingModalOpen(false)} onSubmit={(e) => handleAdd('timing', newTiming)}>
-                    <HubInput label="Day Range" value={newTiming.dayRange} onChange={v => setNewTiming({...newTiming, dayRange: v})} placeholder="e.g. Mon - Fri" />
-                    <HubInput label="Time Range" value={newTiming.timeRange} onChange={v => setNewTiming({...newTiming, timeRange: v})} placeholder="e.g. 6AM - 10PM" />
+                <HubModal title="Manage Timings" icon={<Clock size={24} />} onClose={() => setIsTimingModalOpen(false)} onSubmit={() => handleAdd('timing', newTiming)}>
+                    <HubInput label="Day Range" value={newTiming.dayRange} onChange={(v: string) => setNewTiming({...newTiming, dayRange: v})} placeholder="e.g. Mon - Fri" />
+                    <HubInput label="Time Range" value={newTiming.timeRange} onChange={(v: string) => setNewTiming({...newTiming, timeRange: v})} placeholder="e.g. 6AM - 10PM" />
+                </HubModal>
+            )}
+
+            {isAnnouncementModalOpen && (
+                <HubModal title="Global News Broadcast" icon={<Volume2 size={24} />} onClose={() => setIsAnnouncementModalOpen(false)} onSubmit={() => handleAdd('announcement', newAnnouncement)}>
+                    <HubTextarea label="Announcement Content" value={newAnnouncement.content} onChange={(v: string) => setNewAnnouncement({...newAnnouncement, content: v})} placeholder="e.g. Gym closed on Monday for renovations..." />
+                    <p style={{ fontSize: '0.75rem', opacity: 0.4, fontWeight: 500 }}>This will scroll horizontally across every member's dashboard.</p>
                 </HubModal>
             )}
         </div>

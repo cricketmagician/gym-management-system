@@ -8,25 +8,26 @@ datasource db {
 }
 
 model Gym {
-  id             String       @id @default(uuid())
+  id             String         @id @default(uuid())
   name           String
-  slug           String       @unique
-  timezone       String       @default("UTC")
-  currency       String       @default("INR")
+  slug           String         @unique
+  timezone       String         @default("UTC")
+  currency       String         @default("INR")
   opening_hours  String?
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
   bannerUrl      String?
-  fontFamily     String?      @default("'Inter', sans-serif")
+  fontFamily     String?        @default("'Inter', sans-serif")
   logoUrl        String?
-  primaryColor   String?      @default("#4F46E5")
-  secondaryColor String?      @default("#8B5CF6")
+  primaryColor   String?        @default("#4F46E5")
+  secondaryColor String?        @default("#8B5CF6")
   upiId          String?
   upiNumber      String?
   upiQrUrl       String?
   instagramLink  String?
   locationDesc   String?
   whatsappNumber String?
+  announcements  Announcement[]
   attendances    Attendance[]
   auditLogs      AuditLog[]
   timings        GymTiming[]
@@ -227,4 +228,14 @@ enum PaymentStatus {
   SUCCESS
   PENDING
   FAILED
+}
+
+model Announcement {
+  id        String   @id @default(uuid())
+  gymId     String
+  content   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gym       Gym      @relation(fields: [gymId], references: [id], onDelete: Cascade)
 }

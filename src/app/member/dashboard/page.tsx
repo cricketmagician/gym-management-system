@@ -49,6 +49,11 @@ export default async function MemberDashboard() {
         take: 5
     });
 
+    const announcements = await prisma.announcement.findMany({
+        where: { gymId: user.gymId, isActive: true },
+        orderBy: { createdAt: 'desc' }
+    });
+
     return (
         <MemberDashboardClient 
             user={user}
@@ -57,6 +62,7 @@ export default async function MemberDashboard() {
             thisWeekAttendance={thisWeekAttendance}
             workoutCount={workoutCount}
             trainers={trainers}
+            announcements={announcements}
         />
     );
 }

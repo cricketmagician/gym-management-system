@@ -27,7 +27,8 @@ model Gym {
   instagramLink  String?
   locationDesc   String?
   whatsappNumber String?
-  attendances    Attendance[]
+  announcements    Announcement[]
+  attendances      Attendance[]
   auditLogs      AuditLog[]
   timings        GymTiming[]
   memberships    Membership[]
@@ -227,4 +228,14 @@ enum PaymentStatus {
   SUCCESS
   PENDING
   FAILED
+}
+
+model Announcement {
+  id        String   @id @default(uuid())
+  gymId     String
+  content   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gym       Gym      @relation(fields: [gymId], references: [id], onDelete: Cascade)
 }

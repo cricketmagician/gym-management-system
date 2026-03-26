@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2, MapPin, User as UserIcon } from 'lucide-react';
+import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2, MapPin, User as UserIcon, Volume2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { signOut } from 'next-auth/react';
 import { getDirectImageUrl } from '@/lib/image-utils';
@@ -14,6 +14,7 @@ interface MemberDashboardClientProps {
     thisWeekAttendance: number;
     workoutCount: number;
     trainers: any[];
+    announcements: any[];
 }
 
 function MetricCard({ 
@@ -86,7 +87,8 @@ export default function MemberDashboardClient({
     daysLeft, 
     thisWeekAttendance, 
     workoutCount, 
-    trainers 
+    trainers,
+    announcements
 }: MemberDashboardClientProps) {
     const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
 
@@ -352,6 +354,17 @@ export default function MemberDashboardClient({
                         .trainer-card:hover .trainer-img {
                             transform: scale(1.1);
                         }
+                        .marquee-content {
+                            display: flex;
+                            animation: marquee 30s linear infinite;
+                        }
+                        @keyframes marquee {
+                            0% { transform: translateX(0); }
+                            100% { transform: translateX(-50%); }
+                        }
+                        .marquee-container:hover .marquee-content {
+                            animation-play-state: paused;
+                        }
                     `}</style>
         
                     {/* Motivation Section */}
@@ -451,6 +464,53 @@ export default function MemberDashboardClient({
                             ))}
                         </div>
                     </section>
+
+                    {/* Announcement Marquee Section */}
+                    {announcements && announcements.length > 0 && (
+                        <section style={{ marginTop: '12px' }}>
+                            <div style={{ 
+                                background: 'rgba(245, 158, 11, 0.08)', 
+                                border: '1px solid rgba(245, 158, 11, 0.2)',
+                                borderRadius: '18px',
+                                padding: '12px 0',
+                                overflow: 'hidden',
+                                position: 'relative',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}>
+                                <div style={{ 
+                                    paddingLeft: '20px', 
+                                    paddingRight: '12px', 
+                                    borderRight: '1px solid rgba(245, 158, 11, 0.3)',
+                                    color: '#f59e0b',
+                                    zIndex: 2,
+                                    background: 'rgba(20, 20, 20, 0.9)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px'
+                                }}>
+                                    <Volume2 size={14} fill="#f59e0b" />
+                                    <span style={{ fontSize: '0.6rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Alert</span>
+                                </div>
+                                
+                                <div className="marquee-container" style={{ flex: 1, whiteSpace: 'nowrap', display: 'flex' }}>
+                                    <div className="marquee-content" style={{ display: 'flex', gap: '60px' }}>
+                                        {announcements.map((a: any) => (
+                                            <span key={a.id} style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>
+                                                {a.content}
+                                            </span>
+                                        ))}
+                                        {/* Duplicate for seamless scroll */}
+                                        {announcements.map((a: any) => (
+                                            <span key={`${a.id}-dup`} style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff', letterSpacing: '0.02em' }}>
+                                                {a.content}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    )}
                 </div>
             </div>
         </div>

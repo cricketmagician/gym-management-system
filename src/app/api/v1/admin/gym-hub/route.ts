@@ -14,7 +14,8 @@ export async function GET() {
             include: {
                 offers: { orderBy: { createdAt: 'desc' } },
                 services: { orderBy: { createdAt: 'asc' } },
-                timings: { orderBy: { orderIndex: 'asc' } }
+                timings: { orderBy: { orderIndex: 'asc' } },
+                announcements: { orderBy: { createdAt: 'desc' } }
             }
         });
         return NextResponse.json(gym);
@@ -54,6 +55,13 @@ export async function POST(req: Request) {
             return NextResponse.json(timing);
         }
 
+        if (type === 'announcement') {
+            const announcement = await prisma.announcement.create({
+                data: { ...body, gymId: admin.gymId }
+            });
+            return NextResponse.json(announcement);
+        }
+
         return NextResponse.json({ error: "Invalid type" }, { status: 400 });
     } catch (error) { return NextResponse.json({ error: "Server Error" }, { status: 500 }); }
 }
@@ -72,6 +80,7 @@ export async function DELETE(req: Request) {
         if (type === 'offer') await prisma.offer.delete({ where: { id } });
         else if (type === 'service') await prisma.service.delete({ where: { id } });
         else if (type === 'timing') await prisma.gymTiming.delete({ where: { id } });
+        else if (type === 'announcement') await prisma.announcement.delete({ where: { id } });
         else return NextResponse.json({ error: "Invalid type" }, { status: 400 });
 
         return NextResponse.json({ success: true });

@@ -279,6 +279,15 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   timestamp: 'timestamp'
 };
 
+exports.Prisma.AnnouncementScalarFieldEnum = {
+  id: 'id',
+  gymId: 'gymId',
+  content: 'content',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -337,7 +346,8 @@ exports.Prisma.ModelName = {
   Trainer: 'Trainer',
   Workout: 'Workout',
   WeightGoal: 'WeightGoal',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  Announcement: 'Announcement'
 };
 
 /**
