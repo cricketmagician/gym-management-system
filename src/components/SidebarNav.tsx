@@ -12,6 +12,7 @@ export default function SidebarNav({ role }: { role?: string }) {
         { name: 'Trainers', href: '/members/trainers', roles: ['ADMIN', 'STAFF'] },
         { name: 'Attendance', href: '/attendance', roles: ['ADMIN', 'STAFF'] },
         { name: 'Reports', href: '/reports', roles: ['ADMIN', 'STAFF'] },
+        { name: 'Gym Hub', href: '/admin/gym-hub', roles: ['ADMIN', 'STAFF'] },
         { name: 'Settings', href: '/settings', roles: ['ADMIN', 'STAFF'] },
     ];
 
@@ -84,6 +85,7 @@ export default function SidebarNav({ role }: { role?: string }) {
                                 {item.name === 'Trainers' && '👟'}
                                 {item.name === 'Attendance' && '✅'}
                                 {item.name === 'Reports' && '📊'}
+                                {item.name === 'Gym Hub' && '✨'}
                                 {item.name === 'Settings' && '⚙️'}
                             </span>
                             {item.name}

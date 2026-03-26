@@ -135,6 +135,43 @@ exports.Prisma.GymScalarFieldEnum = {
   upiNumber: 'upiNumber',
   upiQrUrl: 'upiQrUrl',
   fontFamily: 'fontFamily',
+  whatsappNumber: 'whatsappNumber',
+  instagramLink: 'instagramLink',
+  locationDesc: 'locationDesc',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OfferScalarFieldEnum = {
+  id: 'id',
+  gymId: 'gymId',
+  title: 'title',
+  description: 'description',
+  code: 'code',
+  color: 'color',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ServiceScalarFieldEnum = {
+  id: 'id',
+  gymId: 'gymId',
+  name: 'name',
+  description: 'description',
+  iconName: 'iconName',
+  priceLabel: 'priceLabel',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GymTimingScalarFieldEnum = {
+  id: 'id',
+  gymId: 'gymId',
+  dayRange: 'dayRange',
+  timeRange: 'timeRange',
+  orderIndex: 'orderIndex',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -288,6 +325,9 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
 
 exports.Prisma.ModelName = {
   Gym: 'Gym',
+  Offer: 'Offer',
+  Service: 'Service',
+  GymTiming: 'GymTiming',
   User: 'User',
   Plan: 'Plan',
   Membership: 'Membership',

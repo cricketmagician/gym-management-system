@@ -63,7 +63,7 @@ export default function MemberLayout({
                     {pathname === '/member/dashboard' && <div className="active-glow" />}
                 </Link>
                 <Link href="/member/exercises" className={`nav-item ${pathname === '/member/exercises' ? 'active' : ''}`}>
-                    <Sparkles size={22} className="nav-icon" />
+                    <Dumbbell size={22} className="nav-icon" />
                     <span className="nav-label">Gym Hub</span>
                     {pathname === '/member/exercises' && <div className="active-glow" />}
                 </Link>

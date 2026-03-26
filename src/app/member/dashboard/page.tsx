@@ -3,8 +3,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import Link from 'next/link';
-import { Calendar, Dumbbell, Target, Flame, ArrowRight, Zap, Trophy, TrendingUp } from 'lucide-react';
-import { startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
+import { Calendar, Dumbbell, Target, Flame, ArrowRight, Zap, Trophy, TrendingUp, QrCode } from 'lucide-react';
+import { startOfWeek, endOfWeek, isWithinInterval, format } from 'date-fns';
 
 export default async function MemberDashboard() {
     const session = await getServerSession(authOptions);
@@ -87,6 +87,52 @@ export default async function MemberDashboard() {
                 </div>
             </header>
 
+            {/* Quick QR Check-in Card */}
+            <Link href="/member/checkin" style={{ textDecoration: 'none' }}>
+                <div className="card" style={{ 
+                    padding: '24px', 
+                    background: 'linear-gradient(135deg, #111 0%, #000 100%)', 
+                    borderRadius: '24px', 
+                    border: '1px solid rgba(45, 212, 191, 0.2)', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    boxShadow: '0 15px 30px rgba(0,0,0,0.2)'
+                }}>
+                    <div style={{ position: 'absolute', top: '-50%', left: '-10%', width: '120px', height: '120px', background: 'rgba(45, 212, 191, 0.08)', filter: 'blur(40px)', borderRadius: '50%' }}></div>
+                    
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px', position: 'relative' }}>
+                        <div style={{ 
+                            padding: '12px', 
+                            background: 'rgba(45, 212, 191, 0.15)', 
+                            borderRadius: '16px', 
+                            color: '#2dd4bf',
+                            boxShadow: '0 8px 16px rgba(45, 212, 191, 0.1)'
+                        }}>
+                            <QrCode size={28} />
+                        </div>
+                        <div>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 900, color: '#fff', marginBottom: '2px' }}>Check-in Now</h3>
+                            <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'rgba(255,255,255,0.4)' }}>Scan QR to mark attendance</p>
+                        </div>
+                    </div>
+                    
+                    <div style={{ 
+                        width: '40px', 
+                        height: '40px', 
+                        borderRadius: '50%', 
+                        background: 'rgba(255,255,255,0.05)', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        color: 'rgba(255,255,255,0.3)'
+                    }}>
+                        <ArrowRight size={20} />
+                    </div>
+                </div>
+            </Link>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
                 {/* Membership Card - Premium Amber Orange */}
                 <div className="card" style={{ 
@@ -112,13 +158,24 @@ export default async function MemberDashboard() {
                         <p style={{ fontSize: '1rem', fontWeight: 700, opacity: 0.9 }}>DAYS REMAINING</p>
                     </div>
 
-                    <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.2)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                         <div>
-                            <p style={{ fontSize: '0.65rem', fontWeight: 700, opacity: 0.7 }}>PLAN</p>
-                            <p style={{ fontSize: '0.875rem', fontWeight: 800 }}>{activeMembership?.plan.name || 'No Active Plan'}</p>
+                            <p style={{ fontSize: '0.6rem', fontWeight: 700, opacity: 0.6, textTransform: 'uppercase' }}>Current Plan</p>
+                            <p style={{ fontSize: '0.85rem', fontWeight: 800 }}>{activeMembership?.plan.name || 'No Active Plan'}</p>
                         </div>
-                        <Link href="/member/attendance" style={{ background: '#fff', color: '#000', padding: '10px 20px', borderRadius: '14px', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            View Schedule <ArrowRight size={16} />
+                        <div style={{ textAlign: 'right' }}>
+                            <p style={{ fontSize: '0.6rem', fontWeight: 700, opacity: 0.6, textTransform: 'uppercase' }}>Valid Until</p>
+                            <p style={{ fontSize: '0.85rem', fontWeight: 800 }}>{activeMembership ? format(new Date(activeMembership.endDate), 'dd MMM yyyy') : '--'}</p>
+                        </div>
+                    </div>
+                    
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.1)', padding: '12px 20px', borderRadius: '16px', margin: '0 -12px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                            <p style={{ fontSize: '0.55rem', fontWeight: 700, opacity: 0.5 }}>JOINED ON</p>
+                            <p style={{ fontSize: '0.75rem', fontWeight: 700 }}>{activeMembership ? format(new Date(activeMembership.startDate), 'dd MMM yyyy') : '--'}</p>
+                        </div>
+                        <Link href="/member/attendance" style={{ background: '#fff', color: '#000', padding: '8px 16px', borderRadius: '12px', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            View All <ArrowRight size={14} />
                         </Link>
                     </div>
                 </div>

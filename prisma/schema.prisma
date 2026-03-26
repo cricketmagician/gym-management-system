@@ -25,6 +25,11 @@ model Gym {
   upiQrUrl       String?      // URL to the UPI QR code image
   fontFamily     String?      @default("'Inter', sans-serif")
   
+  // Custom Dynamic Content
+  whatsappNumber String?      
+  instagramLink  String?      
+  locationDesc   String?      @db.Text
+
   users         User[]
   memberships   Membership[]
   attendances   Attendance[]
@@ -33,9 +38,56 @@ model Gym {
   weightGoals   WeightGoal[]
   payments      Payment[]
   auditLogs     AuditLog[]
+
+  offers        Offer[]
+  services      Service[]
+  timings       GymTiming[]
   
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
+}
+
+model Offer {
+  id          String   @id @default(uuid())
+  gymId       String
+  title       String
+  description String   @db.Text
+  code        String?
+  color       String   @default("#f59e0b")
+  isActive    Boolean  @default(true)
+  
+  gym         Gym      @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  gymId       String
+  name        String
+  description String   @db.Text
+  iconName    String   @default("Zap")
+  priceLabel  String?  // e.g., "₹4999/mo"
+  isActive    Boolean  @default(true)
+  
+  gym         Gym      @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GymTiming {
+  id          String   @id @default(uuid())
+  gymId       String
+  dayRange    String   // e.g., "Mon - Fri"
+  timeRange   String   // e.g., "06:00 AM - 10:00 PM"
+  orderIndex  Int      @default(0)
+  
+  gym         Gym      @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 enum Role {
