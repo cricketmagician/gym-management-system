@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import SidebarNav from '@/components/SidebarNav';
+import Footer from '@/components/Footer';
 import { headers } from 'next/headers';
 import prisma from "@/lib/prisma";
 
@@ -73,7 +74,10 @@ export default async function RootLayout({
                     <style dangerouslySetInnerHTML={{ __html: dynamicStyles }} />
                 </head>
                 <body>
-                    <main>{children}</main>
+                    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+                        {children}
+                        <Footer gymName={branding.name} />
+                    </main>
                 </body>
             </html>
         );
@@ -115,8 +119,11 @@ export default async function RootLayout({
                             )}
                         </div>
                     </aside>
-                    <main className="main-content">
-                        {children}
+                     <main className="main-content" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                        <div style={{ flex: 1 }}>
+                            {children}
+                        </div>
+                        <Footer gymName={branding.name} />
                     </main>
                 </div>
             </body>
