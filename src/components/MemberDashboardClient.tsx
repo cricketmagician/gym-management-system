@@ -455,31 +455,27 @@ export default function MemberDashboardClient({
                         {/* Quick Scan Entry moved to top row */}
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
-                        <div style={{ gridColumn: 'span 2' }}>
-                            <MetricCard 
-                                title="Attendance" 
-                                value={thisWeekAttendance} 
-                                unit="Days this week" 
-                                icon={<Timer size={18} />} 
-                                color="#2dd4bf" 
-                                href="/member/attendance" 
-                                variant="black"
-                            />
-                        </div>
-                        <div style={{ gridColumn: 'span 2' }}>
-                            <MetricCard 
-                                title="Workout Session" 
-                                value={workoutCount} 
-                                unit="Sessions" 
-                                icon={<Activity size={18} />} 
-                                color="#fb923c" 
-                                href="/member/workouts" 
-                            />
-                        </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+                        <MetricCard 
+                            title="Attendance" 
+                            value={thisWeekAttendance} 
+                            unit="Days this week" 
+                            icon={<Timer size={18} />} 
+                            color="#2dd4bf" 
+                            href="/member/attendance" 
+                            variant="black"
+                        />
+                        <MetricCard 
+                            title="Workout Session" 
+                            value={workoutCount} 
+                            unit="Sessions" 
+                            icon={<Activity size={18} />} 
+                            color="#fb923c" 
+                            href="/member/workouts" 
+                        />
 
-                        {/* Row 2: Half-size Get App + New Share Card, and Full-size Quick Connect */}
-                        <div style={{ gridColumn: 'span 1' }}>
+                        {/* Row 2: Left column with 2 stacked compact cards, Right column with Quick Connect */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <MetricCard 
                                 title="App Experience" 
                                 value="Get App" 
@@ -490,8 +486,6 @@ export default function MemberDashboardClient({
                                 variant="white"
                                 compact={true}
                             />
-                        </div>
-                        <div style={{ gridColumn: 'span 1' }}>
                             <MetricCard 
                                 title="Profile" 
                                 value="Share" 
@@ -514,17 +508,16 @@ export default function MemberDashboardClient({
                                 compact={true}
                             />
                         </div>
-                        <div style={{ gridColumn: 'span 2' }}>
-                            <MetricCard 
-                                title="Gym Access" 
-                                value="Quick Connect" 
-                                unit="Wifi, WhatsApp & More" 
-                                icon={<Zap size={20} />} 
-                                color="#fff" 
-                                onClick={() => setIsQuickConnectOpen(true)}
-                                variant="orange"
-                            />
-                        </div>
+                        
+                        <MetricCard 
+                            title="Gym Access" 
+                            value="Quick Connect" 
+                            unit="Wifi, WhatsApp & More" 
+                            icon={<Zap size={20} />} 
+                            color="#fff" 
+                            onClick={() => setIsQuickConnectOpen(true)}
+                            variant="orange"
+                        />
                     </div>
 
                     <style jsx>{`
