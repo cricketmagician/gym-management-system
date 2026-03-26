@@ -49,6 +49,7 @@ export async function PATCH(req: Request) {
                 whatsappNumber: body.whatsappNumber,
                 instagramLink: body.instagramLink,
                 locationDesc: body.locationDesc,
+                bannerUrl: body.bannerUrl,
             }
         });
 

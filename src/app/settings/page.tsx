@@ -110,6 +110,20 @@ export default function SettingsPage() {
                             />
                         </div>
 
+                        <div>
+                            <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, color: '#aaa', textTransform: 'uppercase', marginBottom: '6px' }}>Dashboard Banner URL</label>
+                            <input 
+                                type="url" 
+                                value={gym.bannerUrl || ''}
+                                onChange={(e) => setGym({...gym, bannerUrl: e.target.value})}
+                                placeholder="https://images.unsplash.com/your-gym-photo"
+                                style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--surface-color)', fontWeight: 600 }}
+                            />
+                            {gym.bannerUrl && (
+                                <img src={gym.bannerUrl} alt="Preview" style={{ width: '100%', height: '80px', objectFit: 'cover', borderRadius: '12px', marginTop: '8px', border: '1px solid #eee' }} />
+                            )}
+                        </div>
+
                         <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '8px 0' }} />
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>

@@ -55,34 +55,53 @@ export default async function MemberDashboard() {
     const darkPeach = '#FF8B7A';
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 0' }}>
-            {/* Header / Hero Banner (Mini) */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '0 0 20px 0' }}>
+            {/* Full-Bleed Premium Brand Banner */}
             <header style={{ 
-                padding: '24px 32px', 
-                background: '#000', 
-                borderRadius: '20px', 
-                color: '#fff', 
+                width: '100%',
+                height: '180px', 
                 position: 'relative', 
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
-                minHeight: '130px'
+                justifyContent: 'flex-end',
+                padding: '24px 20px',
+                background: '#111'
             }}>
-                <div style={{ position: 'absolute', top: '-40%', right: '-10%', width: '250px', height: '250px', background: 'rgba(245, 158, 11, 0.12)', filter: 'blur(70px)', borderRadius: '50%' }}></div>
+                {/* Background Image */}
+                <div style={{ 
+                    position: 'absolute', 
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundImage: `url(${user.gym?.bannerUrl || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop'})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    opacity: 0.6
+                }}></div>
                 
+                {/* Gradient Overlay for Readability */}
+                <div style={{ 
+                    position: 'absolute', 
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)'
+                }}></div>
+
+                {/* Content Overlay */}
                 <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                        <div style={{ padding: '4px 12px', background: '#f59e0b', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            <Zap size={10} color="#000" fill="#000" />
-                            <span style={{ fontSize: '0.6rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#000' }}>Priority Pass</span>
-                        </div>
+                         <div style={{ width: '8px', height: '8px', background: '#f59e0b', borderRadius: '50%' }}></div>
+                         <span style={{ fontSize: '0.65rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.6)' }}>{user.gym?.name || 'PULSEFIT'}</span>
                     </div>
-                    <h1 style={{ fontSize: '2.25rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1 }}>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, color: '#fff' }}>
                         Hi {user.name.split(' ')[0].toUpperCase()},
                     </h1>
-                    <p style={{ marginTop: '6px', color: 'rgba(255,255,255,0.4)', fontWeight: 500, fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        Ready to crush it today? <span style={{ fontSize: '1rem' }}>🚀</span>
+                    <p style={{ marginTop: '4px', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '0.85rem' }}>
+                        Ready for your session? 🚀
                     </p>
                 </div>
             </header>
