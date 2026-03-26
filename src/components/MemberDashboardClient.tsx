@@ -145,6 +145,10 @@ export default function MemberDashboardClient({
             )}
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '0 0 110px 0', position: 'relative', zIndex: 1 }} className="member-dashboard">
+                {/* Motivational Watermark Background */}
+                <div className="watermark-text">
+                    PULSE<br />FIT<br />GO<br />GYM
+                </div>
 
                 {/* Full-Bleed Premium Brand Banner */}
                 <header style={{ 

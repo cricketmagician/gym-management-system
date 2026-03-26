@@ -209,6 +209,14 @@ table {
     }
 }
 
+.dark .watermark-text {
+    color: rgba(255, 255, 255, 0.02);
+}
+
+.light .watermark-text {
+    color: rgba(0, 0, 0, 0.03);
+}
+
 .glass-card {
     background: var(--glass-bg, rgba(255, 255, 255, 0.4));
     backdrop-filter: blur(12px);
