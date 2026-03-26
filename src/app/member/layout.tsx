@@ -47,10 +47,14 @@ export default function MemberLayout({
         <div className={`member-bg ${theme}`} style={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
             {/* Minimalist Aesthetic Watermark */}
             <div className="watermark-text">
-                PULSE FIT<br /><br /><br />
-                GO GYM<br /><br /><br />
-                FOCUS TRAIN<br /><br /><br />
-                STAY HARD<br /><br /><br />
+                PULSE FIT<br />
+                GO GYM<br />
+                FOCUS TRAIN<br />
+                STAY HARD<br />
+                BE STRONG<br />
+                PUSH LIMITS<br />
+                NO EXCUSE<br />
+                LETS GO<br />
                 PULSE FIT
             </div>
             
