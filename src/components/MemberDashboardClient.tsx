@@ -290,8 +290,8 @@ export default function MemberDashboardClient({
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
-                        <MetricCard title="This Week" value={thisWeekAttendance} unit="Days" icon={<Timer size={18} />} color="#2dd4bf" href="/member/attendance" />
-                        <MetricCard title="Workout history" value={workoutCount} unit="Sess" icon={<Activity size={18} />} color="#fb923c" href="/member/workouts" />
+                        <MetricCard title="Attendance" value={thisWeekAttendance} unit="Days" icon={<Timer size={18} />} color="#2dd4bf" href="/member/attendance" />
+                        <MetricCard title="Workout Session" value={workoutCount} unit="Sess" icon={<Activity size={18} />} color="#fb923c" href="/member/workouts" />
                     </div>
 
                     <style jsx>{`
@@ -350,6 +350,7 @@ export default function MemberDashboardClient({
                                         position: 'relative',
                                         borderRadius: '24px',
                                         overflow: 'hidden',
+                                        border: '1px solid var(--border-color)',
                                         boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
                                         cursor: 'pointer'
                                     }}>
@@ -362,6 +363,7 @@ export default function MemberDashboardClient({
                                                 width: '100%', 
                                                 height: '100%', 
                                                 objectFit: 'cover',
+                                                borderRadius: '24px', // Double down on rounding for the image itself
                                                 transition: 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)' 
                                             }} 
                                         />
