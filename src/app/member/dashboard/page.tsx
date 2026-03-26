@@ -56,32 +56,32 @@ export default async function MemberDashboard() {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 0' }}>
-            {/* Header / Hero Banner */}
+            {/* Header / Hero Banner (Mini) */}
             <header style={{ 
-                padding: '32px 48px', 
+                padding: '24px 32px', 
                 background: '#000', 
-                borderRadius: '24px', 
+                borderRadius: '20px', 
                 color: '#fff', 
                 position: 'relative', 
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                minHeight: '160px'
+                minHeight: '130px'
             }}>
-                <div style={{ position: 'absolute', top: '-20%', right: '-5%', width: '300px', height: '300px', background: 'rgba(245, 158, 11, 0.15)', filter: 'blur(80px)', borderRadius: '50%' }}></div>
+                <div style={{ position: 'absolute', top: '-40%', right: '-10%', width: '250px', height: '250px', background: 'rgba(245, 158, 11, 0.12)', filter: 'blur(70px)', borderRadius: '50%' }}></div>
                 
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                        <div style={{ padding: '4px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <Zap size={12} color="#f59e0b" />
-                            <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Priority Access</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                        <div style={{ padding: '3px 10px', background: 'rgba(255,255,255,0.08)', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <Zap size={10} color="#f59e0b" />
+                            <span style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Priority Pass</span>
                         </div>
                     </div>
-                    <h1 style={{ fontSize: '3rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1 }}>
+                    <h1 style={{ fontSize: '2.25rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1 }}>
                         HEY, {user.name.split(' ')[0].toUpperCase()}! 🚀
                     </h1>
-                    <p style={{ marginTop: '8px', color: 'rgba(255,255,255,0.5)', fontWeight: 500, fontSize: '0.95rem' }}>Ready to crush your workout today?</p>
+                    <p style={{ marginTop: '4px', color: 'rgba(255,255,255,0.4)', fontWeight: 500, fontSize: '0.85rem' }}>Ready to crush it today?</p>
                 </div>
             </header>
 
