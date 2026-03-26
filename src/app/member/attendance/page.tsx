@@ -32,22 +32,22 @@ export default async function MemberAttendancePage() {
 
             {/* Frequency Stats Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <StatCard title="This Week" value={thisWeek} icon={<Zap size={18} />} color="#2dd4bf" />
-                <StatCard title="This Month" value={thisMonth} icon={<Calendar size={18} />} color="#fb923c" />
-                <StatCard title="Total Year" value={thisYear} icon={<TrendingUp size={18} />} color="#818cf8" span />
+                <StatCard title="This Week" value={thisWeek} icon={<Zap size={18} />} color="#fbbf24" />
+                <StatCard title="This Month" value={thisMonth} icon={<Calendar size={18} />} color="#f59e0b" />
+                <StatCard title="Total Year" value={thisYear} icon={<TrendingUp size={18} />} color="#fbbf24" span />
             </div>
 
             {/* Interactive Calendar */}
             <AttendanceCalendar attendanceDates={attendanceDates} />
 
             {/* Achievement Badge */}
-            <div className="glass-card" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px', background: 'linear-gradient(135deg, rgba(45,212,191,0.1) 0%, rgba(13,148,136,0.1) 100%)' }}>
-                <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#000', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Award size={28} color="#2dd4bf" />
+            <div className="glass-card" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px', background: '#000', color: '#fff' }}>
+                <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Award size={28} />
                 </div>
                 <div>
                     <h3 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '2px' }}>Consistency King</h3>
-                    <p style={{ fontSize: '0.8125rem', color: '#666' }}>You've attended {thisMonth} days this month. Keep it up!</p>
+                    <p style={{ fontSize: '0.8125rem', color: '#888' }}>You've attended {thisMonth} days this month. Keep it up!</p>
                 </div>
             </div>
         </div>
