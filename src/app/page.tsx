@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Search, Plus, TrendingUp, Users, AlertCircle, TrendingDown, Clock } from 'lucide-react';
+import AdminLogoutButton from '@/components/AdminLogoutButton';
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
 import { getServerSession } from "next-auth";
@@ -69,7 +70,8 @@ export default async function DashboardPage() {
                         <h1 style={{ fontSize: '2.25rem', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', lineHeight: 1 }}>Command Center</h1>
                         <p style={{ color: '#666', marginTop: '8px', fontSize: '0.9375rem', fontWeight: 500 }}>Live gym operations and member activity.</p>
                     </div>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <AdminLogoutButton />
                         <AdminQrControl gymId={gymId} />
                     </div>
                 </div>

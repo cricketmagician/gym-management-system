@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import QRCode from "react-qr-code";
 import { Download, Save, Instagram, Phone, MapPin, Globe, Loader2, CheckCircle2, Building, QrCode as QrIcon } from 'lucide-react';
+import { getDirectImageUrl } from '@/lib/image-utils';
 
 export default function SettingsPage() {
     const [gym, setGym] = useState<any>(null);
@@ -120,7 +121,7 @@ export default function SettingsPage() {
                                 style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--surface-color)', fontWeight: 600 }}
                             />
                             {gym.bannerUrl && (
-                                <img src={gym.bannerUrl} alt="Preview" style={{ width: '100%', height: '80px', objectFit: 'cover', borderRadius: '12px', marginTop: '8px', border: '1px solid #eee' }} />
+                                <img src={getDirectImageUrl(gym.bannerUrl)} alt="Preview" style={{ width: '100%', height: '80px', objectFit: 'cover', borderRadius: '12px', marginTop: '8px', border: '1px solid #eee' }} />
                             )}
                         </div>
 

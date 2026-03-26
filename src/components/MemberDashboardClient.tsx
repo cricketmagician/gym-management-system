@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles } from 'lucide-react';
+import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut } from 'lucide-react';
 import { format } from 'date-fns';
+import { signOut } from 'next-auth/react';
+import { getDirectImageUrl } from '@/lib/image-utils';
 
 interface MemberDashboardClientProps {
     user: any;
@@ -23,6 +25,7 @@ export default function MemberDashboardClient({
     trainers 
 }: MemberDashboardClientProps) {
     const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
     const handleWhatsApp = () => {
         const adminPhone = (user.gym?.whatsappNumber || '').replace(/\D/g, '');
@@ -115,17 +118,25 @@ export default function MemberDashboardClient({
                     background: '#000'
                 }}>
                     <img 
-                        src={user.gym?.bannerUrl || "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop"} 
+                        src={getDirectImageUrl(user.gym?.bannerUrl) || "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop"} 
                         alt="Gym Banner" 
                         style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }}
                     />
                     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8))' }} />
                     <div style={{ position: 'absolute', bottom: '32px', left: '24px', right: '24px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                            <div style={{ padding: '6px', background: 'var(--brand-primary)', borderRadius: '8px' }}>
-                                <Zap size={16} color="#fff" />
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                                <div style={{ padding: '6px', background: 'var(--brand-primary)', borderRadius: '8px' }}>
+                                    <Zap size={16} color="#fff" />
+                                </div>
+                                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Portal</span>
                             </div>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Member Portal</span>
+                            <button 
+                                onClick={() => setIsLogoutModalOpen(true)}
+                                style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '10px 16px', borderRadius: '14px', fontSize: '0.75rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                            >
+                                <LogOut size={16} /> LOGOUT
+                            </button>
                         </div>
                         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>{user.gym?.name || 'PulseFit'}</h1>
                         <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9375rem', fontWeight: 500, marginTop: '4px' }}>Welcome back, {user.name.split(' ')[0]}!</p>
