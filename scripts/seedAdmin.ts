@@ -48,16 +48,25 @@ async function main() {
 
         console.log('Upserted Admin:', admin.email);
 
-        // 3. Create a Plan
-        const plan = await prisma.plan.upsert({
-            where: { name: 'Standard Monthly' },
-            update: { durationDays: 30 },
-            create: {
-                name: 'Standard Monthly',
-                durationDays: 30,
-            }
-        });
-        console.log('Created Plan:', plan.name);
+        // 3. Create Default Plans
+        const defaultPlans = [
+            { name: 'Standard Monthly', days: 30 },
+            { name: 'Standard Quarterly', days: 90 },
+            { name: 'Standard Half-Yearly', days: 180 },
+            { name: 'Standard Yearly', days: 365 },
+        ];
+
+        for (const p of defaultPlans) {
+            const plan = await prisma.plan.upsert({
+                where: { name: p.name },
+                update: { durationDays: p.days },
+                create: {
+                    name: p.name,
+                    durationDays: p.days,
+                }
+            });
+            console.log('Upserted Plan:', plan.name);
+        }
     } catch (e: any) {
         console.error("SEED ERROR:", e.message);
         if (e.cause) console.error("CAUSE:", JSON.stringify(e.cause, null, 2));
