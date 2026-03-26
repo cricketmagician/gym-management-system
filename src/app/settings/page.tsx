@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import QRCode from "react-qr-code";
 import { Download, Save, Instagram, Phone, MapPin, Globe, Loader2, CheckCircle2, Building, QrCode as QrIcon } from 'lucide-react';
 import { getDirectImageUrl } from '@/lib/image-utils';
+import UPIQRCode from '@/components/UPIQRCode';
 
 export default function SettingsPage() {
     const [gym, setGym] = useState<any>(null);
@@ -156,6 +157,41 @@ export default function SettingsPage() {
                                 />
                             </div>
                         </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                            <div>
+                                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
+                                    Merchant UPI ID
+                                </label>
+                                <input 
+                                    type="text" 
+                                    value={gym.upiId || ''}
+                                    onChange={(e) => setGym({...gym, upiId: e.target.value})}
+                                    style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
+                                    placeholder="yourgym@upi"
+                                />
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
+                                    UPI Phone / Number
+                                </label>
+                                <input 
+                                    type="text" 
+                                    value={gym.upiNumber || ''}
+                                    onChange={(e) => setGym({...gym, upiNumber: e.target.value})}
+                                    style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600, fontSize: '1rem' }}
+                                    placeholder="9876543210"
+                                />
+                            </div>
+                        </div>
+
+                        {gym.upiId && (
+                            <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', padding: '32px', background: 'rgba(0,0,0,0.02)', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
+                                <p style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Global Payment QR Preview</p>
+                                <UPIQRCode upiId={gym.upiId} gymName={gym.name} />
+                                <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, opacity: 0.7 }}>This QR code will be dynamically generated for all member renewal reminders.</p>
+                            </div>
+                        )}
 
                         <button 
                             type="submit" 

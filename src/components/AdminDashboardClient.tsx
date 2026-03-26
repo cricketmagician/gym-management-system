@@ -54,7 +54,23 @@ export default function AdminDashboardClient({
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        <div style={{ position: 'relative', minHeight: '100%' }}>
+            {/* Holographic Watermark Background */}
+            <div className="watermark-text" style={{ 
+                position: 'fixed', 
+                top: '10vh', 
+                left: '20%', 
+                fontSize: '15rem', 
+                opacity: 0.03, 
+                pointerEvents: 'none', 
+                zIndex: 0,
+                fontWeight: 950,
+                lineHeight: 0.8
+            }}>
+                COMMAND<br />CENTER
+            </div>
+
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Metric Grid */}
             <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
                 <MetricCard 
@@ -252,51 +268,63 @@ export default function AdminDashboardClient({
                 </div>
             )}
         </div>
+        </div>
     );
 }
 
 function MetricCard({ title, value, icon, subtitle, glowColor, isInteractive = false }: { title: string, value: string | number, icon: React.ReactNode, subtitle: string, glowColor: string, isInteractive?: boolean }) {
+    const brandColor = glowColor.replace('0.2', '1');
     return (
-        <div className="card" style={{ 
+        <div className="card scale-hover" style={{ 
             padding: '24px', 
             borderRadius: '24px',
             background: 'var(--surface-color)',
-            border: isInteractive ? '2px solid rgba(255,255,255,0.1)' : '1px solid var(--border-color)',
+            border: isInteractive ? `2px solid ${brandColor}` : '1px solid var(--border-color)',
             display: 'flex', 
             flexDirection: 'column', 
             gap: '16px',
             position: 'relative',
             overflow: 'hidden',
-            transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
-            transform: isInteractive ? 'translateY(0)' : 'none'
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            boxShadow: `0 20px 40px -20px ${glowColor.replace('0.2', '0.5')}, 0 0 15px -5px ${glowColor.replace('0.2', '0.1')}`,
+            cursor: isInteractive ? 'pointer' : 'default'
         }}>
             <div style={{ 
                 position: 'absolute', 
                 top: '-20px', 
                 right: '-20px', 
-                width: '100px', 
-                height: '100px', 
+                width: '120px', 
+                height: '120px', 
                 background: glowColor, 
                 borderRadius: '50%', 
                 filter: 'blur(35px)',
-                opacity: 0.6
+                opacity: 0.7
             }}></div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
-                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(var(--brand-primary-rgb, 45, 212, 191), 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-primary)' }}>
+                <div style={{ 
+                    width: '48px', 
+                    height: '48px', 
+                    borderRadius: '14px', 
+                    background: glowColor, 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    color: brandColor 
+                }}>
                     {icon}
                 </div>
                 {isInteractive && (
-                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '4px 8px', borderRadius: '6px', fontSize: '0.6rem', fontWeight: 800, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '6px 10px', borderRadius: '8px', fontSize: '0.65rem', fontWeight: 900, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         Details →
                     </div>
                 )}
             </div>
             
             <div style={{ position: 'relative', zIndex: 1 }}>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>{title}</p>
-                <h3 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.04em', color: 'var(--text-primary)', lineHeight: 1 }}>{value}</h3>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500, opacity: 0.8 }}>{subtitle}</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>{title}</p>
+                <h3 style={{ fontSize: '2.75rem', fontWeight: 950, marginBottom: '4px', letterSpacing: '-0.05em', color: 'var(--text-primary)', lineHeight: 1 }}>{value}</h3>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, opacity: 0.7 }}>{subtitle}</p>
             </div>
         </div>
     );

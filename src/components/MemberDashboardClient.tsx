@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2, MapPin, User as UserIcon, Volume2 } from 'lucide-react';
+import { Calendar, Dumbbell, ArrowRight, Zap, Trophy, TrendingUp, Sparkles, LogOut, QrCode, Camera, Timer, Activity, CheckCircle2, MapPin, User as UserIcon, Volume2, Smartphone, Share, PlusSquare } from 'lucide-react';
 import { format } from 'date-fns';
 import { signOut } from 'next-auth/react';
 import { getDirectImageUrl } from '@/lib/image-utils';
@@ -24,6 +24,7 @@ function MetricCard({
     icon, 
     color, 
     href,
+    onClick,
     variant = 'default' 
 }: { 
     title: string, 
@@ -32,6 +33,7 @@ function MetricCard({
     icon: React.ReactNode, 
     color: string, 
     href?: string,
+    onClick?: () => void,
     variant?: 'default' | 'black'
 }) {
     const isBlack = variant === 'black';
@@ -48,11 +50,13 @@ function MetricCard({
             position: 'relative',
             overflow: 'hidden',
             transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
-            cursor: href ? 'pointer' : 'default',
+            cursor: (href || onClick) ? 'pointer' : 'default',
             boxShadow: isBlack 
                 ? '0 10px 30px rgba(0,0,0,0.3)' 
                 : `0 10px 30px -10px rgba(0,0,0,0.1), 0 0 20px -5px ${color}20`
-        }}>
+        }}
+        onClick={onClick}
+        >
             <div style={{ display: 'flex', justifyContent: 'space-between', color: color }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>{title}</span>
                 <div style={{ padding: '8px', background: isBlack ? 'rgba(255,255,255,0.1)' : `${color}10`, borderRadius: '10px' }}>
@@ -64,7 +68,7 @@ function MetricCard({
                 <p style={{ fontSize: '0.75rem', color: isBlack ? 'rgba(255,255,255,0.5)' : 'var(--text-secondary)', fontWeight: 600, marginTop: '4px' }}>{unit}</p>
             </div>
             {/* Glossy overlay effect for interactivity */}
-            {href && <div className="card-gloss" />}
+            {(href || onClick) && <div className="card-gloss" />}
         </div>
     );
 
@@ -91,6 +95,7 @@ export default function MemberDashboardClient({
     announcements
 }: MemberDashboardClientProps) {
     const [isRenewModalOpen, setIsRenewModalOpen] = useState(false);
+    const [isA2HSOpen, setIsA2HSOpen] = useState(false);
 
     const handleWhatsApp = () => {
         const adminPhone = (user.gym?.whatsappNumber || '').replace(/\D/g, '');
@@ -162,6 +167,61 @@ export default function MemberDashboardClient({
                                 Not now
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Add to Home Screen Modal */}
+            {isA2HSOpen && (
+                <div style={{ position: 'fixed', inset: 0, zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+                    <div 
+                        onClick={() => setIsA2HSOpen(false)} 
+                        style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(10px)' }} 
+                    />
+                    <div style={{ 
+                        position: 'relative', 
+                        width: '100%', 
+                        maxWidth: '420px', 
+                        background: '#fff', 
+                        borderRadius: '32px', 
+                        padding: '32px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '24px',
+                        animation: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        color: '#000'
+                    }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '16px' }}>
+                            <div style={{ width: '64px', height: '64px', background: 'rgba(139, 92, 246, 0.1)', color: '#8b5cf6', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Smartphone size={32} />
+                            </div>
+                            <div>
+                                <h2 style={{ fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.02em' }}>Install PulseFit App</h2>
+                                <p style={{ color: '#666', fontSize: '0.9375rem', marginTop: '4px', fontWeight: 600 }}>Get the premium app experience!</p>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', background: '#f8fafc', padding: '16px', borderRadius: '20px', border: '1px solid #f1f5f9' }}>
+                                <div style={{ width: '32px', height: '32px', background: '#000', color: '#fff', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                    <Share size={16} />
+                                </div>
+                                <p style={{ fontSize: '0.875rem', fontWeight: 600 }}>1. Tap the <span style={{ fontWeight: 800 }}>'Share'</span> button in your browser.</p>
+                            </div>
+                            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', background: '#f8fafc', padding: '16px', borderRadius: '20px', border: '1px solid #f1f5f9' }}>
+                                <div style={{ width: '32px', height: '32px', background: '#000', color: '#fff', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                    <PlusSquare size={16} />
+                                </div>
+                                <p style={{ fontSize: '0.875rem', fontWeight: 600 }}>2. Scroll down and tap <span style={{ fontWeight: 800 }}>'Add to Home Screen'</span>.</p>
+                            </div>
+                        </div>
+
+                        <button 
+                            onClick={() => setIsA2HSOpen(false)}
+                            style={{ width: '100%', padding: '18px', background: '#000', color: '#fff', border: 'none', borderRadius: '18px', fontWeight: 900, fontSize: '1rem', cursor: 'pointer', boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }}
+                        >
+                            UNDERSTOOD
+                        </button>
                     </div>
                 </div>
             )}
@@ -367,6 +427,14 @@ export default function MemberDashboardClient({
                             icon={<Activity size={18} />} 
                             color="#fb923c" 
                             href="/member/workouts" 
+                        />
+                        <MetricCard 
+                            title="App Experience" 
+                            value={0} 
+                            unit="Add to Home" 
+                            icon={<Smartphone size={18} />} 
+                            color="#8b5cf6" 
+                            onClick={() => setIsA2HSOpen(true)}
                         />
                     </div>
 

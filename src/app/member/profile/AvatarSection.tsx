@@ -156,7 +156,7 @@ export default function AvatarSection({ initialPhotoUrl, userName }: AvatarSecti
                     <div>
                         <h3 className="font-premium" style={{ fontSize: '1.75rem', fontWeight: 900, marginBottom: '8px' }}>Update Photo</h3>
                         <p style={{ fontSize: '0.9375rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
-                            Choose a cartoon avatar or paste a link.
+                            Choose a premium avatar or paste a link.
                         </p>
                     </div>
                     <button 

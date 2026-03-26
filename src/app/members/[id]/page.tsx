@@ -11,7 +11,6 @@ import RenewButton from './RenewButton';
 import EditMemberModal from './EditMemberModal';
 import { formatMemberDate, formatCheckinTime } from '@/lib/date-utils';
 import WhatsAppReminder from './WhatsAppReminder';
-import GymPaymentSettings from './GymPaymentSettings';
 
 export default async function MemberDetailsPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -188,16 +187,6 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
                             </div>
                         </div>
                     </div>
-
-                    {/* Admin Only: Payment Settings */}
-                    {isAdmin && (
-                        <GymPaymentSettings 
-                            gymId={user.gymId}
-                            gymName={user.gym.name}
-                            initialUpiId={user.gym.upiId || ''}
-                            initialUpiNumber={user.gym.upiNumber || ''}
-                        />
-                    )}
                 </div>
             </div>
         </div>

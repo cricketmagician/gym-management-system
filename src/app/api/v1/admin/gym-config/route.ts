@@ -50,6 +50,8 @@ export async function PATCH(req: Request) {
                 instagramLink: body.instagramLink,
                 locationDesc: body.locationDesc,
                 bannerUrl: body.bannerUrl,
+                upiId: body.upiId,
+                upiNumber: body.upiNumber,
             }
         });
 

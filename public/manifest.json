@@ -1,0 +1,21 @@
+{
+  "name": "PulseFit Gym",
+  "short_name": "PulseFit",
+  "description": "Your premium fitness companion.",
+  "start_url": "/member",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

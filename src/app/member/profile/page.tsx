@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 import { User, Shield, CreditCard, Bell, LogOut, ChevronRight, Settings, HelpCircle } from 'lucide-react';
 
 import AvatarSection from './AvatarSection';
+import SettingsSection from './SettingsSection';
 
 export default async function ProfilePage() {
     const session = await getServerSession(authOptions);
@@ -76,17 +77,16 @@ export default async function ProfilePage() {
             </section>
 
             {/* Settings Options */}
-            <section style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, paddingLeft: '8px', marginBottom: '8px', color: 'var(--text-primary)' }}>App Settings</h3>
-                
-                <div className="glass-card" style={{ padding: '0 16px' }}>
-                    <ProfileOption icon={<User size={18} />} label="Personal Information" />
-                    <ProfileOption icon={<Bell size={18} />} label="Notifications" />
-                    <ProfileOption icon={<CreditCard size={18} />} label="Billing Details" />
-                    <ProfileOption icon={<Settings size={18} />} label="App Preferences" />
-                    <ProfileOption icon={<HelpCircle size={18} />} label="Help & Support" last />
-                </div>
-            </section>
+            <SettingsSection 
+                userData={{ 
+                    id: userData.id, 
+                    name: userData.name, 
+                    email: userData.email, 
+                    phone: userData.phone, 
+                    gender: userData.gender 
+                }} 
+                membership={activeMembership}
+            />
 
             {/* Logout Button */}
             <section>
@@ -108,19 +108,3 @@ export default async function ProfilePage() {
     );
 }
 
-function ProfileOption({ icon, label, last }: { icon: React.ReactNode, label: string, last?: boolean }) {
-    return (
-        <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '16px', 
-            padding: '20px 0', 
-            borderBottom: last ? 'none' : '1px solid var(--border-color)',
-            cursor: 'pointer'
-        }}>
-            <div style={{ color: '#2dd4bf' }}>{icon}</div>
-            <span style={{ flex: 1, fontSize: '0.9375rem', fontWeight: 600, color: 'var(--text-primary)' }}>{label}</span>
-            <ChevronRight size={18} color="var(--text-secondary)" />
-        </div>
-    );
-}

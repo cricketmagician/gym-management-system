@@ -94,6 +94,9 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <head>
+                <link rel="manifest" href="/manifest.json" />
+                <meta name="theme-color" content="#f59e0b" />
+                <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
                 <style dangerouslySetInnerHTML={{ __html: dynamicStyles }} />
             </head>
             <body>
