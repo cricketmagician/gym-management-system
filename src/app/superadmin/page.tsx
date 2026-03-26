@@ -1,7 +1,7 @@
 import React from 'react';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { redirect } from "next-auth/next";
+import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { Users, Building2, TrendingUp, ShieldCheck, Plus, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
