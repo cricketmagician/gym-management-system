@@ -127,19 +127,19 @@ exports.Prisma.GymScalarFieldEnum = {
   timezone: 'timezone',
   currency: 'currency',
   opening_hours: 'opening_hours',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  bannerUrl: 'bannerUrl',
+  fontFamily: 'fontFamily',
+  logoUrl: 'logoUrl',
   primaryColor: 'primaryColor',
   secondaryColor: 'secondaryColor',
-  logoUrl: 'logoUrl',
-  bannerUrl: 'bannerUrl',
   upiId: 'upiId',
   upiNumber: 'upiNumber',
   upiQrUrl: 'upiQrUrl',
-  fontFamily: 'fontFamily',
-  whatsappNumber: 'whatsappNumber',
   instagramLink: 'instagramLink',
   locationDesc: 'locationDesc',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  whatsappNumber: 'whatsappNumber'
 };
 
 exports.Prisma.OfferScalarFieldEnum = {
@@ -185,9 +185,9 @@ exports.Prisma.UserScalarFieldEnum = {
   phone: 'phone',
   passwordHash: 'passwordHash',
   role: 'role',
-  photoUrl: 'photoUrl',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  photoUrl: 'photoUrl'
 };
 
 exports.Prisma.PlanScalarFieldEnum = {
@@ -242,9 +242,9 @@ exports.Prisma.TrainerScalarFieldEnum = {
   name: 'name',
   specialization: 'specialization',
   photoUrl: 'photoUrl',
-  bio: 'bio',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  bio: 'bio'
 };
 
 exports.Prisma.WorkoutScalarFieldEnum = {
@@ -305,6 +305,7 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
   ADMIN: 'ADMIN',
   STAFF: 'STAFF',
   MEMBER: 'MEMBER'

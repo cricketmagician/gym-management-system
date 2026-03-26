@@ -130,17 +130,6 @@ export default async function DashboardPage() {
                         <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem', fontWeight: 500 }}>Authorized Personnel Only</p>
                     </div>
                 </div>
-
-                <style jsx>{`
-                    @keyframes landingFadeIn {
-                        from { opacity: 0; transform: translateY(40px) scale(0.95); }
-                        to { opacity: 1; transform: translateY(0) scale(1); }
-                    }
-                    @keyframes pulseGlow {
-                        0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
-                        50% { box-shadow: 0 0 50px rgba(245, 158, 11, 0.7); }
-                    }
-                `}</style>
             </div>
         );
     }

@@ -554,3 +554,13 @@ tbody tr:hover {
   font-weight: 700;
   border: 1px solid rgba(234, 179, 8, 0.2);
 }
+/* Animations */
+@keyframes landingFadeIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+  50% { box-shadow: 0 0 50px rgba(245, 158, 11, 0.7); }
+}
