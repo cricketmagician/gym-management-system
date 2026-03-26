@@ -110,6 +110,12 @@ export default function MemberDashboardClient({
     const [isA2HSOpen, setIsA2HSOpen] = useState(false);
     const [isQuickConnectOpen, setIsQuickConnectOpen] = useState(false);
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    const [toast, setToast] = useState<{ message: string; type: 'success' | 'warning' | 'info' } | null>(null);
+
+    const showToast = (message: string, type: 'success' | 'warning' | 'info' = 'success') => {
+        setToast({ message, type });
+        setTimeout(() => setToast(null), 3000);
+    };
 
     useEffect(() => {
         const handler = (e: any) => {
@@ -136,9 +142,9 @@ export default function MemberDashboardClient({
     const handleCopyWifi = async () => {
         if (user.gym?.wifiPassword) {
             await navigator.clipboard.writeText(user.gym.wifiPassword);
-            alert(`WiFi Password copied! SSID: ${user.gym.wifiSsid || 'PulseFit'}`);
+            showToast(`WiFi Password copied! SSID: ${user.gym.wifiSsid || 'PulseFit'}`, 'success');
         } else {
-            alert("No WiFi details configured yet.");
+            showToast("Admin has not configured Wifi yet.", 'warning');
         }
     };
 
@@ -767,6 +773,31 @@ export default function MemberDashboardClient({
                                 CLOSE
                             </button>
                         </div>
+                    </div>
+                )}
+
+                {/* Premium Toast Notification */}
+                {toast && (
+                    <div style={{
+                        position: 'fixed',
+                        top: '24px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 2000,
+                        background: toast.type === 'warning' ? 'rgba(234, 88, 12, 0.9)' : 'rgba(255, 255, 255, 0.95)',
+                        backdropFilter: 'blur(10px)',
+                        padding: '12px 24px',
+                        borderRadius: '16px',
+                        boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        border: toast.type === 'warning' ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(0,0,0,0.05)',
+                        animation: 'popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        color: toast.type === 'warning' ? '#fff' : '#000',
+                    }}>
+                        {toast.type === 'warning' ? <Zap size={18} /> : <CheckCircle2 size={18} color="#22c55e" />}
+                        <span style={{ fontSize: '0.875rem', fontWeight: 750 }}>{toast.message}</span>
                     </div>
                 )}
             </div>
