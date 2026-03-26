@@ -66,6 +66,54 @@ export async function POST(req: Request) {
     } catch (error) { return NextResponse.json({ error: "Server Error" }, { status: 500 }); }
 }
 
+export async function PUT(req: Request) {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== 'ADMIN') return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const { searchParams } = new URL(req.url);
+    const type = searchParams.get('type');
+    const id = searchParams.get('id');
+    const body = await req.json();
+
+    if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
+
+    try {
+        if (type === 'offer') {
+            const offer = await prisma.offer.update({
+                where: { id },
+                data: body
+            });
+            return NextResponse.json(offer);
+        }
+
+        if (type === 'service') {
+            const service = await prisma.service.update({
+                where: { id },
+                data: body
+            });
+            return NextResponse.json(service);
+        }
+
+        if (type === 'timing') {
+            const timing = await prisma.gymTiming.update({
+                where: { id },
+                data: body
+            });
+            return NextResponse.json(timing);
+        }
+
+        if (type === 'announcement') {
+            const announcement = await prisma.announcement.update({
+                where: { id },
+                data: body
+            });
+            return NextResponse.json(announcement);
+        }
+
+        return NextResponse.json({ error: "Invalid type" }, { status: 400 });
+    } catch (error) { return NextResponse.json({ error: "Server Error" }, { status: 500 }); }
+}
+
 export async function DELETE(req: Request) {
     const session = await getServerSession(authOptions);
     if (!session || session.user.role !== 'ADMIN') return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

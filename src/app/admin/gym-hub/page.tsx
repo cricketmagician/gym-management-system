@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Zap, Trophy, Timer, Sparkles, X, Loader2, Dumbbell, ArrowUpRight, Megaphone, LayoutGrid, Clock, Volume2 } from 'lucide-react';
+import { Plus, Trash2, Zap, Trophy, Timer, Sparkles, X, Loader2, Dumbbell, ArrowUpRight, Megaphone, LayoutGrid, Clock, Volume2, Pencil } from 'lucide-react';
 
 export default function AdminGymHubPage() {
     const [offers, setOffers] = useState<any[]>([]);
@@ -19,6 +19,8 @@ export default function AdminGymHubPage() {
     const [newService, setNewService] = useState<any>({ name: '', description: '', priceLabel: '' });
     const [newTiming, setNewTiming] = useState<any>({ dayRange: '', timeRange: '' });
     const [newAnnouncement, setNewAnnouncement] = useState<any>({ content: '' });
+
+    const [editingId, setEditingId] = useState<string | null>(null);
 
     useEffect(() => {
         fetchHubData();
@@ -39,14 +41,20 @@ export default function AdminGymHubPage() {
         }
     };
 
-    const handleAdd = async (type: string, payload: any) => {
+    const handleSave = async (type: string, payload: any) => {
         try {
-            const res = await fetch(`/api/v1/admin/gym-hub?type=${type}`, {
-                method: 'POST',
+            const url = editingId 
+                ? `/api/v1/admin/gym-hub?type=${type}&id=${editingId}`
+                : `/api/v1/admin/gym-hub?type=${type}`;
+            
+            const res = await fetch(url, {
+                method: editingId ? 'PUT' : 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
+
             if (res.ok) {
+                setEditingId(null);
                 if (type === 'offer') {
                     setIsOfferModalOpen(false);
                     setNewOffer({ title: '', description: '', code: '', color: '#f59e0b' });
@@ -109,7 +117,10 @@ export default function AdminGymHubPage() {
                             {announcements.map((announcement) => (
                                 <div key={announcement.id} className="glass-card-dark" style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderLeft: '4px solid #f59e0b' }}>
                                     <p style={{ fontSize: '0.875rem', fontWeight: 700 }}>{announcement.content}</p>
-                                    <button onClick={() => handleDelete('announcement', announcement.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.15)', cursor: 'pointer' }}><Trash2 size={16} /></button>
+                                    <div style={{ display: 'flex', gap: '12px' }}>
+                                        <button onClick={() => { setEditingId(announcement.id); setNewAnnouncement({ content: announcement.content }); setIsAnnouncementModalOpen(true); }} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }} className="scale-hover"><Pencil size={16} /></button>
+                                        <button onClick={() => handleDelete('announcement', announcement.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.15)', cursor: 'pointer' }} className="scale-hover"><Trash2 size={16} /></button>
+                                    </div>
                                 </div>
                             ))}
                             {announcements.length === 0 && (
@@ -135,12 +146,22 @@ export default function AdminGymHubPage() {
                                         <div style={{ width: '40px', height: '40px', background: `${offer.color}20` || 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: offer.color || '#f59e0b' }}>
                                             <Megaphone size={20} />
                                         </div>
-                                        <button 
-                                            onClick={() => handleDelete('offer', offer.id)}
-                                            style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }}
-                                        >
-                                            <Trash2 size={18} />
-                                        </button>
+                                        <div style={{ display: 'flex', gap: '8px' }}>
+                                            <button 
+                                                onClick={() => { setEditingId(offer.id); setNewOffer({ title: offer.title, description: offer.description, code: offer.code, color: offer.color }); setIsOfferModalOpen(true); }}
+                                                style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }}
+                                                className="scale-hover"
+                                            >
+                                                <Pencil size={18} />
+                                            </button>
+                                            <button 
+                                                onClick={() => handleDelete('offer', offer.id)}
+                                                style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }}
+                                                className="scale-hover"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
+                                        </div>
                                     </div>
                                     <h3 style={{ fontSize: '1.25rem', fontWeight: 900, marginBottom: '8px' }}>{offer.title}</h3>
                                     <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.5, marginBottom: '24px' }}>{offer.description}</p>
@@ -175,7 +196,10 @@ export default function AdminGymHubPage() {
                                         </div>
                                         <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>{service.description}</p>
                                     </div>
-                                    <button onClick={() => handleDelete('service', service.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.1)', cursor: 'pointer' }}><Trash2 size={18} /></button>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                        <button onClick={() => { setEditingId(service.id); setNewService({ name: service.name, description: service.description, priceLabel: service.priceLabel }); setIsServiceModalOpen(true); }} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.15)', cursor: 'pointer' }} className="scale-hover"><Pencil size={18} /></button>
+                                        <button onClick={() => handleDelete('service', service.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.1)', cursor: 'pointer' }} className="scale-hover"><Trash2 size={18} /></button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -199,7 +223,10 @@ export default function AdminGymHubPage() {
                                             <td style={{ padding: '16px 0', fontWeight: 700, fontSize: '0.875rem' }}>{timing.dayRange}</td>
                                             <td style={{ padding: '16px 0', textAlign: 'right', fontWeight: 900, color: '#f59e0b', fontSize: '0.875rem' }}>{timing.timeRange}</td>
                                             <td style={{ padding: '16px 0', textAlign: 'right' }}>
-                                                <button onClick={() => handleDelete('timing', timing.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.1)', cursor: 'pointer' }}><Trash2 size={16} /></button>
+                                                <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                                                    <button onClick={() => { setEditingId(timing.id); setNewTiming({ dayRange: timing.dayRange, timeRange: timing.timeRange }); setIsTimingModalOpen(true); }} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }} className="scale-hover"><Pencil size={16} /></button>
+                                                    <button onClick={() => handleDelete('timing', timing.id)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.1)', cursor: 'pointer' }} className="scale-hover"><Trash2 size={16} /></button>
+                                                </div>
                                             </td>
                                         </tr>
                                     ))}
@@ -222,7 +249,7 @@ export default function AdminGymHubPage() {
 
             {/* Modals - Offer, Service, Timing, Announcement */}
             {isOfferModalOpen && (
-                <HubModal title="New Promotion" icon={<Megaphone size={24} />} onClose={() => setIsOfferModalOpen(false)} onSubmit={() => handleAdd('offer', newOffer)}>
+                <HubModal title={editingId ? "Edit Promotion" : "New Promotion"} icon={<Megaphone size={24} />} onClose={() => { setIsOfferModalOpen(false); setEditingId(null); setNewOffer({ title: '', description: '', code: '', color: '#f59e0b' }); }} onSubmit={() => handleSave('offer', newOffer)}>
                     <HubInput label="Title" value={newOffer.title} onChange={(v: string) => setNewOffer({...newOffer, title: v})} placeholder="e.g. Summer Shred 50%" />
                     <HubTextarea label="Description" value={newOffer.description} onChange={(v: string) => setNewOffer({...newOffer, description: v})} placeholder="Write a compelling copy..." />
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
@@ -240,7 +267,7 @@ export default function AdminGymHubPage() {
             )}
 
             {isServiceModalOpen && (
-                <HubModal title="Add Facility Perk" icon={<Plus size={24} />} onClose={() => setIsServiceModalOpen(false)} onSubmit={() => handleAdd('service', newService)}>
+                <HubModal title={editingId ? "Edit Perk" : "Add Facility Perk"} icon={<Plus size={24} />} onClose={() => { setIsServiceModalOpen(false); setEditingId(null); setNewService({ name: '', description: '', priceLabel: '' }); }} onSubmit={() => handleSave('service', newService)}>
                     <HubInput label="Service Name" value={newService.name} onChange={(v: string) => setNewService({...newService, name: v})} placeholder="e.g. Personal Training" />
                     <HubTextarea label="Service Description" value={newService.description} onChange={(v: string) => setNewService({...newService, description: v})} placeholder="Detailed description..." />
                     <HubInput label="Price / Label" value={newService.priceLabel} onChange={(v: string) => setNewService({...newService, priceLabel: v})} placeholder="e.g. $49.00 / session" />
@@ -248,14 +275,14 @@ export default function AdminGymHubPage() {
             )}
 
             {isTimingModalOpen && (
-                <HubModal title="Manage Timings" icon={<Clock size={24} />} onClose={() => setIsTimingModalOpen(false)} onSubmit={() => handleAdd('timing', newTiming)}>
+                <HubModal title={editingId ? "Edit Timings" : "Manage Timings"} icon={<Clock size={24} />} onClose={() => { setIsTimingModalOpen(false); setEditingId(null); setNewTiming({ dayRange: '', timeRange: '' }); }} onSubmit={() => handleSave('timing', newTiming)}>
                     <HubInput label="Day Range" value={newTiming.dayRange} onChange={(v: string) => setNewTiming({...newTiming, dayRange: v})} placeholder="e.g. Mon - Fri" />
                     <HubInput label="Time Range" value={newTiming.timeRange} onChange={(v: string) => setNewTiming({...newTiming, timeRange: v})} placeholder="e.g. 6AM - 10PM" />
                 </HubModal>
             )}
 
             {isAnnouncementModalOpen && (
-                <HubModal title="Global News Broadcast" icon={<Volume2 size={24} />} onClose={() => setIsAnnouncementModalOpen(false)} onSubmit={() => handleAdd('announcement', newAnnouncement)}>
+                <HubModal title={editingId ? "Edit News" : "Global News Broadcast"} icon={<Volume2 size={24} />} onClose={() => { setIsAnnouncementModalOpen(false); setEditingId(null); setNewAnnouncement({ content: '' }); }} onSubmit={() => handleSave('announcement', newAnnouncement)}>
                     <HubTextarea label="Announcement Content" value={newAnnouncement.content} onChange={(v: string) => setNewAnnouncement({...newAnnouncement, content: v})} placeholder="e.g. Gym closed on Monday for renovations..." />
                     <p style={{ fontSize: '0.75rem', opacity: 0.4, fontWeight: 500 }}>This will scroll horizontally across every member's dashboard.</p>
                 </HubModal>
