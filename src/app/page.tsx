@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Search, Plus, TrendingUp, Users, AlertCircle, TrendingDown, Clock } from 'lucide-react';
+import { Search, Plus, TrendingUp, Users, AlertCircle, TrendingDown, Clock, Sparkles } from 'lucide-react';
 import AdminLogoutButton from '@/components/AdminLogoutButton';
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
@@ -147,9 +147,24 @@ export default async function DashboardPage() {
 
     // AUTH: ADMIN / STAFF Dashboard
     const totalMembers = await prisma.user.count({ where: { gymId, role: 'MEMBER' } });
-    const [activeMemberships, expiredMemberships] = await Promise.all([
+    
+    // Proactive Intelligence Metrics
+    const now = new Date();
+    const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+    const [activeMemberships, expiredMemberships, expiringSoonCount] = await Promise.all([
         prisma.membership.count({ where: { gymId, status: 'ACTIVE' } }),
-        prisma.membership.count({ where: { gymId, status: 'EXPIRED' } })
+        prisma.membership.count({ where: { gymId, status: 'EXPIRED' } }),
+        prisma.membership.count({ 
+            where: { 
+                gymId, 
+                status: 'ACTIVE',
+                endDate: {
+                    gt: now,
+                    lte: sevenDaysFromNow
+                }
+            } 
+        })
     ]);
 
     const recentAttendance = await prisma.attendance.findMany({
@@ -198,7 +213,7 @@ export default async function DashboardPage() {
             </header>
 
             {/* Metric Grid */}
-            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
+            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
                 <MetricCard 
                     title="Total Population" 
                     value={totalMembers} 
@@ -215,6 +230,13 @@ export default async function DashboardPage() {
                     variant="dark"
                 />
                 <MetricCard 
+                    title="Expiring Soon" 
+                    value={expiringSoonCount} 
+                    icon={<Sparkles size={22} />} 
+                    subtitle="Next 7 days" 
+                    glowColor="rgba(245, 158, 11, 0.2)"
+                />
+                <MetricCard 
                     title="Recent Check-ins" 
                     value={recentAttendance.length} 
                     icon={<Clock size={22} />} 
@@ -222,7 +244,7 @@ export default async function DashboardPage() {
                     glowColor="rgba(251, 146, 60, 0.2)"
                 />
                 <MetricCard 
-                    title="Lapsed Members" 
+                    title="Expired Members" 
                     value={expiredMemberships} 
                     icon={<AlertCircle size={22} />} 
                     subtitle="Requires attention" 
