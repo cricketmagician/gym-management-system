@@ -20,6 +20,9 @@ model Gym {
   secondaryColor String?      @default("#8B5CF6")
   logoUrl        String?
   bannerUrl      String?
+  upiId          String?      // gym-upi-id@bank
+  upiNumber      String?      // 9876543210
+  upiQrUrl       String?      // URL to the UPI QR code image
   fontFamily     String?      @default("'Inter', sans-serif")
   
   users         User[]

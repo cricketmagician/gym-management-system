@@ -1991,6 +1991,9 @@ export namespace Prisma {
     secondaryColor: string | null
     logoUrl: string | null
     bannerUrl: string | null
+    upiId: string | null
+    upiNumber: string | null
+    upiQrUrl: string | null
     fontFamily: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2007,6 +2010,9 @@ export namespace Prisma {
     secondaryColor: string | null
     logoUrl: string | null
     bannerUrl: string | null
+    upiId: string | null
+    upiNumber: string | null
+    upiQrUrl: string | null
     fontFamily: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2023,6 +2029,9 @@ export namespace Prisma {
     secondaryColor: number
     logoUrl: number
     bannerUrl: number
+    upiId: number
+    upiNumber: number
+    upiQrUrl: number
     fontFamily: number
     createdAt: number
     updatedAt: number
@@ -2041,6 +2050,9 @@ export namespace Prisma {
     secondaryColor?: true
     logoUrl?: true
     bannerUrl?: true
+    upiId?: true
+    upiNumber?: true
+    upiQrUrl?: true
     fontFamily?: true
     createdAt?: true
     updatedAt?: true
@@ -2057,6 +2069,9 @@ export namespace Prisma {
     secondaryColor?: true
     logoUrl?: true
     bannerUrl?: true
+    upiId?: true
+    upiNumber?: true
+    upiQrUrl?: true
     fontFamily?: true
     createdAt?: true
     updatedAt?: true
@@ -2073,6 +2088,9 @@ export namespace Prisma {
     secondaryColor?: true
     logoUrl?: true
     bannerUrl?: true
+    upiId?: true
+    upiNumber?: true
+    upiQrUrl?: true
     fontFamily?: true
     createdAt?: true
     updatedAt?: true
@@ -2162,6 +2180,9 @@ export namespace Prisma {
     secondaryColor: string | null
     logoUrl: string | null
     bannerUrl: string | null
+    upiId: string | null
+    upiNumber: string | null
+    upiQrUrl: string | null
     fontFamily: string | null
     createdAt: Date
     updatedAt: Date
@@ -2195,6 +2216,9 @@ export namespace Prisma {
     secondaryColor?: boolean
     logoUrl?: boolean
     bannerUrl?: boolean
+    upiId?: boolean
+    upiNumber?: boolean
+    upiQrUrl?: boolean
     fontFamily?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2220,6 +2244,9 @@ export namespace Prisma {
     secondaryColor?: boolean
     logoUrl?: boolean
     bannerUrl?: boolean
+    upiId?: boolean
+    upiNumber?: boolean
+    upiQrUrl?: boolean
     fontFamily?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2236,6 +2263,9 @@ export namespace Prisma {
     secondaryColor?: boolean
     logoUrl?: boolean
     bannerUrl?: boolean
+    upiId?: boolean
+    upiNumber?: boolean
+    upiQrUrl?: boolean
     fontFamily?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2252,12 +2282,15 @@ export namespace Prisma {
     secondaryColor?: boolean
     logoUrl?: boolean
     bannerUrl?: boolean
+    upiId?: boolean
+    upiNumber?: boolean
+    upiQrUrl?: boolean
     fontFamily?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type GymOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "timezone" | "currency" | "opening_hours" | "primaryColor" | "secondaryColor" | "logoUrl" | "bannerUrl" | "fontFamily" | "createdAt" | "updatedAt", ExtArgs["result"]["gym"]>
+  export type GymOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "timezone" | "currency" | "opening_hours" | "primaryColor" | "secondaryColor" | "logoUrl" | "bannerUrl" | "upiId" | "upiNumber" | "upiQrUrl" | "fontFamily" | "createdAt" | "updatedAt", ExtArgs["result"]["gym"]>
   export type GymInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Gym$usersArgs<ExtArgs>
     memberships?: boolean | Gym$membershipsArgs<ExtArgs>
@@ -2295,6 +2328,9 @@ export namespace Prisma {
       secondaryColor: string | null
       logoUrl: string | null
       bannerUrl: string | null
+      upiId: string | null
+      upiNumber: string | null
+      upiQrUrl: string | null
       fontFamily: string | null
       createdAt: Date
       updatedAt: Date
@@ -2739,6 +2775,9 @@ export namespace Prisma {
     readonly secondaryColor: FieldRef<"Gym", 'String'>
     readonly logoUrl: FieldRef<"Gym", 'String'>
     readonly bannerUrl: FieldRef<"Gym", 'String'>
+    readonly upiId: FieldRef<"Gym", 'String'>
+    readonly upiNumber: FieldRef<"Gym", 'String'>
+    readonly upiQrUrl: FieldRef<"Gym", 'String'>
     readonly fontFamily: FieldRef<"Gym", 'String'>
     readonly createdAt: FieldRef<"Gym", 'DateTime'>
     readonly updatedAt: FieldRef<"Gym", 'DateTime'>
@@ -13786,6 +13825,9 @@ export namespace Prisma {
     secondaryColor: 'secondaryColor',
     logoUrl: 'logoUrl',
     bannerUrl: 'bannerUrl',
+    upiId: 'upiId',
+    upiNumber: 'upiNumber',
+    upiQrUrl: 'upiQrUrl',
     fontFamily: 'fontFamily',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -14119,6 +14161,9 @@ export namespace Prisma {
     secondaryColor?: StringNullableFilter<"Gym"> | string | null
     logoUrl?: StringNullableFilter<"Gym"> | string | null
     bannerUrl?: StringNullableFilter<"Gym"> | string | null
+    upiId?: StringNullableFilter<"Gym"> | string | null
+    upiNumber?: StringNullableFilter<"Gym"> | string | null
+    upiQrUrl?: StringNullableFilter<"Gym"> | string | null
     fontFamily?: StringNullableFilter<"Gym"> | string | null
     createdAt?: DateTimeFilter<"Gym"> | Date | string
     updatedAt?: DateTimeFilter<"Gym"> | Date | string
@@ -14143,6 +14188,9 @@ export namespace Prisma {
     secondaryColor?: SortOrderInput | SortOrder
     logoUrl?: SortOrderInput | SortOrder
     bannerUrl?: SortOrderInput | SortOrder
+    upiId?: SortOrderInput | SortOrder
+    upiNumber?: SortOrderInput | SortOrder
+    upiQrUrl?: SortOrderInput | SortOrder
     fontFamily?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14170,6 +14218,9 @@ export namespace Prisma {
     secondaryColor?: StringNullableFilter<"Gym"> | string | null
     logoUrl?: StringNullableFilter<"Gym"> | string | null
     bannerUrl?: StringNullableFilter<"Gym"> | string | null
+    upiId?: StringNullableFilter<"Gym"> | string | null
+    upiNumber?: StringNullableFilter<"Gym"> | string | null
+    upiQrUrl?: StringNullableFilter<"Gym"> | string | null
     fontFamily?: StringNullableFilter<"Gym"> | string | null
     createdAt?: DateTimeFilter<"Gym"> | Date | string
     updatedAt?: DateTimeFilter<"Gym"> | Date | string
@@ -14194,6 +14245,9 @@ export namespace Prisma {
     secondaryColor?: SortOrderInput | SortOrder
     logoUrl?: SortOrderInput | SortOrder
     bannerUrl?: SortOrderInput | SortOrder
+    upiId?: SortOrderInput | SortOrder
+    upiNumber?: SortOrderInput | SortOrder
+    upiQrUrl?: SortOrderInput | SortOrder
     fontFamily?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14216,6 +14270,9 @@ export namespace Prisma {
     secondaryColor?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     logoUrl?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     bannerUrl?: StringNullableWithAggregatesFilter<"Gym"> | string | null
+    upiId?: StringNullableWithAggregatesFilter<"Gym"> | string | null
+    upiNumber?: StringNullableWithAggregatesFilter<"Gym"> | string | null
+    upiQrUrl?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     fontFamily?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Gym"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Gym"> | Date | string
@@ -14938,6 +14995,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14962,6 +15022,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14986,6 +15049,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15010,6 +15076,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15034,6 +15103,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15050,6 +15122,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15066,6 +15141,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15941,6 +16019,9 @@ export namespace Prisma {
     secondaryColor?: SortOrder
     logoUrl?: SortOrder
     bannerUrl?: SortOrder
+    upiId?: SortOrder
+    upiNumber?: SortOrder
+    upiQrUrl?: SortOrder
     fontFamily?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15957,6 +16038,9 @@ export namespace Prisma {
     secondaryColor?: SortOrder
     logoUrl?: SortOrder
     bannerUrl?: SortOrder
+    upiId?: SortOrder
+    upiNumber?: SortOrder
+    upiQrUrl?: SortOrder
     fontFamily?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15973,6 +16057,9 @@ export namespace Prisma {
     secondaryColor?: SortOrder
     logoUrl?: SortOrder
     bannerUrl?: SortOrder
+    upiId?: SortOrder
+    upiNumber?: SortOrder
+    upiQrUrl?: SortOrder
     fontFamily?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18514,6 +18601,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -18537,6 +18627,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -18798,6 +18891,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18821,6 +18917,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19080,6 +19179,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19103,6 +19205,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19256,6 +19361,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19279,6 +19387,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19363,6 +19474,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19386,6 +19500,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19476,6 +19593,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19499,6 +19619,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19567,6 +19690,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19590,6 +19716,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19717,6 +19846,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19740,6 +19872,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19806,6 +19941,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19829,6 +19967,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19868,6 +20009,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19891,6 +20035,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19959,6 +20106,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19982,6 +20132,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20072,6 +20225,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20095,6 +20251,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20163,6 +20322,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20186,6 +20348,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20276,6 +20441,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20299,6 +20467,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20322,6 +20493,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20345,6 +20519,9 @@ export namespace Prisma {
     secondaryColor?: string | null
     logoUrl?: string | null
     bannerUrl?: string | null
+    upiId?: string | null
+    upiNumber?: string | null
+    upiQrUrl?: string | null
     fontFamily?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20474,6 +20651,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20497,6 +20677,9 @@ export namespace Prisma {
     secondaryColor?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
     fontFamily?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

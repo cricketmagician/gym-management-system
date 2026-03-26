@@ -131,6 +131,9 @@ exports.Prisma.GymScalarFieldEnum = {
   secondaryColor: 'secondaryColor',
   logoUrl: 'logoUrl',
   bannerUrl: 'bannerUrl',
+  upiId: 'upiId',
+  upiNumber: 'upiNumber',
+  upiQrUrl: 'upiQrUrl',
   fontFamily: 'fontFamily',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
