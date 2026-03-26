@@ -45,9 +45,12 @@ export default function MemberLayout({
 
     return (
         <div className={`member-bg ${theme}`} style={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
-            {/* Global Motivational Watermark Background */}
-            <div className="watermark-text" style={{ fontSize: '7.5rem', opacity: 1 }}>
-                PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD
+            {/* Minimalist Aesthetic Watermark */}
+            <div className="watermark-text">
+                PULSE FIT<br /><br /><br />
+                GO GYM<br /><br /><br />
+                PULSE FIT<br /><br /><br />
+                GO GYM
             </div>
             
             <main style={{ position: 'relative', zIndex: 10, padding: '0 0 100px 0', maxWidth: '500px', margin: '0 auto' }}>
