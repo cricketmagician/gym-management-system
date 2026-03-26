@@ -75,10 +75,9 @@ export async function PUT(req: Request) {
     const id = searchParams.get('id');
     const body = await req.json();
 
-    if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
-
     try {
         if (type === 'offer') {
+            if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
             const offer = await prisma.offer.update({
                 where: { id },
                 data: body
@@ -87,6 +86,7 @@ export async function PUT(req: Request) {
         }
 
         if (type === 'service') {
+            if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
             const service = await prisma.service.update({
                 where: { id },
                 data: body
@@ -95,6 +95,7 @@ export async function PUT(req: Request) {
         }
 
         if (type === 'timing') {
+            if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
             const timing = await prisma.gymTiming.update({
                 where: { id },
                 data: body
@@ -103,6 +104,7 @@ export async function PUT(req: Request) {
         }
 
         if (type === 'announcement') {
+            if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
             const announcement = await prisma.announcement.update({
                 where: { id },
                 data: body

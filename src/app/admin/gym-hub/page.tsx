@@ -46,12 +46,15 @@ export default function AdminGymHubPage() {
 
     const handleSave = async (type: string, payload: any) => {
         try {
-            const url = editingId 
-                ? `/api/v1/admin/gym-hub?type=${type}&id=${editingId}`
-                : `/api/v1/admin/gym-hub?type=${type}`;
+            const isBranding = type === 'branding';
+            const url = isBranding 
+                ? `/api/v1/admin/gym-hub?type=${type}`
+                : (editingId 
+                    ? `/api/v1/admin/gym-hub?type=${type}&id=${editingId}`
+                    : `/api/v1/admin/gym-hub?type=${type}`);
             
             const res = await fetch(url, {
-                method: editingId ? 'PUT' : 'POST',
+                method: (isBranding || editingId) ? 'PUT' : 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
