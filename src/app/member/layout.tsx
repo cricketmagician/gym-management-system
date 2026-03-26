@@ -45,12 +45,8 @@ export default function MemberLayout({
 
     return (
         <div className="member-bg">
-            <div className="watermark-text">
-                STAY STRONG{"\n"}
-                BE BETTER{"\n"}
-                TOGETHER{"\n"}
-                PULSEFIT{"\n"}
-                FOCUS
+            <div className="watermark-text" style={{ fontSize: '7rem' }}>
+                PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD
             </div>
             
             <main style={{ position: 'relative', zIndex: 1, padding: '0 0 100px 0', maxWidth: '500px', margin: '0 auto' }}>

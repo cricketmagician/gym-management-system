@@ -165,10 +165,7 @@ export default function MemberDashboardClient({
             )}
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '0 0 110px 0', position: 'relative', zIndex: 1 }} className="member-dashboard">
-                {/* Motivational Watermark Background (Full Page Repeat) */}
-                <div className="watermark-text" style={{ fontSize: '7rem', opacity: 0.8 }}>
-                    PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD
-                </div>
+                {/* Global Watermark handled in layout.tsx */}
 
                 {/* Full-Bleed Premium Brand Banner */}
                 <header style={{ 
