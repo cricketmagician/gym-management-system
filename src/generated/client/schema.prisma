@@ -8,37 +8,38 @@ datasource db {
 }
 
 model Gym {
-  id             String         @id @default(uuid())
-  name           String
-  slug           String         @unique
-  timezone       String         @default("UTC")
-  currency       String         @default("INR")
-  opening_hours  String?
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  bannerUrl      String?
-  fontFamily     String?        @default("'Inter', sans-serif")
-  logoUrl        String?
-  primaryColor   String?        @default("#4F46E5")
-  secondaryColor String?        @default("#8B5CF6")
-  upiId          String?
-  upiNumber      String?
-  upiQrUrl       String?
-  instagramLink  String?
-  locationDesc   String?
-  whatsappNumber String?
-  announcements  Announcement[]
-  attendances    Attendance[]
-  auditLogs      AuditLog[]
-  timings        GymTiming[]
-  memberships    Membership[]
-  offers         Offer[]
-  payments       Payment[]
-  services       Service[]
-  trainers       Trainer[]
-  users          User[]
-  weightGoals    WeightGoal[]
-  workouts       Workout[]
+  id                 String         @id @default(uuid())
+  name               String
+  slug               String         @unique
+  timezone           String         @default("UTC")
+  currency           String         @default("INR")
+  opening_hours      String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  bannerUrl          String?
+  fontFamily         String?        @default("'Inter', sans-serif")
+  logoUrl            String?
+  primaryColor       String?        @default("#4F46E5")
+  secondaryColor     String?        @default("#8B5CF6")
+  upiId              String?
+  upiNumber          String?
+  upiQrUrl           String?
+  loginBackgroundUrl String?
+  instagramLink      String?
+  locationDesc       String?
+  whatsappNumber     String?
+  announcements      Announcement[]
+  attendances        Attendance[]
+  auditLogs          AuditLog[]
+  timings            GymTiming[]
+  memberships        Membership[]
+  offers             Offer[]
+  payments           Payment[]
+  services           Service[]
+  trainers           Trainer[]
+  users              User[]
+  weightGoals        WeightGoal[]
+  workouts           Workout[]
 }
 
 model Offer {

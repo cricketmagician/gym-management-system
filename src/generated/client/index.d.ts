@@ -2398,6 +2398,7 @@ export namespace Prisma {
     upiId: string | null
     upiNumber: string | null
     upiQrUrl: string | null
+    loginBackgroundUrl: string | null
     instagramLink: string | null
     locationDesc: string | null
     whatsappNumber: string | null
@@ -2420,6 +2421,7 @@ export namespace Prisma {
     upiId: string | null
     upiNumber: string | null
     upiQrUrl: string | null
+    loginBackgroundUrl: string | null
     instagramLink: string | null
     locationDesc: string | null
     whatsappNumber: string | null
@@ -2442,6 +2444,7 @@ export namespace Prisma {
     upiId: number
     upiNumber: number
     upiQrUrl: number
+    loginBackgroundUrl: number
     instagramLink: number
     locationDesc: number
     whatsappNumber: number
@@ -2466,6 +2469,7 @@ export namespace Prisma {
     upiId?: true
     upiNumber?: true
     upiQrUrl?: true
+    loginBackgroundUrl?: true
     instagramLink?: true
     locationDesc?: true
     whatsappNumber?: true
@@ -2488,6 +2492,7 @@ export namespace Prisma {
     upiId?: true
     upiNumber?: true
     upiQrUrl?: true
+    loginBackgroundUrl?: true
     instagramLink?: true
     locationDesc?: true
     whatsappNumber?: true
@@ -2510,6 +2515,7 @@ export namespace Prisma {
     upiId?: true
     upiNumber?: true
     upiQrUrl?: true
+    loginBackgroundUrl?: true
     instagramLink?: true
     locationDesc?: true
     whatsappNumber?: true
@@ -2605,6 +2611,7 @@ export namespace Prisma {
     upiId: string | null
     upiNumber: string | null
     upiQrUrl: string | null
+    loginBackgroundUrl: string | null
     instagramLink: string | null
     locationDesc: string | null
     whatsappNumber: string | null
@@ -2644,6 +2651,7 @@ export namespace Prisma {
     upiId?: boolean
     upiNumber?: boolean
     upiQrUrl?: boolean
+    loginBackgroundUrl?: boolean
     instagramLink?: boolean
     locationDesc?: boolean
     whatsappNumber?: boolean
@@ -2679,6 +2687,7 @@ export namespace Prisma {
     upiId?: boolean
     upiNumber?: boolean
     upiQrUrl?: boolean
+    loginBackgroundUrl?: boolean
     instagramLink?: boolean
     locationDesc?: boolean
     whatsappNumber?: boolean
@@ -2701,6 +2710,7 @@ export namespace Prisma {
     upiId?: boolean
     upiNumber?: boolean
     upiQrUrl?: boolean
+    loginBackgroundUrl?: boolean
     instagramLink?: boolean
     locationDesc?: boolean
     whatsappNumber?: boolean
@@ -2723,12 +2733,13 @@ export namespace Prisma {
     upiId?: boolean
     upiNumber?: boolean
     upiQrUrl?: boolean
+    loginBackgroundUrl?: boolean
     instagramLink?: boolean
     locationDesc?: boolean
     whatsappNumber?: boolean
   }
 
-  export type GymOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "timezone" | "currency" | "opening_hours" | "createdAt" | "updatedAt" | "bannerUrl" | "fontFamily" | "logoUrl" | "primaryColor" | "secondaryColor" | "upiId" | "upiNumber" | "upiQrUrl" | "instagramLink" | "locationDesc" | "whatsappNumber", ExtArgs["result"]["gym"]>
+  export type GymOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "timezone" | "currency" | "opening_hours" | "createdAt" | "updatedAt" | "bannerUrl" | "fontFamily" | "logoUrl" | "primaryColor" | "secondaryColor" | "upiId" | "upiNumber" | "upiQrUrl" | "loginBackgroundUrl" | "instagramLink" | "locationDesc" | "whatsappNumber", ExtArgs["result"]["gym"]>
   export type GymInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     announcements?: boolean | Gym$announcementsArgs<ExtArgs>
     attendances?: boolean | Gym$attendancesArgs<ExtArgs>
@@ -2780,6 +2791,7 @@ export namespace Prisma {
       upiId: string | null
       upiNumber: string | null
       upiQrUrl: string | null
+      loginBackgroundUrl: string | null
       instagramLink: string | null
       locationDesc: string | null
       whatsappNumber: string | null
@@ -3234,6 +3246,7 @@ export namespace Prisma {
     readonly upiId: FieldRef<"Gym", 'String'>
     readonly upiNumber: FieldRef<"Gym", 'String'>
     readonly upiQrUrl: FieldRef<"Gym", 'String'>
+    readonly loginBackgroundUrl: FieldRef<"Gym", 'String'>
     readonly instagramLink: FieldRef<"Gym", 'String'>
     readonly locationDesc: FieldRef<"Gym", 'String'>
     readonly whatsappNumber: FieldRef<"Gym", 'String'>
@@ -18805,6 +18818,7 @@ export namespace Prisma {
     upiId: 'upiId',
     upiNumber: 'upiNumber',
     upiQrUrl: 'upiQrUrl',
+    loginBackgroundUrl: 'loginBackgroundUrl',
     instagramLink: 'instagramLink',
     locationDesc: 'locationDesc',
     whatsappNumber: 'whatsappNumber'
@@ -19200,6 +19214,7 @@ export namespace Prisma {
     upiId?: StringNullableFilter<"Gym"> | string | null
     upiNumber?: StringNullableFilter<"Gym"> | string | null
     upiQrUrl?: StringNullableFilter<"Gym"> | string | null
+    loginBackgroundUrl?: StringNullableFilter<"Gym"> | string | null
     instagramLink?: StringNullableFilter<"Gym"> | string | null
     locationDesc?: StringNullableFilter<"Gym"> | string | null
     whatsappNumber?: StringNullableFilter<"Gym"> | string | null
@@ -19234,6 +19249,7 @@ export namespace Prisma {
     upiId?: SortOrderInput | SortOrder
     upiNumber?: SortOrderInput | SortOrder
     upiQrUrl?: SortOrderInput | SortOrder
+    loginBackgroundUrl?: SortOrderInput | SortOrder
     instagramLink?: SortOrderInput | SortOrder
     locationDesc?: SortOrderInput | SortOrder
     whatsappNumber?: SortOrderInput | SortOrder
@@ -19271,6 +19287,7 @@ export namespace Prisma {
     upiId?: StringNullableFilter<"Gym"> | string | null
     upiNumber?: StringNullableFilter<"Gym"> | string | null
     upiQrUrl?: StringNullableFilter<"Gym"> | string | null
+    loginBackgroundUrl?: StringNullableFilter<"Gym"> | string | null
     instagramLink?: StringNullableFilter<"Gym"> | string | null
     locationDesc?: StringNullableFilter<"Gym"> | string | null
     whatsappNumber?: StringNullableFilter<"Gym"> | string | null
@@ -19305,6 +19322,7 @@ export namespace Prisma {
     upiId?: SortOrderInput | SortOrder
     upiNumber?: SortOrderInput | SortOrder
     upiQrUrl?: SortOrderInput | SortOrder
+    loginBackgroundUrl?: SortOrderInput | SortOrder
     instagramLink?: SortOrderInput | SortOrder
     locationDesc?: SortOrderInput | SortOrder
     whatsappNumber?: SortOrderInput | SortOrder
@@ -19333,6 +19351,7 @@ export namespace Prisma {
     upiId?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     upiNumber?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     upiQrUrl?: StringNullableWithAggregatesFilter<"Gym"> | string | null
+    loginBackgroundUrl?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     instagramLink?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     locationDesc?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     whatsappNumber?: StringNullableWithAggregatesFilter<"Gym"> | string | null
@@ -20343,6 +20362,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -20377,6 +20397,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -20411,6 +20432,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20445,6 +20467,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20479,6 +20502,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -20501,6 +20525,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20523,6 +20548,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21748,6 +21774,7 @@ export namespace Prisma {
     upiId?: SortOrder
     upiNumber?: SortOrder
     upiQrUrl?: SortOrder
+    loginBackgroundUrl?: SortOrder
     instagramLink?: SortOrder
     locationDesc?: SortOrder
     whatsappNumber?: SortOrder
@@ -21770,6 +21797,7 @@ export namespace Prisma {
     upiId?: SortOrder
     upiNumber?: SortOrder
     upiQrUrl?: SortOrder
+    loginBackgroundUrl?: SortOrder
     instagramLink?: SortOrder
     locationDesc?: SortOrder
     whatsappNumber?: SortOrder
@@ -21792,6 +21820,7 @@ export namespace Prisma {
     upiId?: SortOrder
     upiNumber?: SortOrder
     upiQrUrl?: SortOrder
+    loginBackgroundUrl?: SortOrder
     instagramLink?: SortOrder
     locationDesc?: SortOrder
     whatsappNumber?: SortOrder
@@ -24943,6 +24972,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -24976,6 +25006,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25025,6 +25056,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25058,6 +25090,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25091,6 +25124,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25124,6 +25158,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25173,6 +25208,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25206,6 +25242,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25239,6 +25276,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25272,6 +25310,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25321,6 +25360,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25354,6 +25394,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25553,6 +25594,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25586,6 +25628,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25771,6 +25814,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25804,6 +25848,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25927,6 +25972,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25960,6 +26006,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26111,6 +26158,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26144,6 +26192,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26271,6 +26320,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26304,6 +26354,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26398,6 +26449,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26431,6 +26483,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26515,6 +26568,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26548,6 +26602,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26679,6 +26734,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26712,6 +26768,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26839,6 +26896,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26872,6 +26930,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26921,6 +26980,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26954,6 +27014,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26987,6 +27048,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27020,6 +27082,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27114,6 +27177,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27147,6 +27211,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27231,6 +27296,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27264,6 +27330,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27358,6 +27425,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27391,6 +27459,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27520,6 +27589,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27553,6 +27623,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27698,6 +27769,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27731,6 +27803,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27815,6 +27888,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27848,6 +27922,7 @@ export namespace Prisma {
     upiId?: string | null
     upiNumber?: string | null
     upiQrUrl?: string | null
+    loginBackgroundUrl?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27897,6 +27972,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27930,6 +28006,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     upiNumber?: NullableStringFieldUpdateOperationsInput | string | null
     upiQrUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null

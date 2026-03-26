@@ -110,6 +110,22 @@ export async function PUT(req: Request) {
             return NextResponse.json(announcement);
         }
 
+        if (type === 'branding') {
+            const admin = await prisma.user.findUnique({ where: { id: session.user.id }, select: { gymId: true } });
+            if (!admin?.gymId) return NextResponse.json({ error: "No gym linked" }, { status: 400 });
+            
+            const gym = await prisma.gym.update({
+                where: { id: admin.gymId },
+                data: {
+                    name: body.name,
+                    logoUrl: body.logoUrl,
+                    loginBackgroundUrl: body.loginBackgroundUrl,
+                    primaryColor: body.primaryColor
+                }
+            });
+            return NextResponse.json(gym);
+        }
+
         return NextResponse.json({ error: "Invalid type" }, { status: 400 });
     } catch (error) { return NextResponse.json({ error: "Server Error" }, { status: 500 }); }
 }

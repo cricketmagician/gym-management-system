@@ -1,16 +1,37 @@
-'use client';
-
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Smartphone, Mail, Lock, ArrowRight } from 'lucide-react';
+import { getDirectImageUrl } from '@/lib/image-utils';
 
 export default function LoginPage() {
+  return (
+    <React.Suspense fallback={<div className="login-container"></div>}>
+      <LoginContent />
+    </React.Suspense>
+  );
+}
+
+function LoginContent() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [gymBranding, setGymBranding] = useState<{ name: string; logoUrl?: string; loginBackgroundUrl?: string; primaryColor?: string } | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const gymSlug = searchParams.get('gym');
+
+  useEffect(() => {
+    if (gymSlug) {
+      fetch(`/api/v1/public/gyms/${gymSlug}`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.error) setGymBranding(data);
+        })
+        .catch(console.error);
+    }
+  }, [gymSlug]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,16 +61,30 @@ export default function LoginPage() {
   return (
     <div className="login-container">
       {/* Background Image with Overlay */}
-      <div className="login-hero-bg">
+      <div className="login-hero-bg" style={{ 
+        backgroundImage: gymBranding?.loginBackgroundUrl 
+          ? `url('${getDirectImageUrl(gymBranding.loginBackgroundUrl)}')` 
+          : "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070')" 
+      }}>
         <div className="overlay"></div>
       </div>
 
       <div className="login-content">
         <div className="login-card glass-panel animate-fade-in">
           <div className="login-header">
-            <div className="brand-badge">PULSEFIT</div>
-            <h1>Empower Your Strength</h1>
-            <p>Welcome back! Sign in to continue your journey.</p>
+            {gymBranding?.logoUrl ? (
+              <img 
+                src={getDirectImageUrl(gymBranding.logoUrl)} 
+                alt={gymBranding.name} 
+                style={{ width: '80px', height: '80px', borderRadius: '20px', objectFit: 'cover', margin: '0 auto 24px', display: 'block', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }} 
+              />
+            ) : (
+              <div className="brand-badge" style={{ background: gymBranding?.primaryColor || '#2dd4bf' }}>
+                {gymBranding?.name || 'PULSEFIT'}
+              </div>
+            )}
+            <h1>{gymBranding ? `Access ${gymBranding.name}` : 'Empower Your Strength'}</h1>
+            <p>{gymBranding ? `Welcome back to ${gymBranding.name}! Sign in to continue your journey.` : 'Welcome back! Sign in to continue your journey.'}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="login-form">
@@ -86,7 +121,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <button type="submit" className="submit-btn" disabled={isLoading}>
+            <button type="submit" className="submit-btn" disabled={isLoading} style={{ background: gymBranding?.primaryColor || '#fff', color: gymBranding?.primaryColor ? '#fff' : '#000' }}>
               {isLoading ? 'Processing...' : 'Access Dashboard'}
               {!isLoading && <ArrowRight size={20} />}
             </button>

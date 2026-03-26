@@ -24,6 +24,7 @@ model Gym {
   upiId          String?
   upiNumber      String?
   upiQrUrl       String?
+  loginBackgroundUrl String?
   instagramLink  String?
   locationDesc   String?
   whatsappNumber String?

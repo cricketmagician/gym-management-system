@@ -9,11 +9,13 @@ export default function AdminGymHubPage() {
     const [timings, setTimings] = useState<any[]>([]);
     const [announcements, setAnnouncements] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [gymBranding, setGymBranding] = useState<any>({ name: '', logoUrl: '', loginBackgroundUrl: '', primaryColor: '#f59e0b' });
 
     const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
     const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
     const [isTimingModalOpen, setIsTimingModalOpen] = useState(false);
     const [isAnnouncementModalOpen, setIsAnnouncementModalOpen] = useState(false);
+    const [isBrandingModalOpen, setIsBrandingModalOpen] = useState(false);
 
     const [newOffer, setNewOffer] = useState<any>({ title: '', description: '', code: '', color: '#f59e0b' });
     const [newService, setNewService] = useState<any>({ name: '', description: '', priceLabel: '' });
@@ -34,6 +36,7 @@ export default function AdminGymHubPage() {
             setServices(data.services || []);
             setTimings(data.timings || []);
             setAnnouncements(data.announcements || []);
+            setGymBranding(data.gym || { name: '', logoUrl: '', loginBackgroundUrl: '', primaryColor: '#f59e0b' });
         } catch (error) {
             console.error("Failed to fetch hub data", error);
         } finally {
@@ -67,6 +70,8 @@ export default function AdminGymHubPage() {
                 } else if (type === 'announcement') {
                     setIsAnnouncementModalOpen(false);
                     setNewAnnouncement({ content: '' });
+                } else if (type === 'branding') {
+                    setIsBrandingModalOpen(false);
                 }
                 fetchHubData();
             }
@@ -99,6 +104,12 @@ export default function AdminGymHubPage() {
                         Gym Hub <Sparkles className="text-amber-500" size={48} />
                     </h1>
                     <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '16px', fontSize: '1.125rem', fontWeight: 500 }}>Orchestrate your member experience with premium offers and facility insights.</p>
+                </div>
+                <div style={{ display: 'flex', gap: '16px' }}>
+                    <button onClick={() => setIsBrandingModalOpen(true)} style={{ padding: '12px 24px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', color: '#fff', fontWeight: 700, fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '8px' }} className="scale-hover">
+                        <LayoutGrid size={18} className="text-amber-500" /> Branding Settings
+                    </button>
+                    <button onClick={fetchHubData} style={{ padding: '12px 24px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', color: '#fff', fontWeight: 700, fontSize: '0.875rem' }} className="scale-hover">Refresh Data</button>
                 </div>
             </header>
 
@@ -285,6 +296,27 @@ export default function AdminGymHubPage() {
                 <HubModal title={editingId ? "Edit News" : "Global News Broadcast"} icon={<Volume2 size={24} />} onClose={() => { setIsAnnouncementModalOpen(false); setEditingId(null); setNewAnnouncement({ content: '' }); }} onSubmit={() => handleSave('announcement', newAnnouncement)}>
                     <HubTextarea label="Announcement Content" value={newAnnouncement.content} onChange={(v: string) => setNewAnnouncement({...newAnnouncement, content: v})} placeholder="e.g. Gym closed on Monday for renovations..." />
                     <p style={{ fontSize: '0.75rem', opacity: 0.4, fontWeight: 500 }}>This will scroll horizontally across every member's dashboard.</p>
+                </HubModal>
+            )}
+
+            {isBrandingModalOpen && (
+                <HubModal title="Facility Branding" icon={<LayoutGrid size={24} />} onClose={() => setIsBrandingModalOpen(false)} onSubmit={() => handleSave('branding', gymBranding)}>
+                    <div style={{ marginBottom: '24px', padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                        <p style={{ fontSize: '0.75rem', fontWeight: 900, color: 'var(--brand-primary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Entrance Experience</p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                            <HubInput label="Facility Name" value={gymBranding.name} onChange={(v: string) => setGymBranding({...gymBranding, name: v})} placeholder="e.g. KK Fitness Elite" />
+                            <HubInput label="Entrance Logo (URL)" value={gymBranding.logoUrl} onChange={(v: string) => setGymBranding({...gymBranding, logoUrl: v})} placeholder="Direct image link..." />
+                            <HubInput label="Login Background (URL)" value={gymBranding.loginBackgroundUrl} onChange={(v: string) => setGymBranding({...gymBranding, loginBackgroundUrl: v})} placeholder="Direct image link (Cinematic recommended)..." />
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <label style={{ fontSize: '0.65rem', fontWeight: 900, textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em' }}>Primary Brand Color</label>
+                                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                                    <input type="color" value={gymBranding.primaryColor} onChange={(e) => setGymBranding({...gymBranding, primaryColor: e.target.value})} style={{ width: '40px', height: '40px', border: 'none', borderRadius: '8px', background: 'none', cursor: 'pointer' }} />
+                                    <span style={{ fontSize: '0.875rem', fontWeight: 700, opacity: 0.6 }}>{gymBranding.primaryColor}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', opacity: 0.4, fontWeight: 500, lineHeight: 1.5 }}>These assets will be used to dynamically customize your members' entrance and dashboard experience.</p>
                 </HubModal>
             )}
         </div>
