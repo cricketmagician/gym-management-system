@@ -27,6 +27,15 @@ export function getDirectImageUrl(url: string | null | undefined): string {
         if (cleanUrl.includes('dropbox.com')) {
             return cleanUrl.replace('dl=0', 'raw=1').replace('www.dropbox.com', 'dl.dropboxusercontent.com');
         }
+
+        // Handle Unsplash photo page links
+        // Example: https://unsplash.com/photos/gym-equipment-inside-room-20jx9
+        if (cleanUrl.includes('unsplash.com/photos/')) {
+            const unsplashId = cleanUrl.split('/').pop()?.split('-').pop();
+            if (unsplashId) {
+                return `https://images.unsplash.com/photo-${unsplashId}?auto=format&fit=crop&q=80&w=1400`;
+            }
+        }
         
         // Handle standard URLs
         return cleanUrl;
