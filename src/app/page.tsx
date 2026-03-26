@@ -1,12 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import { Search, Plus, TrendingUp, Users, AlertCircle, TrendingDown, Clock, Sparkles } from 'lucide-react';
+import { Search, Plus, TrendingUp, Users, AlertCircle, TrendingDown, Clock, Sparkles, CheckCircle2 } from 'lucide-react';
 import AdminLogoutButton from '@/components/AdminLogoutButton';
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import AdminQrControl from '@/components/AdminQrControl';
+import AdminDashboardClient from '@/components/AdminDashboardClient';
 
 export default async function DashboardPage() {
     const session = await getServerSession(authOptions);
@@ -23,7 +24,8 @@ export default async function DashboardPage() {
                 flexDirection: 'column', 
                 alignItems: 'center', 
                 justifyContent: 'center',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                zIndex: 100 // High priority to cover footer
             }}>
                 {/* Cinematic Background */}
                 <div style={{
@@ -152,19 +154,35 @@ export default async function DashboardPage() {
     const now = new Date();
     const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
-    const [activeMemberships, expiredMemberships, expiringSoonCount] = await Promise.all([
+    const [activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym] = await Promise.all([
         prisma.membership.count({ where: { gymId, status: 'ACTIVE' } }),
         prisma.membership.count({ where: { gymId, status: 'EXPIRED' } }),
         prisma.membership.count({ 
             where: { 
                 gymId, 
                 status: 'ACTIVE',
-                endDate: {
-                    gt: now,
-                    lte: sevenDaysFromNow
-                }
+                endDate: { gt: now, lte: sevenDaysFromNow }
             } 
-        })
+        }),
+        prisma.user.findMany({
+            where: { 
+                gymId, 
+                role: 'MEMBER',
+                memberships: { some: { status: 'ACTIVE', endDate: { gt: now, lte: sevenDaysFromNow } } }
+            },
+            include: { memberships: { where: { status: 'ACTIVE' }, include: { plan: true } } },
+            take: 10
+        }),
+        prisma.user.findMany({
+            where: { 
+                gymId, 
+                role: 'MEMBER',
+                memberships: { some: { status: 'EXPIRED' } }
+            },
+            include: { memberships: { where: { status: 'EXPIRED' }, include: { plan: true }, orderBy: { endDate: 'desc' }, take: 1 } },
+            take: 10
+        }),
+        prisma.gym.findUnique({ where: { id: gymId } })
     ]);
 
     const recentAttendance = await prisma.attendance.findMany({
@@ -212,45 +230,17 @@ export default async function DashboardPage() {
                 </Link>
             </header>
 
-            {/* Metric Grid */}
-            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
-                <MetricCard 
-                    title="Total Population" 
-                    value={totalMembers} 
-                    icon={<Users size={22} />} 
-                    subtitle="Registered members" 
-                    glowColor="rgba(45, 212, 191, 0.2)"
-                />
-                <MetricCard 
-                    title="Active Access" 
-                    value={activeMemberships} 
-                    icon={<TrendingUp size={22} />} 
-                    subtitle="Current permissions" 
-                    glowColor="rgba(56, 189, 248, 0.2)"
-                    variant="dark"
-                />
-                <MetricCard 
-                    title="Expiring Soon" 
-                    value={expiringSoonCount} 
-                    icon={<Sparkles size={22} />} 
-                    subtitle="Next 7 days" 
-                    glowColor="rgba(245, 158, 11, 0.2)"
-                />
-                <MetricCard 
-                    title="Recent Check-ins" 
-                    value={recentAttendance.length} 
-                    icon={<Clock size={22} />} 
-                    subtitle="Last 24 hours" 
-                    glowColor="rgba(251, 146, 60, 0.2)"
-                />
-                <MetricCard 
-                    title="Expired Members" 
-                    value={expiredMemberships} 
-                    icon={<AlertCircle size={22} />} 
-                    subtitle="Requires attention" 
-                    glowColor="rgba(239, 68, 68, 0.2)"
-                />
-            </section>
+            <AdminDashboardClient 
+                totalMembers={totalMembers}
+                activeCount={activeCount}
+                expiringSoonCount={expiringSoonCount}
+                expiredCount={expiredCount}
+                recentAttendanceLength={recentAttendance.length}
+                expiringMembers={expiringMembers as any}
+                expiredMembers={expiredMembers as any}
+                gymName={gym?.name || 'PulseFit'}
+                gymWhatsApp={gym?.whatsappNumber || ''}
+            />
 
             {/* Recent Activity Section */}
             <section className="glass-card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '24px' }}>
@@ -303,49 +293,6 @@ export default async function DashboardPage() {
                     </table>
                 </div>
             </section>
-        </div>
-    );
-}
-
-import { CheckCircle2 } from 'lucide-react';
-
-function MetricCard({ title, value, icon, subtitle, glowColor, variant = 'light' }: { title: string, value: string | number, icon: React.ReactNode, subtitle: string, glowColor: string, variant?: 'light' | 'dark' }) {
-    return (
-        <div className="card" style={{ 
-            padding: '24px', 
-            borderRadius: '24px',
-            background: 'var(--surface-color)',
-            border: '1px solid var(--border-color)',
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: '16px',
-            position: 'relative',
-            overflow: 'hidden',
-            transition: 'transform 0.2s ease'
-        }}>
-            <div style={{ 
-                position: 'absolute', 
-                top: '-20px', 
-                right: '-20px', 
-                width: '100px', 
-                height: '100px', 
-                background: glowColor, 
-                borderRadius: '50%', 
-                filter: 'blur(35px)',
-                opacity: 0.6
-            }}></div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
-                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(var(--brand-primary-rgb, 45, 212, 191), 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--brand-primary)' }}>
-                    {icon}
-                </div>
-            </div>
-            
-            <div style={{ position: 'relative', zIndex: 1 }}>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>{title}</p>
-                <h3 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '4px', letterSpacing: '-0.04em', color: 'var(--text-primary)', lineHeight: 1 }}>{value}</h3>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500, opacity: 0.8 }}>{subtitle}</p>
-            </div>
         </div>
     );
 }
