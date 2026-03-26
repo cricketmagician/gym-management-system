@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Plus, X, Building2, User, Mail, Lock, Globe, Sparkles, Loader2, CheckCircle2 } from 'lucide-react';
+import { Plus, X, Building2, User, Mail, Lock, Globe, Sparkles, Loader2, CheckCircle2, Shield } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import AuditLogModal from './AuditLogModal';
 
 interface Gym {
     id: string;
@@ -24,6 +25,8 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
+    const [auditModalOpen, setAuditModalOpen] = useState(false);
+    const [selectedGymForAudit, setSelectedGymForAudit] = useState<{id: string, name: string} | null>(null);
     const router = useRouter();
 
     const [formData, setFormData] = useState({
@@ -108,7 +111,16 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
                                     <div style={{ display: 'inline-flex', padding: '6px 12px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '8px', fontSize: '0.75rem', fontWeight: 800 }}>ACTIVE</div>
                                 </td>
                                 <td style={{ padding: '20px 24px', textAlign: 'right', borderRadius: '0 16px 16px 0' }}>
-                                    <button style={{ padding: '10px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer' }}>Manage Audit</button>
+                                    <button 
+                                        onClick={() => {
+                                            setSelectedGymForAudit({ id: gym.id, name: gym.name });
+                                            setAuditModalOpen(true);
+                                        }}
+                                        style={{ padding: '10px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}
+                                        className="scale-hover"
+                                    >
+                                        <Shield size={14} className="text-amber-500" /> Manage Audit
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -221,6 +233,13 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
                     </div>
                 </div>
             )}
+
+            <AuditLogModal 
+                isOpen={auditModalOpen} 
+                onClose={() => setAuditModalOpen(false)} 
+                gymId={selectedGymForAudit?.id || ''} 
+                gymName={selectedGymForAudit?.name || ''} 
+            />
 
             <style jsx>{`
                 .row-hover:hover {

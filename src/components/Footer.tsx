@@ -11,6 +11,8 @@ interface FooterProps {
 
 export default function Footer({ gymName, session }: FooterProps) {
     const amberColor = '#f59e0b'; // Elite Amber
+    const isSuperAdmin = session?.user?.role === 'SUPER_ADMIN';
+    const displayGymName = isSuperAdmin ? 'PULSEFIT GLOBAL' : gymName;
 
     return (
         <footer style={{ 
@@ -31,7 +33,7 @@ export default function Footer({ gymName, session }: FooterProps) {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                         <div style={{ width: '32px', height: '32px', background: amberColor, borderRadius: '8px', boxShadow: `0 0 20px ${amberColor}30` }}></div>
-                        <h3 style={{ fontSize: '1.75rem', fontWeight: 950, letterSpacing: '-0.04em' }}>{gymName.toUpperCase()}</h3>
+                        <h3 style={{ fontSize: '1.75rem', fontWeight: 950, letterSpacing: '-0.04em' }}>{displayGymName.toUpperCase()}</h3>
                     </div>
                     <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500, lineHeight: 1.6, maxWidth: '300px' }}>
                         Crafting elite fitness ecosystems for the next generation of performance athletes.
@@ -125,7 +127,7 @@ export default function Footer({ gymName, session }: FooterProps) {
                 <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.05)' }}></div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
                     <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700 }}>
-                        © {new Date().getFullYear()} {gymName}. GLOBAL OPERATIONS SECURED.
+                        © {new Date().getFullYear()} {displayGymName}. GLOBAL OPERATIONS SECURED.
                     </p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.7rem', fontWeight: 900, letterSpacing: '0.1em', opacity: 0.5 }}>
                         <ShieldCheck size={14} className="text-amber-500" /> 
