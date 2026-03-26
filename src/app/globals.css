@@ -27,6 +27,7 @@
   --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
   --gradient-gold: linear-gradient(135deg, #FDE047 0%, #EAB308 100%);
   --gradient-blue: linear-gradient(135deg, #60A5FA 0%, #2563EB 100%);
+  --member-bg-gradient: linear-gradient(135deg, #FFEDD5 0%, #FED7AA 100%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,6 +46,7 @@
     --status-expired-text: #F87171;
     --glass-bg: rgba(17, 24, 39, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
+    --member-bg-gradient: linear-gradient(135deg, #0B0F19 0%, #111827 100%);
   }
 }
 
@@ -63,6 +65,7 @@
     --status-expired-text: #F87171;
     --glass-bg: rgba(17, 24, 39, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
+    --member-bg-gradient: linear-gradient(135deg, #0B0F19 0%, #111827 100%);
 }
 
 .light {
@@ -74,6 +77,7 @@
   --border-color: #E5E7EB;
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.3);
+  --member-bg-gradient: linear-gradient(135deg, #FFEDD5 0%, #FED7AA 100%);
 }
 
 * {
@@ -171,18 +175,11 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
-/* Member Dashboard Specific Styles */
 .member-bg {
-    background: linear-gradient(135deg, #FFEDD5 0%, #FED7AA 100%);
+    background: var(--member-bg-gradient);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
-}
-
-@media (prefers-color-scheme: dark) {
-    .member-bg {
-        background: linear-gradient(135deg, #0B0F19 0%, #111827 100%);
-    }
 }
 
 .watermark-text {
@@ -208,20 +205,12 @@ table {
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--glass-bg, rgba(255, 255, 255, 0.4));
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.3));
     border-radius: 24px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-}
-
-@media (prefers-color-scheme: dark) {
-    .glass-card {
-        background: rgba(17, 24, 39, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-    }
 }
 
 .glass-card-dark {

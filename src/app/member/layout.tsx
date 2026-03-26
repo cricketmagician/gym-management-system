@@ -69,13 +69,14 @@ export default function MemberLayout({
                             justifyContent: 'center',
                             cursor: 'pointer',
                             boxShadow: 'var(--shadow-soft)',
-                            color: 'var(--text-primary)',
+                            color: theme === 'dark' ? '#fb923c' : 'var(--brand-primary)',
                             backdropFilter: 'blur(8px)',
-                            WebkitBackdropFilter: 'blur(8px)'
+                            WebkitBackdropFilter: 'blur(8px)',
+                            transition: 'all 0.3s ease'
                         }}
                         aria-label="Toggle Theme"
                     >
-                        {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                        {theme === 'dark' ? <Moon size={20} fill="#fb923c" /> : <Sun size={20} />}
                     </button>
                 </div>
                 {children}
