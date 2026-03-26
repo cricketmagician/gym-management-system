@@ -57,18 +57,39 @@ export default async function DashboardPage() {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', minHeight: '100vh', padding: '24px' }} className="admin-dashboard">
-            <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
-                <div>
-                    <div style={{ background: '#2dd4bf', color: '#000', padding: '4px 12px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.05em', width: 'fit-content', marginBottom: '12px' }}>MANAGEMENT</div>
-                    <h1 style={{ fontSize: '2.25rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#111' }}>Command Center</h1>
-                    <p style={{ color: '#666', marginTop: '4px' }}>Real-time overview of your gym's performance and activity.</p>
+            <header style={{ 
+                display: 'flex', 
+                flexDirection: 'column',
+                gap: '24px',
+                paddingBottom: '8px'
+            }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+                    <div>
+                        <div style={{ background: '#2dd4bf', color: '#000', padding: '4px 12px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.05em', width: 'fit-content', marginBottom: '12px' }}>MANAGEMENT</div>
+                        <h1 style={{ fontSize: '2.25rem', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', lineHeight: 1 }}>Command Center</h1>
+                        <p style={{ color: '#666', marginTop: '8px', fontSize: '0.9375rem', fontWeight: 500 }}>Live gym operations and member activity.</p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <AdminQrControl gymId={gymId} />
+                    </div>
                 </div>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <AdminQrControl gymId={gymId} />
-                    <Link href="/members/new" className="btn-renew" style={{ textDecoration: 'none', background: '#000', color: '#fff', padding: '12px 24px', borderRadius: '14px', border: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Plus size={18} /> Add New Member
-                    </Link>
-                </div>
+                
+                <Link href="/members/new" className="btn-renew" style={{ 
+                    textDecoration: 'none', 
+                    background: '#000', 
+                    color: '#fff', 
+                    padding: '16px', 
+                    borderRadius: '18px', 
+                    border: 'none', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    gap: '10px',
+                    width: '100%',
+                    boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+                }}>
+                    <Plus size={20} /> <span style={{ fontWeight: 800, letterSpacing: '0.02em' }}>ADD NEW MEMBER</span>
+                </Link>
             </header>
 
             {/* Metric Grid */}

@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import SidebarNav from '@/components/SidebarNav';
 import Footer from '@/components/Footer';
+import AdminBottomNav from '@/components/AdminBottomNav';
 import { headers } from 'next/headers';
 import prisma from "@/lib/prisma";
 
@@ -123,6 +124,7 @@ export default async function RootLayout({
                         <div style={{ flex: 1 }}>
                             {children}
                         </div>
+                        {(session?.user?.role === 'ADMIN' || session?.user?.role === 'STAFF') && <AdminBottomNav />}
                         <Footer gymName={branding.name} />
                     </main>
                 </div>

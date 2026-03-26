@@ -39,42 +39,52 @@ export default function MembersDirectoryContent({ initialMembers }: MembersDirec
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
             {/* Unified Controls Wrap */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex', background: 'rgba(0,0,0,0.03)', padding: '6px', borderRadius: '16px', gap: '4px' }}>
+            <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '16px' 
+            }}>
+                <div style={{ 
+                    display: 'flex', 
+                    background: 'rgba(0,0,0,0.03)', 
+                    padding: '6px', 
+                    borderRadius: '16px', 
+                    gap: '4px',
+                    width: '100%',
+                    overflowX: 'auto'
+                }}>
                     <TabButton active={filter === 'ALL'} onClick={() => setFilter('ALL')} label="All" count={initialMembers.length} />
                     <TabButton active={filter === 'MALE'} onClick={() => setFilter('MALE')} label="Male" count={initialMembers.filter(m => m.gender === 'MALE').length} />
                     <TabButton active={filter === 'FEMALE'} onClick={() => setFilter('FEMALE')} label="Female" count={initialMembers.filter(m => m.gender === 'FEMALE').length} />
                 </div>
 
-                <div style={{ display: 'flex', gap: '16px', flex: 1, maxWidth: '500px' }}>
-                    <div style={{ position: 'relative', flex: 1 }}>
-                        <Search style={{ position: 'absolute', top: '14px', left: '16px', color: 'var(--text-secondary)' }} size={18} />
-                        <input 
-                            type="text" 
-                            placeholder="Search names or numbers..." 
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            style={{ 
-                                width: '100%',
-                                padding: '14px 16px 14px 44px', 
-                                borderRadius: '14px', 
-                                border: '1px solid var(--border-color)', 
-                                background: 'var(--surface-color)', 
-                                fontSize: '0.9375rem',
-                                fontWeight: 500,
-                                outline: 'none',
-                                transition: 'all 0.2s ease'
-                            }} 
-                        />
-                    </div>
+                <div style={{ position: 'relative', width: '100%' }}>
+                    <Search style={{ position: 'absolute', top: '16px', left: '16px', color: 'var(--text-secondary)' }} size={20} />
+                    <input 
+                        type="text" 
+                        placeholder="Search names or numbers..." 
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        style={{ 
+                            width: '100%',
+                            padding: '16px 16px 16px 48px', 
+                            borderRadius: '18px', 
+                            border: '1px solid var(--border-color)', 
+                            background: 'var(--surface-color)', 
+                            fontSize: '1rem',
+                            fontWeight: 600,
+                            outline: 'none',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+                        }} 
+                    />
                 </div>
             </div>
 
             {/* Grid View */}
             <div style={{ 
                 display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
-                gap: '24px' 
+                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
+                gap: '20px' 
             }}>
                 {filteredMembers.length > 0 ? filteredMembers.map((member, idx) => (
                     <MemberCard key={member.id} member={member} delay={idx * 0.05} />
