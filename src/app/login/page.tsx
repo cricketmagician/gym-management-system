@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { Smartphone, Mail, Lock, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
   const [identifier, setIdentifier] = useState('');
@@ -38,60 +39,62 @@ export default function LoginPage() {
 
   return (
     <div className="login-container">
-      <div className="login-background">
-        <div className="blob blob-1"></div>
-        <div className="blob blob-2"></div>
-        <div className="blob blob-3"></div>
+      {/* Background Image with Overlay */}
+      <div className="login-hero-bg">
+        <div className="overlay"></div>
       </div>
 
-      <div className="login-card">
-        <div className="login-header">
-          <div className="logo-icon"></div>
-          <h1>PulseFit</h1>
-          <p>Elevate your fitness management</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="login-form">
-          {error && (
-            <div className="error-message">
-              {error}
-            </div>
-          )}
-
-          <div className="form-group">
-            <label htmlFor="identifier">Email or Phone</label>
-            <input
-              id="identifier"
-              type="text"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
-              placeholder="admin@pulsefit.com"
-              required
-            />
+      <div className="login-content">
+        <div className="login-card glass-panel animate-fade-in">
+          <div className="login-header">
+            <div className="brand-badge">PULSEFIT</div>
+            <h1>Empower Your Strength</h1>
+            <p>Welcome back! Sign in to continue your journey.</p>
           </div>
 
-          <div className="form-group">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <label htmlFor="password">Password</label>
-              <a href="#" style={{ fontSize: '0.75rem', color: 'var(--brand-primary)', textDecoration: 'none', fontWeight: 600 }}>Forgot password?</a>
+          <form onSubmit={handleSubmit} className="login-form">
+            {error && <div className="error-alert">{error}</div>}
+
+            <div className="input-field">
+              <label>Email or Phone</label>
+              <div className="input-wrapper">
+                <Smartphone className="input-icon" size={20} />
+                <input
+                  type="text"
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
+                  placeholder="name@email.com or 9876..."
+                  required
+                />
+              </div>
             </div>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-            />
-          </div>
 
-          <button type="submit" className="login-button" disabled={isLoading}>
-            {isLoading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
+            <div className="input-field">
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <label>Password</label>
+                <a href="#" className="forgot-link">Forgot?</a>
+              </div>
+              <div className="input-wrapper">
+                <Lock className="input-icon" size={20} />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+            </div>
 
-        <div className="login-footer">
-          <p>© 2026 PulseFit Systems. All rights reserved.</p>
+            <button type="submit" className="submit-btn" disabled={isLoading}>
+              {isLoading ? 'Processing...' : 'Access Dashboard'}
+              {!isLoading && <ArrowRight size={20} />}
+            </button>
+          </form>
+
+          <footer className="card-footer">
+            <p>© 2026 PulseFit Systems. Premium Fitness Management.</p>
+          </footer>
         </div>
       </div>
 
@@ -101,75 +104,47 @@ export default function LoginPage() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: var(--bg-color);
           position: relative;
+          background: #000;
           overflow: hidden;
-          padding: 20px;
+          font-family: 'Inter', sans-serif;
         }
 
-        .login-background {
+        .login-hero-bg {
           position: absolute;
           top: 0;
           left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: 0;
-        }
-
-        .blob {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.4;
-          z-index: 0;
-          animation: float 20s infinite alternate;
-        }
-
-        .blob-1 {
-          width: 400px;
-          height: 400px;
-          background: var(--brand-primary);
-          top: -100px;
-          right: -100px;
-        }
-
-        .blob-2 {
-          width: 350px;
-          height: 350px;
-          background: #8B5CF6;
-          bottom: -50px;
-          left: -50px;
-          animation-delay: -5s;
-        }
-
-        .blob-3 {
-          width: 300px;
-          height: 300px;
-          background: #EC4899;
-          top: 40%;
-          left: 20%;
-          animation-delay: -10s;
-        }
-
-        @keyframes float {
-          0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-          33% { transform: translate(30px, 50px) rotate(10deg) scale(1.1); }
-          66% { transform: translate(-20px, 20px) rotate(-10deg) scale(0.9); }
-          100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-        }
-
-        .login-card {
           width: 100%;
-          max-width: 420px;
-          background: var(--glass-bg);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid var(--glass-border);
-          border-radius: 24px;
-          padding: 40px;
-          box-shadow: var(--shadow-premium);
-          z-index: 10;
+          height: 100%;
+          background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070') center/cover no-repeat;
+          z-index: 0;
+        }
+
+        .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .login-content {
           position: relative;
+          z-index: 10;
+          width: 100%;
+          max-width: 440px;
+          padding: 24px;
+        }
+
+        .glass-panel {
+          background: rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(25px);
+          -webkit-backdrop-filter: blur(25px);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 32px;
+          padding: 40px;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .login-header {
@@ -177,112 +152,154 @@ export default function LoginPage() {
           margin-bottom: 32px;
         }
 
-        .logo-icon {
-          width: 48px;
-          height: 48px;
-          background: var(--brand-primary);
-          border-radius: 12px;
-          margin: 0 auto 16px;
-          box-shadow: 0 8px 16px -4px rgba(79, 70, 229, 0.4);
+        .brand-badge {
+          background: #2dd4bf;
+          color: #000;
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 800;
+          letter-spacing: 0.1em;
+          width: fit-content;
+          margin: 0 auto 20px;
         }
 
         h1 {
+          color: #fff;
           font-size: 1.75rem;
           font-weight: 800;
-          margin-bottom: 8px;
-          letter-spacing: -0.025em;
+          margin-bottom: 12px;
+          letter-spacing: -0.02em;
         }
 
-        .login-header p {
-          color: var(--text-secondary);
+        p {
+          color: rgba(255,255,255,0.6);
           font-size: 0.9375rem;
+          line-height: 1.5;
         }
 
         .login-form {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 24px;
         }
 
-        .error-message {
+        .error-alert {
+          background: rgba(239, 68, 68, 0.2);
+          color: #fca5a5;
           padding: 12px;
-          background-color: var(--status-expired-bg);
-          color: var(--status-expired-text);
-          border-radius: 8px;
+          border-radius: 12px;
           font-size: 0.875rem;
           text-align: center;
-          font-weight: 500;
+          border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
-        .form-group {
+        .input-field {
           display: flex;
           flex-direction: column;
           gap: 8px;
         }
 
         label {
-          font-size: 0.875rem;
+          color: rgba(255,255,255,0.8);
+          font-size: 0.8125rem;
           font-weight: 600;
-          color: var(--text-primary);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .forgot-link {
+          color: #2dd4bf;
+          font-size: 0.75rem;
+          text-decoration: none;
+          font-weight: 600;
+        }
+
+        .input-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+
+        .input-icon {
+          position: absolute;
+          left: 16px;
+          color: rgba(255,255,255,0.4);
         }
 
         input {
-          padding: 12px 16px;
-          border-radius: 10px;
-          border: 1px solid var(--border-color);
-          background: var(--surface-color);
-          color: var(--text-primary);
-          font-size: 0.9375rem;
-          transition: all 0.2s ease;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 14px 16px 14px 48px;
+          border-radius: 14px;
+          color: #fff;
+          font-size: 1rem;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         input:focus {
           outline: none;
-          border-color: var(--brand-primary);
-          box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+          background: rgba(255, 255, 255, 0.08);
+          border-color: #2dd4bf;
+          box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.1);
         }
 
-        .login-button {
+        .submit-btn {
           margin-top: 8px;
-          padding: 12px;
-          background-color: var(--brand-primary);
-          color: white;
+          background: #fff;
+          color: #000;
           border: none;
-          border-radius: 10px;
+          padding: 16px;
+          border-radius: 14px;
           font-size: 1rem;
-          font-weight: 600;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
           cursor: pointer;
-          transition: all 0.2s ease;
-          box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+          transition: all 0.3s ease;
         }
 
-        .login-button:hover:not(:disabled) {
-          background-color: var(--brand-primary-hover);
-          transform: translateY(-1px);
-          box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        .submit-btn:hover:not(:disabled) {
+          background: #2dd4bf;
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px -10px rgba(45, 212, 191, 0.5);
         }
 
-        .login-button:active:not(:disabled) {
-          transform: translateY(0);
-        }
-
-        .login-button:disabled {
+        .submit-btn:disabled {
           opacity: 0.7;
           cursor: not-allowed;
         }
 
-        .login-footer {
+        .card-footer {
           margin-top: 32px;
           text-align: center;
         }
 
-        .login-footer p {
+        .card-footer p {
           font-size: 0.75rem;
-          color: var(--text-secondary);
+          color: rgba(255,255,255,0.4);
+        }
+
+        .animate-fade-in {
+          animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         @media (max-width: 480px) {
-          .login-card {
+          .glass-panel {
             padding: 32px 24px;
           }
         }

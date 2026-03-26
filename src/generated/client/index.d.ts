@@ -3359,6 +3359,7 @@ export namespace Prisma {
     phone: string | null
     passwordHash: string | null
     role: $Enums.Role | null
+    photoUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3372,6 +3373,7 @@ export namespace Prisma {
     phone: string | null
     passwordHash: string | null
     role: $Enums.Role | null
+    photoUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3385,6 +3387,7 @@ export namespace Prisma {
     phone: number
     passwordHash: number
     role: number
+    photoUrl: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3400,6 +3403,7 @@ export namespace Prisma {
     phone?: true
     passwordHash?: true
     role?: true
+    photoUrl?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3413,6 +3417,7 @@ export namespace Prisma {
     phone?: true
     passwordHash?: true
     role?: true
+    photoUrl?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3426,6 +3431,7 @@ export namespace Prisma {
     phone?: true
     passwordHash?: true
     role?: true
+    photoUrl?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3512,6 +3518,7 @@ export namespace Prisma {
     phone: string | null
     passwordHash: string | null
     role: $Enums.Role
+    photoUrl: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -3542,6 +3549,7 @@ export namespace Prisma {
     phone?: boolean
     passwordHash?: boolean
     role?: boolean
+    photoUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -3564,6 +3572,7 @@ export namespace Prisma {
     phone?: boolean
     passwordHash?: boolean
     role?: boolean
+    photoUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -3578,6 +3587,7 @@ export namespace Prisma {
     phone?: boolean
     passwordHash?: boolean
     role?: boolean
+    photoUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -3592,11 +3602,12 @@ export namespace Prisma {
     phone?: boolean
     passwordHash?: boolean
     role?: boolean
+    photoUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gymId" | "name" | "email" | "gender" | "phone" | "passwordHash" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gymId" | "name" | "email" | "gender" | "phone" | "passwordHash" | "role" | "photoUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gym?: boolean | GymDefaultArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
@@ -3636,6 +3647,7 @@ export namespace Prisma {
       phone: string | null
       passwordHash: string | null
       role: $Enums.Role
+      photoUrl: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -4077,6 +4089,7 @@ export namespace Prisma {
     readonly phone: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
+    readonly photoUrl: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -13790,6 +13803,7 @@ export namespace Prisma {
     phone: 'phone',
     passwordHash: 'passwordHash',
     role: 'role',
+    photoUrl: 'photoUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -14219,6 +14233,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    photoUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
@@ -14240,6 +14255,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     passwordHash?: SortOrderInput | SortOrder
     role?: SortOrder
+    photoUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     gym?: GymOrderByWithRelationInput
@@ -14266,6 +14282,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    photoUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
@@ -14287,6 +14304,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     passwordHash?: SortOrderInput | SortOrder
     role?: SortOrder
+    photoUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -14306,6 +14324,7 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     passwordHash?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+    photoUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -15060,6 +15079,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutUsersInput
@@ -15081,6 +15101,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -15100,6 +15121,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutUsersNestedInput
@@ -15121,6 +15143,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -15141,6 +15164,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15153,6 +15177,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15166,6 +15191,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16033,6 +16059,7 @@ export namespace Prisma {
     phone?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    photoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16046,6 +16073,7 @@ export namespace Prisma {
     phone?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    photoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16059,6 +16087,7 @@ export namespace Prisma {
     phone?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    photoUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17968,6 +17997,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipCreateNestedManyWithoutUserInput
@@ -17987,6 +18017,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -18254,6 +18285,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    photoUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
@@ -18979,6 +19011,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutUsersInput
@@ -18999,6 +19032,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
@@ -19141,6 +19175,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutUsersNestedInput
@@ -19161,6 +19196,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
@@ -19279,6 +19315,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutUsersInput
@@ -19299,6 +19336,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -19384,6 +19422,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutUsersNestedInput
@@ -19404,6 +19443,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -19479,6 +19519,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutUsersInput
@@ -19499,6 +19540,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -19621,6 +19663,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutUsersNestedInput
@@ -19641,6 +19684,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -19867,6 +19911,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutUsersInput
@@ -19887,6 +19932,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -19972,6 +20018,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutUsersNestedInput
@@ -19992,6 +20039,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -20067,6 +20115,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutUsersInput
@@ -20087,6 +20136,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -20172,6 +20222,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutUsersNestedInput
@@ -20192,6 +20243,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -20318,6 +20370,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutUsersInput
@@ -20338,6 +20391,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -20361,6 +20415,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     gym: GymCreateNestedOneWithoutUsersInput
@@ -20381,6 +20436,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
@@ -20472,6 +20528,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutUsersNestedInput
@@ -20492,6 +20549,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -20521,6 +20579,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutUsersNestedInput
@@ -20541,6 +20600,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -20559,6 +20619,7 @@ export namespace Prisma {
     phone?: string | null
     passwordHash?: string | null
     role?: $Enums.Role
+    photoUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20644,6 +20705,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUpdateManyWithoutUserNestedInput
@@ -20663,6 +20725,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
@@ -20682,6 +20745,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
