@@ -455,44 +455,76 @@ export default function MemberDashboardClient({
                         {/* Quick Scan Entry moved to top row */}
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
-                        <MetricCard 
-                            title="Attendance" 
-                            value={thisWeekAttendance} 
-                            unit="Days this week" 
-                            icon={<Timer size={18} />} 
-                            color="#2dd4bf" 
-                            href="/member/attendance" 
-                            variant="black"
-                        />
-                        <MetricCard 
-                            title="Workout Session" 
-                            value={workoutCount} 
-                            unit="Sessions" 
-                            icon={<Activity size={18} />} 
-                            color="#fb923c" 
-                            href="/member/workouts" 
-                        />
-                        <MetricCard 
-                            title="App Experience" 
-                            value="Get App" 
-                            unit="Setup" 
-                            icon={<Smartphone />} 
-                            color="#a78bfa" 
-                            onClick={handleInstall}
-                            variant="white"
-                            compact={true}
-                        />
-                        
-                        <MetricCard 
-                            title="Gym Access" 
-                            value="Quick Connect" 
-                            unit="Wifi, WhatsApp & More" 
-                            icon={<Zap size={20} />} 
-                            color="#fff" 
-                            onClick={() => setIsQuickConnectOpen(true)}
-                            variant="orange"
-                        />
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+                        <div style={{ gridColumn: 'span 2' }}>
+                            <MetricCard 
+                                title="Attendance" 
+                                value={thisWeekAttendance} 
+                                unit="Days this week" 
+                                icon={<Timer size={18} />} 
+                                color="#2dd4bf" 
+                                href="/member/attendance" 
+                                variant="black"
+                            />
+                        </div>
+                        <div style={{ gridColumn: 'span 2' }}>
+                            <MetricCard 
+                                title="Workout Session" 
+                                value={workoutCount} 
+                                unit="Sessions" 
+                                icon={<Activity size={18} />} 
+                                color="#fb923c" 
+                                href="/member/workouts" 
+                            />
+                        </div>
+
+                        {/* Row 2: Half-size Get App + New Share Card, and Full-size Quick Connect */}
+                        <div style={{ gridColumn: 'span 1' }}>
+                            <MetricCard 
+                                title="App Experience" 
+                                value="Get App" 
+                                unit="Setup" 
+                                icon={<Smartphone />} 
+                                color="#a78bfa" 
+                                onClick={handleInstall}
+                                variant="white"
+                                compact={true}
+                            />
+                        </div>
+                        <div style={{ gridColumn: 'span 1' }}>
+                            <MetricCard 
+                                title="Profile" 
+                                value="Share" 
+                                unit="Invite" 
+                                icon={<Share />} 
+                                color="#2dd4bf" 
+                                onClick={() => {
+                                    if (navigator.share) {
+                                        navigator.share({
+                                            title: 'PulseFit Gym',
+                                            text: `Join me at ${user.gym?.name || 'PulseFit Gym'}!`,
+                                            url: window.location.origin
+                                        });
+                                    } else {
+                                        alert("Share link copied!");
+                                        navigator.clipboard.writeText(window.location.origin);
+                                    }
+                                }}
+                                variant="black"
+                                compact={true}
+                            />
+                        </div>
+                        <div style={{ gridColumn: 'span 2' }}>
+                            <MetricCard 
+                                title="Gym Access" 
+                                value="Quick Connect" 
+                                unit="Wifi, WhatsApp & More" 
+                                icon={<Zap size={20} />} 
+                                color="#fff" 
+                                onClick={() => setIsQuickConnectOpen(true)}
+                                variant="orange"
+                            />
+                        </div>
                     </div>
 
                     <style jsx>{`
@@ -526,13 +558,22 @@ export default function MemberDashboardClient({
                         .marquee-container:hover .marquee-content {
                             animation-play-state: paused;
                         }
-                        .pulse-amber {
-                            animation: pulse-amber 2s infinite;
-                        }
                         @keyframes pulse-amber {
                             0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); opacity: 1; }
                             70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); opacity: 0.5; }
                             100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); opacity: 1; }
+                        }
+                        @media (max-width: 640px) {
+                            div[style*="grid-template-columns: repeat(4, 1fr)"] {
+                                grid-template-columns: repeat(2, 1fr) !important;
+                                gap: 12px !important;
+                            }
+                            div[style*="grid-column: span 2"] {
+                                grid-column: span 2 !important;
+                            }
+                            div[style*="grid-column: span 1"] {
+                                grid-column: span 1 !important;
+                            }
                         }
                     `}</style>
         
