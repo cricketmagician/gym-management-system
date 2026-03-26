@@ -13,24 +13,134 @@ export default async function DashboardPage() {
     if (!session) {
         return (
             <div style={{ 
-                height: 'calc(100vh - 100px)', 
+                height: '100vh', 
+                width: '100vw',
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                background: '#000',
                 display: 'flex', 
                 flexDirection: 'column', 
                 alignItems: 'center', 
-                justifyContent: 'center', 
-                gap: '24px',
-                textAlign: 'center'
+                justifyContent: 'center',
+                overflow: 'hidden'
             }}>
-                <div style={{ width: '64px', height: '64px', background: 'var(--brand-primary)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', marginBottom: '8px' }}>
-                    <Plus size={32} />
+                {/* Cinematic Background */}
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backgroundImage: 'url("/landing-bg.png")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    opacity: 0.4,
+                    filter: 'grayscale(0.3) contrast(1.2)'
+                }} />
+
+                {/* Motivational Watermark */}
+                <div className="watermark-text" style={{ 
+                    position: 'absolute', 
+                    top: '5vh', 
+                    left: '4vw', 
+                    opacity: 0.05, 
+                    pointerEvents: 'none',
+                    zIndex: 1 
+                }}>
+                    PULSE FIT<br/>
+                    GO GYM<br/>
+                    FOCUS TRAIN<br/>
+                    STAY HARD<br/>
+                    LIMITLESS<br/>
+                    ELITE POWER<br/>
+                    PURE GRIND
                 </div>
-                <div>
-                    <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '8px' }}>Welcome to PulseFit</h1>
-                    <p style={{ color: 'var(--text-secondary)', maxWidth: '400px' }}>Your premium gym management partner. Please sign in to access your dashboard.</p>
+
+                {/* Luxe Glass Gateway */}
+                <div style={{ 
+                    position: 'relative', 
+                    zIndex: 10,
+                    width: '90%',
+                    maxWidth: '480px',
+                    padding: '60px 40px',
+                    borderRadius: '48px',
+                    background: 'rgba(0,0,0,0.4)',
+                    backdropFilter: 'blur(24px)',
+                    WebkitBackdropFilter: 'blur(24px)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    gap: '40px',
+                    boxShadow: '0 40px 100px rgba(0,0,0,0.8)',
+                    animation: 'landingFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+                        <div style={{ 
+                            width: '80px', 
+                            height: '80px', 
+                            background: 'linear-gradient(135deg, var(--brand-primary) 0%, #d97706 100%)', 
+                            borderRadius: '24px', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center', 
+                            color: '#000',
+                            boxShadow: '0 0 40px rgba(245, 158, 11, 0.4)',
+                            animation: 'pulseGlow 3s infinite ease-in-out'
+                        }}>
+                            <TrendingUp size={40} strokeWidth={2.5} />
+                        </div>
+                        <div>
+                            <h1 className="font-premium" style={{ 
+                                fontSize: '3rem', 
+                                fontWeight: 950, 
+                                lineHeight: 1, 
+                                letterSpacing: '-0.05em',
+                                color: '#fff',
+                                marginBottom: '12px'
+                            }}>PulseFit</h1>
+                            <p style={{ 
+                                fontSize: '1rem', 
+                                color: 'rgba(255,255,255,0.6)', 
+                                fontWeight: 600,
+                                letterSpacing: '0.05em',
+                                textTransform: 'uppercase'
+                            }}>The Elite Fitness Command</p>
+                        </div>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
+                        <Link href="/login" style={{ 
+                            width: '100%',
+                            padding: '22px', 
+                            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                            borderRadius: '20px',
+                            color: '#000',
+                            fontSize: '1.125rem',
+                            fontWeight: 900,
+                            textDecoration: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '12px',
+                            boxShadow: '0 20px 40px rgba(245, 158, 11, 0.25)',
+                            transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                        }} className="scale-hover">
+                            ENTER COMMAND CENTER
+                        </Link>
+                        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem', fontWeight: 500 }}>Authorized Personnel Only</p>
+                    </div>
                 </div>
-                <Link href="/login" className="btn btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700, textDecoration: 'none' }}>
-                    Sign In to Continue
-                </Link>
+
+                <style jsx>{`
+                    @keyframes landingFadeIn {
+                        from { opacity: 0; transform: translateY(40px) scale(0.95); }
+                        to { opacity: 1; transform: translateY(0) scale(1); }
+                    }
+                    @keyframes pulseGlow {
+                        0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+                        50% { box-shadow: 0 0 50px rgba(245, 158, 11, 0.7); }
+                    }
+                `}</style>
             </div>
         );
     }
