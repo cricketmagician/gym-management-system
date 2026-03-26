@@ -145,9 +145,9 @@ export default function MemberDashboardClient({
             )}
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '0 0 110px 0', position: 'relative', zIndex: 1 }} className="member-dashboard">
-                {/* Motivational Watermark Background */}
-                <div className="watermark-text">
-                    PULSE<br />FIT<br />GO<br />GYM
+                {/* Motivational Watermark Background (Full Page Repeat) */}
+                <div className="watermark-text" style={{ fontSize: '7rem', opacity: 0.8 }}>
+                    PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD PULSE FIT GO GYM FOCUS TRAIN HARD
                 </div>
 
                 {/* Full-Bleed Premium Brand Banner */}
@@ -381,8 +381,7 @@ export default function MemberDashboardClient({
                                             background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, transparent 100%)' 
                                         }} />
 
-                                        {/* Activity/Online Indicator */}
-                                        <div style={{ position: 'absolute', top: '16px', right: '16px', width: '12px', height: '12px', background: '#2dd4bf', border: '2px solid rgba(255,255,255,0.3)', borderRadius: '50%', boxShadow: '0 0 10px #2dd4bf' }}></div>
+                                        {/* Activity/Online Indicator Removed as requested */}
 
                                         {/* Trainer Details Overlay */}
                                         <div style={{ 
