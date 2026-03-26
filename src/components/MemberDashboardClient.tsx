@@ -16,13 +16,31 @@ interface MemberDashboardClientProps {
     trainers: any[];
 }
 
-function MetricCard({ title, value, unit, icon, color, href }: { title: string, value: number, unit: string, icon: React.ReactNode, color: string, href?: string }) {
+function MetricCard({ 
+    title, 
+    value, 
+    unit, 
+    icon, 
+    color, 
+    href,
+    variant = 'default' 
+}: { 
+    title: string, 
+    value: number, 
+    unit: string, 
+    icon: React.ReactNode, 
+    color: string, 
+    href?: string,
+    variant?: 'default' | 'black'
+}) {
+    const isBlack = variant === 'black';
+
     const cardContent = (
         <div className="card" style={{ 
             padding: '24px', 
             borderRadius: '24px', 
-            background: 'var(--surface-color)', 
-            border: '1px solid var(--border-color)',
+            background: isBlack ? '#1a1a1a' : 'var(--surface-color)', 
+            border: isBlack ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--border-color)',
             display: 'flex',
             flexDirection: 'column',
             gap: '12px',
@@ -30,17 +48,19 @@ function MetricCard({ title, value, unit, icon, color, href }: { title: string, 
             overflow: 'hidden',
             transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
             cursor: href ? 'pointer' : 'default',
-            boxShadow: `0 10px 30px -10px rgba(0,0,0,0.1), 0 0 20px -5px ${color}20` // Subtle color-tinted glow
+            boxShadow: isBlack 
+                ? '0 10px 30px rgba(0,0,0,0.3)' 
+                : `0 10px 30px -10px rgba(0,0,0,0.1), 0 0 20px -5px ${color}20`
         }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', color: color }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.8 }}>{title}</span>
-                <div style={{ padding: '8px', background: `${color}10`, borderRadius: '10px' }}>
+                <div style={{ padding: '8px', background: isBlack ? 'rgba(255,255,255,0.1)' : `${color}10`, borderRadius: '10px' }}>
                     {icon}
                 </div>
             </div>
             <div>
-                <h4 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1 }}>{value}</h4>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, marginTop: '4px' }}>{unit}</p>
+                <h4 style={{ fontSize: '2rem', fontWeight: 900, color: isBlack ? '#fff' : 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1 }}>{value}</h4>
+                <p style={{ fontSize: '0.75rem', color: isBlack ? 'rgba(255,255,255,0.5)' : 'var(--text-secondary)', fontWeight: 600, marginTop: '4px' }}>{unit}</p>
             </div>
             {/* Glossy overlay effect for interactivity */}
             {href && <div className="card-gloss" />}
@@ -296,8 +316,23 @@ export default function MemberDashboardClient({
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
-                        <MetricCard title="Attendance" value={thisWeekAttendance} unit="Days this week" icon={<Timer size={18} />} color="#2dd4bf" href="/member/attendance" />
-                        <MetricCard title="Workout Session" value={workoutCount} unit="Sessions" icon={<Activity size={18} />} color="#fb923c" href="/member/workouts" />
+                        <MetricCard 
+                            title="Attendance" 
+                            value={thisWeekAttendance} 
+                            unit="Days this week" 
+                            icon={<Timer size={18} />} 
+                            color="#2dd4bf" 
+                            href="/member/attendance" 
+                            variant="black"
+                        />
+                        <MetricCard 
+                            title="Workout Session" 
+                            value={workoutCount} 
+                            unit="Sessions" 
+                            icon={<Activity size={18} />} 
+                            color="#fb923c" 
+                            href="/member/workouts" 
+                        />
                     </div>
 
                     <style jsx>{`
