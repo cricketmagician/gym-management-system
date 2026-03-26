@@ -44,7 +44,7 @@ function MetricCard({
 
     const cardContent = (
         <div className="card" style={{ 
-            padding: compact ? '16px 20px' : '24px', 
+            padding: compact ? (typeof value === 'string' && value === 'Get App' ? '10px 20px' : '16px 20px') : '24px', 
             borderRadius: '24px', 
             background: isWhite ? '#ffffff' : (isOrange ? 'linear-gradient(135deg, #f59e0b, #ea580c)' : (isBlack ? '#1a1a1a' : 'var(--surface-color)')), 
             border: (isOrange || isWhite) ? 'none' : (isBlack ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--border-color)'),
@@ -71,7 +71,7 @@ function MetricCard({
             </div>
             <div>
                 <h4 style={{ 
-                    fontSize: compact ? '1.25rem' : ((typeof value === 'string' && value.length > 8) ? '1.5rem' : '2rem'), 
+                    fontSize: compact ? (typeof value === 'string' && value === 'Get App' ? '1.1rem' : '1.25rem') : ((typeof value === 'string' && value.length > 8) ? '1.5rem' : '2rem'), 
                     fontWeight: 900, 
                     color: isWhite ? '#000' : ((isBlack || isOrange) ? '#fff' : 'var(--text-primary)'), 
                     letterSpacing: '-0.02em', 
