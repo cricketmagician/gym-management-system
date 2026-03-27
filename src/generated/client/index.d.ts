@@ -2401,6 +2401,8 @@ export namespace Prisma {
     wifiSsid: string | null
     wifiPassword: string | null
     loginBackgroundUrl: string | null
+    welcomeTitle: string | null
+    welcomeSubtitle: string | null
     instagramLink: string | null
     locationDesc: string | null
     whatsappNumber: string | null
@@ -2426,6 +2428,8 @@ export namespace Prisma {
     wifiSsid: string | null
     wifiPassword: string | null
     loginBackgroundUrl: string | null
+    welcomeTitle: string | null
+    welcomeSubtitle: string | null
     instagramLink: string | null
     locationDesc: string | null
     whatsappNumber: string | null
@@ -2451,6 +2455,8 @@ export namespace Prisma {
     wifiSsid: number
     wifiPassword: number
     loginBackgroundUrl: number
+    welcomeTitle: number
+    welcomeSubtitle: number
     instagramLink: number
     locationDesc: number
     whatsappNumber: number
@@ -2478,6 +2484,8 @@ export namespace Prisma {
     wifiSsid?: true
     wifiPassword?: true
     loginBackgroundUrl?: true
+    welcomeTitle?: true
+    welcomeSubtitle?: true
     instagramLink?: true
     locationDesc?: true
     whatsappNumber?: true
@@ -2503,6 +2511,8 @@ export namespace Prisma {
     wifiSsid?: true
     wifiPassword?: true
     loginBackgroundUrl?: true
+    welcomeTitle?: true
+    welcomeSubtitle?: true
     instagramLink?: true
     locationDesc?: true
     whatsappNumber?: true
@@ -2528,6 +2538,8 @@ export namespace Prisma {
     wifiSsid?: true
     wifiPassword?: true
     loginBackgroundUrl?: true
+    welcomeTitle?: true
+    welcomeSubtitle?: true
     instagramLink?: true
     locationDesc?: true
     whatsappNumber?: true
@@ -2626,6 +2638,8 @@ export namespace Prisma {
     wifiSsid: string | null
     wifiPassword: string | null
     loginBackgroundUrl: string | null
+    welcomeTitle: string | null
+    welcomeSubtitle: string | null
     instagramLink: string | null
     locationDesc: string | null
     whatsappNumber: string | null
@@ -2668,6 +2682,8 @@ export namespace Prisma {
     wifiSsid?: boolean
     wifiPassword?: boolean
     loginBackgroundUrl?: boolean
+    welcomeTitle?: boolean
+    welcomeSubtitle?: boolean
     instagramLink?: boolean
     locationDesc?: boolean
     whatsappNumber?: boolean
@@ -2706,6 +2722,8 @@ export namespace Prisma {
     wifiSsid?: boolean
     wifiPassword?: boolean
     loginBackgroundUrl?: boolean
+    welcomeTitle?: boolean
+    welcomeSubtitle?: boolean
     instagramLink?: boolean
     locationDesc?: boolean
     whatsappNumber?: boolean
@@ -2731,6 +2749,8 @@ export namespace Prisma {
     wifiSsid?: boolean
     wifiPassword?: boolean
     loginBackgroundUrl?: boolean
+    welcomeTitle?: boolean
+    welcomeSubtitle?: boolean
     instagramLink?: boolean
     locationDesc?: boolean
     whatsappNumber?: boolean
@@ -2756,12 +2776,14 @@ export namespace Prisma {
     wifiSsid?: boolean
     wifiPassword?: boolean
     loginBackgroundUrl?: boolean
+    welcomeTitle?: boolean
+    welcomeSubtitle?: boolean
     instagramLink?: boolean
     locationDesc?: boolean
     whatsappNumber?: boolean
   }
 
-  export type GymOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "timezone" | "currency" | "opening_hours" | "createdAt" | "updatedAt" | "bannerUrl" | "fontFamily" | "logoUrl" | "primaryColor" | "secondaryColor" | "upiId" | "upiNumber" | "upiQrUrl" | "wifiSsid" | "wifiPassword" | "loginBackgroundUrl" | "instagramLink" | "locationDesc" | "whatsappNumber", ExtArgs["result"]["gym"]>
+  export type GymOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "timezone" | "currency" | "opening_hours" | "createdAt" | "updatedAt" | "bannerUrl" | "fontFamily" | "logoUrl" | "primaryColor" | "secondaryColor" | "upiId" | "upiNumber" | "upiQrUrl" | "wifiSsid" | "wifiPassword" | "loginBackgroundUrl" | "welcomeTitle" | "welcomeSubtitle" | "instagramLink" | "locationDesc" | "whatsappNumber", ExtArgs["result"]["gym"]>
   export type GymInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     announcements?: boolean | Gym$announcementsArgs<ExtArgs>
     attendances?: boolean | Gym$attendancesArgs<ExtArgs>
@@ -2816,6 +2838,8 @@ export namespace Prisma {
       wifiSsid: string | null
       wifiPassword: string | null
       loginBackgroundUrl: string | null
+      welcomeTitle: string | null
+      welcomeSubtitle: string | null
       instagramLink: string | null
       locationDesc: string | null
       whatsappNumber: string | null
@@ -3273,6 +3297,8 @@ export namespace Prisma {
     readonly wifiSsid: FieldRef<"Gym", 'String'>
     readonly wifiPassword: FieldRef<"Gym", 'String'>
     readonly loginBackgroundUrl: FieldRef<"Gym", 'String'>
+    readonly welcomeTitle: FieldRef<"Gym", 'String'>
+    readonly welcomeSubtitle: FieldRef<"Gym", 'String'>
     readonly instagramLink: FieldRef<"Gym", 'String'>
     readonly locationDesc: FieldRef<"Gym", 'String'>
     readonly whatsappNumber: FieldRef<"Gym", 'String'>
@@ -18847,6 +18873,8 @@ export namespace Prisma {
     wifiSsid: 'wifiSsid',
     wifiPassword: 'wifiPassword',
     loginBackgroundUrl: 'loginBackgroundUrl',
+    welcomeTitle: 'welcomeTitle',
+    welcomeSubtitle: 'welcomeSubtitle',
     instagramLink: 'instagramLink',
     locationDesc: 'locationDesc',
     whatsappNumber: 'whatsappNumber'
@@ -19245,6 +19273,8 @@ export namespace Prisma {
     wifiSsid?: StringNullableFilter<"Gym"> | string | null
     wifiPassword?: StringNullableFilter<"Gym"> | string | null
     loginBackgroundUrl?: StringNullableFilter<"Gym"> | string | null
+    welcomeTitle?: StringNullableFilter<"Gym"> | string | null
+    welcomeSubtitle?: StringNullableFilter<"Gym"> | string | null
     instagramLink?: StringNullableFilter<"Gym"> | string | null
     locationDesc?: StringNullableFilter<"Gym"> | string | null
     whatsappNumber?: StringNullableFilter<"Gym"> | string | null
@@ -19282,6 +19312,8 @@ export namespace Prisma {
     wifiSsid?: SortOrderInput | SortOrder
     wifiPassword?: SortOrderInput | SortOrder
     loginBackgroundUrl?: SortOrderInput | SortOrder
+    welcomeTitle?: SortOrderInput | SortOrder
+    welcomeSubtitle?: SortOrderInput | SortOrder
     instagramLink?: SortOrderInput | SortOrder
     locationDesc?: SortOrderInput | SortOrder
     whatsappNumber?: SortOrderInput | SortOrder
@@ -19322,6 +19354,8 @@ export namespace Prisma {
     wifiSsid?: StringNullableFilter<"Gym"> | string | null
     wifiPassword?: StringNullableFilter<"Gym"> | string | null
     loginBackgroundUrl?: StringNullableFilter<"Gym"> | string | null
+    welcomeTitle?: StringNullableFilter<"Gym"> | string | null
+    welcomeSubtitle?: StringNullableFilter<"Gym"> | string | null
     instagramLink?: StringNullableFilter<"Gym"> | string | null
     locationDesc?: StringNullableFilter<"Gym"> | string | null
     whatsappNumber?: StringNullableFilter<"Gym"> | string | null
@@ -19359,6 +19393,8 @@ export namespace Prisma {
     wifiSsid?: SortOrderInput | SortOrder
     wifiPassword?: SortOrderInput | SortOrder
     loginBackgroundUrl?: SortOrderInput | SortOrder
+    welcomeTitle?: SortOrderInput | SortOrder
+    welcomeSubtitle?: SortOrderInput | SortOrder
     instagramLink?: SortOrderInput | SortOrder
     locationDesc?: SortOrderInput | SortOrder
     whatsappNumber?: SortOrderInput | SortOrder
@@ -19390,6 +19426,8 @@ export namespace Prisma {
     wifiSsid?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     wifiPassword?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     loginBackgroundUrl?: StringNullableWithAggregatesFilter<"Gym"> | string | null
+    welcomeTitle?: StringNullableWithAggregatesFilter<"Gym"> | string | null
+    welcomeSubtitle?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     instagramLink?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     locationDesc?: StringNullableWithAggregatesFilter<"Gym"> | string | null
     whatsappNumber?: StringNullableWithAggregatesFilter<"Gym"> | string | null
@@ -20403,6 +20441,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -20440,6 +20480,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -20477,6 +20519,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20514,6 +20558,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20551,6 +20597,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -20576,6 +20624,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20601,6 +20651,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21829,6 +21881,8 @@ export namespace Prisma {
     wifiSsid?: SortOrder
     wifiPassword?: SortOrder
     loginBackgroundUrl?: SortOrder
+    welcomeTitle?: SortOrder
+    welcomeSubtitle?: SortOrder
     instagramLink?: SortOrder
     locationDesc?: SortOrder
     whatsappNumber?: SortOrder
@@ -21854,6 +21908,8 @@ export namespace Prisma {
     wifiSsid?: SortOrder
     wifiPassword?: SortOrder
     loginBackgroundUrl?: SortOrder
+    welcomeTitle?: SortOrder
+    welcomeSubtitle?: SortOrder
     instagramLink?: SortOrder
     locationDesc?: SortOrder
     whatsappNumber?: SortOrder
@@ -21879,6 +21935,8 @@ export namespace Prisma {
     wifiSsid?: SortOrder
     wifiPassword?: SortOrder
     loginBackgroundUrl?: SortOrder
+    welcomeTitle?: SortOrder
+    welcomeSubtitle?: SortOrder
     instagramLink?: SortOrder
     locationDesc?: SortOrder
     whatsappNumber?: SortOrder
@@ -25033,6 +25091,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25069,6 +25129,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25121,6 +25183,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25157,6 +25221,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25193,6 +25259,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25229,6 +25297,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25281,6 +25351,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25317,6 +25389,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25353,6 +25427,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25389,6 +25465,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25441,6 +25519,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25477,6 +25557,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25679,6 +25761,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25715,6 +25799,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -25903,6 +25989,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25939,6 +26027,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26065,6 +26155,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26101,6 +26193,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26255,6 +26349,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26291,6 +26387,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26421,6 +26519,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26457,6 +26557,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26554,6 +26656,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26590,6 +26694,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26677,6 +26783,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26713,6 +26821,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -26847,6 +26957,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26883,6 +26995,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27013,6 +27127,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27049,6 +27165,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27101,6 +27219,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27137,6 +27257,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27173,6 +27295,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27209,6 +27333,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27306,6 +27432,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27342,6 +27470,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27429,6 +27559,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27465,6 +27597,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27562,6 +27696,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27598,6 +27734,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27730,6 +27868,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27766,6 +27906,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -27914,6 +28056,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27950,6 +28094,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28037,6 +28183,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -28073,6 +28221,8 @@ export namespace Prisma {
     wifiSsid?: string | null
     wifiPassword?: string | null
     loginBackgroundUrl?: string | null
+    welcomeTitle?: string | null
+    welcomeSubtitle?: string | null
     instagramLink?: string | null
     locationDesc?: string | null
     whatsappNumber?: string | null
@@ -28125,6 +28275,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28161,6 +28313,8 @@ export namespace Prisma {
     wifiSsid?: NullableStringFieldUpdateOperationsInput | string | null
     wifiPassword?: NullableStringFieldUpdateOperationsInput | string | null
     loginBackgroundUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    welcomeSubtitle?: NullableStringFieldUpdateOperationsInput | string | null
     instagramLink?: NullableStringFieldUpdateOperationsInput | string | null
     locationDesc?: NullableStringFieldUpdateOperationsInput | string | null
     whatsappNumber?: NullableStringFieldUpdateOperationsInput | string | null

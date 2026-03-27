@@ -35,19 +35,21 @@ function MetricCard({
     color: string, 
     href?: string,
     onClick?: () => void,
-    variant?: 'default' | 'black' | 'orange' | 'white',
+    variant?: 'default' | 'black' | 'orange' | 'white' | 'glass',
     compact?: boolean
 }) {
     const isBlack = variant === 'black';
     const isOrange = variant === 'orange';
     const isWhite = variant === 'white';
+    const isGlass = variant === 'glass';
 
     const cardContent = (
         <div className="card" style={{ 
             padding: compact ? (typeof value === 'string' && value === 'Get App' ? '10px 20px' : '16px 20px') : '24px', 
             borderRadius: '24px', 
-            background: isWhite ? '#ffffff' : (isOrange ? 'linear-gradient(135deg, #f59e0b, #ea580c)' : (isBlack ? '#1a1a1a' : 'var(--surface-color)')), 
-            border: (isOrange || isWhite) ? 'none' : (isBlack ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--border-color)'),
+            background: isWhite ? '#ffffff' : (isOrange ? 'linear-gradient(135deg, #f59e0b, #ea580c)' : (isBlack ? '#1a1a1a' : (isGlass ? 'rgba(255,255,255,0.05)' : 'var(--surface-color)'))), 
+            backdropFilter: isGlass ? 'blur(12px)' : 'none',
+            border: (isOrange || isWhite) ? 'none' : (isBlack || isGlass ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--border-color)'),
             display: 'flex',
             flexDirection: 'column',
             gap: compact ? '8px' : '12px',
@@ -59,13 +61,13 @@ function MetricCard({
                 ? '0 10px 40px rgba(255,255,255,0.4)'
                 : (isOrange 
                     ? '0 10px 30px rgba(234, 88, 12, 0.3)' 
-                    : (isBlack ? '0 10px 30px rgba(0,0,0,0.3)' : `0 10px 30px -10px rgba(0,0,0,0.1), 0 0 20px -5px ${color}20`))
+                    : (isBlack || isGlass ? '0 10px 30px rgba(0,0,0,0.3)' : `0 10px 30px -10px rgba(0,0,0,0.1), 0 0 20px -5px ${color}20`))
         }}
         onClick={onClick}
         >
-            <div style={{ display: 'flex', justifyContent: 'space-between', color: isWhite ? '#666' : (isOrange ? '#fff' : color) }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: isWhite ? '#666' : (isOrange || isGlass ? '#fff' : color) }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: (isOrange || isWhite) ? 0.9 : 0.8 }}>{title}</span>
-                <div style={{ padding: compact ? '4px' : '8px', background: isWhite ? '#f3f4f6' : (isOrange ? 'rgba(255,255,255,0.2)' : (isBlack ? 'rgba(255,255,255,0.1)' : `${color}10`)), borderRadius: '10px' }}>
+                <div style={{ padding: compact ? '4px' : '8px', background: isWhite ? '#f3f4f6' : (isOrange || isGlass ? 'rgba(255,255,255,0.2)' : (isBlack ? 'rgba(255,255,255,0.1)' : `${color}10`)), borderRadius: '10px' }}>
                     {compact ? React.cloneElement(icon as any, { size: 16 }) : icon}
                 </div>
             </div>
@@ -73,11 +75,11 @@ function MetricCard({
                 <h4 style={{ 
                     fontSize: compact ? (typeof value === 'string' && value === 'Get App' ? '1.1rem' : '1.25rem') : ((typeof value === 'string' && value.length > 8) ? '1.5rem' : '2rem'), 
                     fontWeight: 900, 
-                    color: isWhite ? '#000' : ((isBlack || isOrange) ? '#fff' : 'var(--text-primary)'), 
+                    color: isWhite ? '#000' : ((isBlack || isOrange || isGlass) ? '#fff' : 'var(--text-primary)'), 
                     letterSpacing: '-0.02em', 
                     lineHeight: 1 
                 }}>{value}</h4>
-                <p style={{ fontSize: '0.75rem', color: isWhite ? '#666' : (isOrange ? 'rgba(255,255,255,0.8)' : (isBlack ? 'rgba(255,255,255,0.5)' : 'var(--text-secondary)')), fontWeight: 600, marginTop: '4px' }}>{unit}</p>
+                <p style={{ fontSize: '0.75rem', color: isWhite ? '#666' : (isOrange || isGlass ? 'rgba(255,255,255,0.8)' : (isBlack ? 'rgba(255,255,255,0.5)' : 'var(--text-secondary)')), fontWeight: 600, marginTop: '4px' }}>{unit}</p>
             </div>
             {/* Glossy overlay effect for interactivity */}
             {(href || onClick) && <div className="card-gloss" />}
@@ -489,7 +491,7 @@ export default function MemberDashboardClient({
                                 icon={<Smartphone />} 
                                 color="#a78bfa" 
                                 onClick={handleInstall}
-                                variant="white"
+                                variant="glass"
                                 compact={true}
                             />
                         </div>

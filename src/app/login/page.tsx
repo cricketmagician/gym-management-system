@@ -19,7 +19,7 @@ function LoginContent() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [gymBranding, setGymBranding] = useState<{ name: string; logoUrl?: string; loginBackgroundUrl?: string; primaryColor?: string } | null>(null);
+  const [gymBranding, setGymBranding] = useState<{ name: string; logoUrl?: string; loginBackgroundUrl?: string; primaryColor?: string; welcomeTitle?: string; welcomeSubtitle?: string } | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const gymSlug = searchParams.get('gym');
@@ -85,8 +85,8 @@ function LoginContent() {
                 {gymBranding?.name || 'PULSEFIT'}
               </div>
             )}
-            <h1>{gymBranding ? `Access ${gymBranding.name}` : 'Empower Your Strength'}</h1>
-            <p>{gymBranding ? `Welcome back to ${gymBranding.name}! Sign in to continue your journey.` : 'Welcome back! Sign in to continue your journey.'}</p>
+            <h1>{gymBranding?.welcomeTitle || (gymBranding ? `Access ${gymBranding.name}` : 'Empower Your Strength')}</h1>
+            <p>{gymBranding?.welcomeSubtitle || (gymBranding ? `Welcome back to ${gymBranding.name}! Sign in to continue your journey.` : 'Welcome back! Sign in to continue your journey.')}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="login-form">

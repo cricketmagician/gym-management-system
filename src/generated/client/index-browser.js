@@ -140,6 +140,8 @@ exports.Prisma.GymScalarFieldEnum = {
   wifiSsid: 'wifiSsid',
   wifiPassword: 'wifiPassword',
   loginBackgroundUrl: 'loginBackgroundUrl',
+  welcomeTitle: 'welcomeTitle',
+  welcomeSubtitle: 'welcomeSubtitle',
   instagramLink: 'instagramLink',
   locationDesc: 'locationDesc',
   whatsappNumber: 'whatsappNumber'

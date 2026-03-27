@@ -2,15 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import QRCode from "react-qr-code";
-import { Download, Save, Instagram, Phone, MapPin, Globe, Loader2, CheckCircle2, Building, QrCode as QrIcon, Wifi } from 'lucide-react';
+import { Download, Save, Instagram, Phone, MapPin, Globe, Loader2, CheckCircle2, Building, QrCode as QrIcon, Wifi, Eye, Layout, Palette, Type, Image as ImageIcon, X } from 'lucide-react';
 import { getDirectImageUrl } from '@/lib/image-utils';
 import UPIQRCode from '@/components/UPIQRCode';
+import LoginPreview from '@/components/LoginPreview';
 
 export default function SettingsPage() {
     const [gym, setGym] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [status, setStatus] = useState<any>(null);
+    const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
     // Dynamic QR Value based on Gym ID
     const qrValue = gym ? JSON.stringify({ action: 'check-in', gymId: gym.id }) : "";
@@ -212,6 +214,99 @@ export default function SettingsPage() {
                             </div>
                         </div>
 
+                        <div style={{ padding: '24px', background: 'rgba(0,0,0,0.02)', borderRadius: '24px', border: '1px solid var(--border-color)', marginTop: '8px' }}>
+                            <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Palette size={18} color="var(--brand-primary)" /> Branding & Login Customization
+                            </h3>
+                            
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                <div>
+                                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Primary Brand Color</label>
+                                    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                                        <input 
+                                            type="color" 
+                                            value={gym.primaryColor || '#2dd4bf'}
+                                            onChange={(e) => setGym({...gym, primaryColor: e.target.value})}
+                                            style={{ width: '50px', height: '50px', padding: '4px', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', cursor: 'pointer' }}
+                                        />
+                                        <input 
+                                            type="text" 
+                                            value={gym.primaryColor || '#2dd4bf'}
+                                            onChange={(e) => setGym({...gym, primaryColor: e.target.value})}
+                                            style={{ flex: 1, padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600 }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Logo URL</label>
+                                    <input 
+                                        type="url" 
+                                        value={gym.logoUrl || ''}
+                                        onChange={(e) => setGym({...gym, logoUrl: e.target.value})}
+                                        placeholder="https://your-site.com/logo.png"
+                                        style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600 }}
+                                    />
+                                </div>
+
+                                <div>
+                                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Login Background image URL</label>
+                                    <input 
+                                        type="url" 
+                                        value={gym.loginBackgroundUrl || ''}
+                                        onChange={(e) => setGym({...gym, loginBackgroundUrl: e.target.value})}
+                                        placeholder="https://images.unsplash.com/gym-hero"
+                                        style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600 }}
+                                    />
+                                </div>
+
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Welcome Title</label>
+                                        <input 
+                                            type="text" 
+                                            value={gym.welcomeTitle || ''}
+                                            onChange={(e) => setGym({...gym, welcomeTitle: e.target.value})}
+                                            placeholder="Empower Your Strength"
+                                            style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600 }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Welcome Subtitle</label>
+                                        <input 
+                                            type="text" 
+                                            value={gym.welcomeSubtitle || ''}
+                                            onChange={(e) => setGym({...gym, welcomeSubtitle: e.target.value})}
+                                            placeholder="Welcome back! Sign in to continue..."
+                                            style={{ width: '100%', padding: '14px 18px', borderRadius: '14px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', fontWeight: 600 }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <button 
+                                    type="button"
+                                    onClick={() => setIsPreviewOpen(true)}
+                                    style={{ 
+                                        background: 'rgba(0,0,0,0.05)', 
+                                        color: 'var(--text-primary)', 
+                                        padding: '14px', 
+                                        borderRadius: '14px', 
+                                        border: '1px solid var(--border-color)', 
+                                        fontWeight: 800, 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        justifyContent: 'center', 
+                                        gap: '10px', 
+                                        cursor: 'pointer',
+                                        width: '100%',
+                                        fontSize: '0.9rem'
+                                    }}
+                                >
+                                    <Eye size={18} /> LIVE LOGIN PREVIEW
+                                </button>
+                            </div>
+                        </div>
+
                         {gym.upiId && (
                             <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', padding: '32px', background: 'rgba(0,0,0,0.02)', borderRadius: '24px', border: '1px solid var(--border-color)' }}>
                                 <p style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Global Payment QR Preview</p>
@@ -264,6 +359,50 @@ export default function SettingsPage() {
                     </form>
                 </div>
             </div>
+
+            {/* Live Preview Modal */}
+            {isPreviewOpen && (
+                <div style={{ 
+                    position: 'fixed', 
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    background: 'rgba(0,0,0,0.8)', 
+                    backdropFilter: 'blur(20px)',
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    zIndex: 2000,
+                    padding: '40px'
+                }} onClick={() => setIsPreviewOpen(false)}>
+                    <div style={{ 
+                        width: '100%', 
+                        maxWidth: '900px', 
+                        height: '700px',
+                        background: 'var(--surface-color)', 
+                        borderRadius: '32px', 
+                        overflow: 'hidden', 
+                        display: 'flex',
+                        flexDirection: 'column',
+                        boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+                        border: '1px solid var(--border-color)'
+                    }} onClick={e => e.stopPropagation()}>
+                        <header style={{ padding: '20px 32px', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)' }}>Live Branding Preview</h3>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>This is exactly how your members will see your login page.</p>
+                            </div>
+                            <button onClick={() => setIsPreviewOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)' }}>
+                                <X size={24} />
+                            </button>
+                        </header>
+                        <div style={{ flex: 1, padding: '32px', overflowY: 'auto', background: 'rgba(0,0,0,0.05)' }}>
+                            <LoginPreview config={gym} />
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

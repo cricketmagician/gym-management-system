@@ -27,6 +27,8 @@ model Gym {
   wifiSsid           String?
   wifiPassword       String?
   loginBackgroundUrl String?
+  welcomeTitle       String?        @default("Empower Your Strength")
+  welcomeSubtitle    String?        @default("Welcome back! Sign in to continue your journey.")
   instagramLink      String?
   locationDesc       String?
   whatsappNumber     String?

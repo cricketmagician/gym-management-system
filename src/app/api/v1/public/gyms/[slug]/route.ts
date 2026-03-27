@@ -13,7 +13,9 @@ export async function GET(
                 name: true,
                 logoUrl: true,
                 loginBackgroundUrl: true,
-                primaryColor: true
+                primaryColor: true,
+                welcomeTitle: true,
+                welcomeSubtitle: true
             }
         });
 
