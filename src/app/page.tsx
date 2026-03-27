@@ -220,7 +220,7 @@ export default async function DashboardPage() {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', minHeight: '100vh', padding: '40px', background: '#0a0a0a', color: '#fff', position: 'relative', overflow: 'hidden' }} className="admin-dashboard">
             {/* Luxe Watermark */}
-            <div className="luxe-watermark" style={{ opacity: 0.05 }}>{gym?.name || branding.name}</div>
+            <div className="luxe-watermark" style={{ opacity: 0.05 }}>{gym?.name || 'PULSEFIT'}</div>
             
             {/* Cinematic Background Glows */}
             <div style={{ position: 'fixed', top: '-10%', right: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }}></div>
