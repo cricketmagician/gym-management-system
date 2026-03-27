@@ -32,49 +32,80 @@ export default function AdminQrControl({ gymId }: AdminQrControlProps) {
             {showModal && (
                 <div style={{
                     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-                    backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 3000,
+                    backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(40px)', zIndex: 3000,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    padding: '20px'
+                    padding: '20px',
+                    animation: 'fadeIn 0.3s ease-out'
                 }}>
-                    <div className="card" style={{ maxWidth: '450px', width: '100%', textAlign: 'center', position: 'relative', padding: '32px' }}>
+                    <div className="glass-card-dark" style={{ 
+                        maxWidth: '480px', width: '100%', textAlign: 'center', 
+                        position: 'relative', padding: '48px 32px',
+                        boxShadow: '0 50px 100px -20px rgba(0,0,0,0.8)',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        background: 'rgba(10, 10, 10, 0.8)'
+                    }}>
                         <button
                             onClick={() => setShowModal(false)}
-                            style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', cursor: 'pointer' }}
+                            style={{ 
+                                position: 'absolute', top: '24px', right: '24px', 
+                                background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', 
+                                cursor: 'pointer', borderRadius: '14px', padding: '10px'
+                            }}
+                            className="scale-hover"
                         >
-                            <X size={24} color="var(--text-secondary)" />
+                            <X size={20} color="#fff" />
                         </button>
 
-                        <div style={{ marginBottom: '24px' }}>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '8px' }}>Gym Desk QR</h2>
-                            <p style={{ color: 'var(--text-secondary)' }}>Print this QR code and place it at your gym's front desk for members to scan.</p>
+                        <div style={{ marginBottom: '32px' }}>
+                            <div style={{ 
+                                width: '60px', height: '60px', background: 'rgba(245,158,11,0.1)', 
+                                borderRadius: '18px', display: 'flex', alignItems: 'center', 
+                                justifyContent: 'center', margin: '0 auto 20px', color: '#f59e0b',
+                                boxShadow: '0 0 30px rgba(245,158,11,0.1)' 
+                            }}>
+                                <QrCode size={32} strokeWidth={2.5} />
+                            </div>
+                            <h2 style={{ fontSize: '1.875rem', fontWeight: 950, marginBottom: '12px', color: '#fff', letterSpacing: '-0.04em' }}>Check-in Registry</h2>
+                            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1rem', fontWeight: 600, maxWidth: '280px', margin: '0 auto' }}>Display this high-fidelity entry pass at your front desk.</p>
                         </div>
 
                         <div style={{
-                            background: 'white',
-                            padding: '24px',
-                            borderRadius: '16px',
+                            background: '#fff',
+                            padding: '32px',
+                            borderRadius: '32px',
                             display: 'inline-block',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                            marginBottom: '24px'
+                            boxShadow: '0 30px 60px rgba(0,0,0,0.4)',
+                            marginBottom: '32px',
+                            position: 'relative'
                         }}>
-                            <QRCode value={gymId} size={250} />
+                             <div style={{ position: 'absolute', inset: '-2px', borderRadius: '34px', background: 'linear-gradient(135deg, #f59e0b 0%, transparency 100%)', zIndex: -1, opacity: 0.5 }}></div>
+                            <QRCode value={gymId} size={220} />
                         </div>
 
-                        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                        <div style={{ display: 'flex', gap: '16px', flexDirection: 'column' }}>
                             <button
                                 onClick={() => window.print()}
-                                className="btn btn-primary"
-                                style={{ flex: 1 }}
+                                style={{ 
+                                    padding: '18px', background: '#fff', color: '#000', 
+                                    borderRadius: '18px', fontWeight: 950, border: 'none',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                                    fontSize: '1.1rem'
+                                }}
+                                className="scale-hover"
                             >
-                                <Printer size={18} style={{ marginRight: '8px' }} />
-                                Print QR
+                                <Printer size={22} strokeWidth={2.5} />
+                                Generate Print Copy
                             </button>
+                            <div style={{ padding: '14px', background: 'rgba(255,255,255,0.03)', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                                <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.25)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                                    Registry ID: <span style={{ color: '#f59e0b', marginLeft: '6px' }}>{gymId}</span>
+                                </p>
+                            </div>
                         </div>
-
-                        <p style={{ marginTop: '24px', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                            Gym ID: <code style={{ background: 'var(--bg-color)', padding: '2px 6px', borderRadius: '4px' }}>{gymId}</code>
-                        </p>
                     </div>
+                    <style jsx>{`
+                        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+                    `}</style>
                 </div>
             )}
         </>
