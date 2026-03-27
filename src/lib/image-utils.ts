@@ -28,17 +28,18 @@ export function getDirectImageUrl(url: string | null | undefined): string {
             return cleanUrl.replace('dl=0', 'raw=1').replace('www.dropbox.com', 'dl.dropboxusercontent.com');
         }
 
-        // Handle Unsplash photo page links
-        // Example: https://unsplash.com/photos/gym-equipment-inside-room-20jX9b35r_M
-        if (cleanUrl.includes('unsplash.com/photos/')) {
-            // Extract the ID which is the last segment of the path (even if it contains dashes)
-            const urlParts = cleanUrl.split('?')[0].split('/').filter(Boolean);
-            const photoId = urlParts[urlParts.length - 1];
-            
-            if (photoId) {
-                // The /download?force=true endpoint is a reliable redirect to the actual image
-                return `https://unsplash.com/photos/${photoId}/download?force=true`;
-            }
+        // Handle Unsplash photo page links (Standard & Plus)
+        // Matches:
+        // - unsplash.com/photos/[ID]
+        // - unsplash.com/photos/[SLUG]-[ID]
+        // - unsplash.com/plus/photos/[ID]
+        const unsplashMatch = cleanUrl.match(/unsplash\.com\/(?:plus\/)?photos\/(?:[\w-]*?)([a-zA-Z0-9_-]{10,15}|[a-zA-Z0-9_-]{5,11})(?:\/|\?|$)/);
+        
+        if (unsplashMatch && unsplashMatch[1]) {
+            const photoId = unsplashMatch[1];
+            // The /download?force=true endpoint is a reliable redirect to the actual image
+            // We append a timestamp to bust any cache if needed
+            return `https://unsplash.com/photos/${photoId}/download?force=true&w=1600`;
         }
         
         // Handle standard URLs
