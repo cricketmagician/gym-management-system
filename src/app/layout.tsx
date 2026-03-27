@@ -9,6 +9,7 @@ import AdminBottomNav from '@/components/AdminBottomNav';
 import { headers } from 'next/headers';
 import prisma from "@/lib/prisma";
 import { ShieldCheck } from 'lucide-react';
+import { getDirectImageUrl } from '@/lib/image-utils';
 
 export const metadata: Metadata = {
     title: 'Gym Management Dashboard',
