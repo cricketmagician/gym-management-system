@@ -13,6 +13,7 @@ export default function SidebarNav({ role }: { role?: string }) {
         { name: 'Members', href: '/members', roles: ['ADMIN', 'STAFF'], icon: <Users size={18} /> },
         { name: 'Trainers', href: '/members/trainers', roles: ['ADMIN', 'STAFF'], icon: <Users size={18} /> },
         { name: 'Attendance', href: '/attendance', roles: ['ADMIN', 'STAFF'], icon: <CheckSquare size={18} /> },
+        { name: 'Payments', href: '/payments', roles: ['ADMIN', 'STAFF'], icon: <TrendingUp size={18} /> },
         { name: 'Reports', href: '/reports', roles: ['ADMIN', 'STAFF'], icon: <TrendingUp size={18} /> },
         { name: 'Gym Hub', href: '/admin/gym-hub', roles: ['ADMIN', 'STAFF'], icon: <Activity size={18} /> },
         { name: 'Settings', href: '/settings', roles: ['ADMIN', 'STAFF'], icon: <Settings size={18} /> },
