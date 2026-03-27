@@ -610,3 +610,42 @@ tbody tr:hover {
     background: rgba(255,255,255,0.1) !important;
     border-color: rgba(255,255,255,0.2) !important;
 }
+
+/* Midnight Luxe 2.0 Member Detail Responsive Overhaul */
+.member-detail-container {
+    transition: all 0.3s ease;
+}
+
+.profile-hero {
+    padding: 40px;
+    transition: all 0.3s ease;
+}
+
+.membership-status-card {
+    padding: 40px;
+}
+
+@media (max-width: 768px) {
+    .member-detail-container {
+        gap: 24px !important;
+        padding: 16px !important;
+    }
+    .profile-hero {
+        padding: 32px 24px !important;
+        border-radius: 24px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 24px !important;
+    }
+    .detail-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    .membership-status-card {
+        padding: 24px !important;
+        border-radius: 24px !important;
+    }
+    .stats-grid {
+        gap: 16px !important;
+    }
+}

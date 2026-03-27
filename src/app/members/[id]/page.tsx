@@ -189,38 +189,6 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
                 </div>
             </div>
  
-            <style jsx>{`
-                .profile-hero {
-                    padding: 40px;
-                }
-                .membership-status-card {
-                    padding: 40px;
-                }
-                @media (max-width: 768px) {
-                    .member-detail-container {
-                        gap: 24px !important;
-                        padding: 16px !important;
-                    }
-                    .profile-hero {
-                        padding: 32px 24px !important;
-                        border-radius: 24px !important;
-                        flex-direction: column;
-                        align-items: flex-start !important;
-                        gap: 24px;
-                    }
-                    .detail-grid {
-                        grid-template-columns: 1fr !important;
-                        gap: 24px !important;
-                    }
-                    .membership-status-card {
-                        padding: 24px !important;
-                        border-radius: 24px !important;
-                    }
-                    .stats-grid {
-                        gap: 16px !important;
-                    }
-                }
-            `}</style>
         </div>
     );
 }
