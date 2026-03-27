@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import AdminBottomNav from '@/components/AdminBottomNav';
 import { headers } from 'next/headers';
 import prisma from "@/lib/prisma";
+import { ShieldCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'Gym Management Dashboard',
@@ -126,19 +127,24 @@ export default async function RootLayout({
             <body>
                 <div className="layout-wrapper">
                     <aside className="sidebar">
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '48px', padding: '0 8px' }}>
                             {branding.logoUrl && session?.user?.role !== 'SUPER_ADMIN' ? (
-                                <img src={branding.logoUrl} alt={branding.name} style={{ width: '32px', height: '32px', borderRadius: '8px', objectFit: 'cover' }} />
+                                <img src={branding.logoUrl} alt={branding.name} style={{ width: '40px', height: '40px', borderRadius: '12px', objectFit: 'cover', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }} />
                             ) : (
                                 <div style={{ 
                                     width: '32px', 
                                     height: '32px', 
-                                    background: session?.user?.role === 'SUPER_ADMIN' ? '#f59e0b' : 'var(--brand-primary)', 
-                                    borderRadius: '8px',
-                                    boxShadow: session?.user?.role === 'SUPER_ADMIN' ? '0 0 15px rgba(245, 158, 11, 0.3)' : 'none'
-                                }}></div>
+                                    background: 'linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)', 
+                                    borderRadius: '10px',
+                                    boxShadow: '0 0 20px rgba(245, 158, 11, 0.4)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <ShieldCheck size={18} color="#000" />
+                                </div>
                             )}
-                            <h2 style={{ fontSize: '1.125rem', fontWeight: 900, letterSpacing: '-0.02em' }}>
+                            <h2 style={{ fontSize: '1.1rem', fontWeight: 950, letterSpacing: '-0.04em', color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                                 {session?.user?.role === 'SUPER_ADMIN' ? 'PULSEFIT GLOBAL' : branding.name}
                             </h2>
                         </div>

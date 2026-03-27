@@ -2,19 +2,20 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { LayoutGrid, Users, Building2, TrendingUp, ShieldCheck, Activity, Settings, LogOut, CheckSquare } from 'lucide-react';
 
 export default function SidebarNav({ role }: { role?: string }) {
     const pathname = usePathname();
 
     const allItems = [
-        { name: 'Global Command', href: '/superadmin', roles: ['SUPER_ADMIN'] },
-        { name: 'Dashboard', href: '/', roles: ['ADMIN', 'STAFF', 'MEMBER'] },
-        { name: 'Members', href: '/members', roles: ['ADMIN', 'STAFF'] },
-        { name: 'Trainers', href: '/members/trainers', roles: ['ADMIN', 'STAFF'] },
-        { name: 'Attendance', href: '/attendance', roles: ['ADMIN', 'STAFF'] },
-        { name: 'Reports', href: '/reports', roles: ['ADMIN', 'STAFF'] },
-        { name: 'Gym Hub', href: '/admin/gym-hub', roles: ['ADMIN', 'STAFF'] },
-        { name: 'Settings', href: '/settings', roles: ['ADMIN', 'STAFF'] },
+        { name: 'Global Command', href: '/superadmin', roles: ['SUPER_ADMIN'], icon: <LayoutGrid size={18} /> },
+        { name: 'Dashboard', href: '/', roles: ['ADMIN', 'STAFF', 'MEMBER'], icon: <LayoutGrid size={18} /> },
+        { name: 'Members', href: '/members', roles: ['ADMIN', 'STAFF'], icon: <Users size={18} /> },
+        { name: 'Trainers', href: '/members/trainers', roles: ['ADMIN', 'STAFF'], icon: <Users size={18} /> },
+        { name: 'Attendance', href: '/attendance', roles: ['ADMIN', 'STAFF'], icon: <CheckSquare size={18} /> },
+        { name: 'Reports', href: '/reports', roles: ['ADMIN', 'STAFF'], icon: <TrendingUp size={18} /> },
+        { name: 'Gym Hub', href: '/admin/gym-hub', roles: ['ADMIN', 'STAFF'], icon: <Activity size={18} /> },
+        { name: 'Settings', href: '/settings', roles: ['ADMIN', 'STAFF'], icon: <Settings size={18} /> },
     ];
 
     const navItems = allItems.filter(item => !role || item.roles.includes(role));
@@ -33,14 +34,24 @@ export default function SidebarNav({ role }: { role?: string }) {
                             key={item.href}
                             href={item.href}
                             style={{
-                                padding: '8px 12px',
-                                background: isActive ? 'rgba(79,70,229,0.1)' : 'transparent',
-                                color: isActive ? 'var(--brand-primary)' : 'var(--text-secondary)',
-                                borderRadius: '6px',
-                                fontWeight: 500,
+                                padding: '12px 16px',
+                                background: isActive ? 'rgba(245,158,11,0.08)' : 'transparent',
+                                color: isActive ? '#f59e0b' : 'rgba(255,255,255,0.4)',
+                                borderRadius: '16px',
+                                fontWeight: isActive ? 800 : 600,
                                 textDecoration: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                transition: 'all 0.3s ease',
+                                border: isActive ? '1px solid rgba(245,158,11,0.1)' : '1px solid transparent',
+                                fontSize: '0.875rem',
+                                letterSpacing: '0.01em',
+                                boxShadow: isActive ? '0 4px 15px rgba(245,158,11,0.05)' : 'none'
                             }}
+                            className="nav-link-premium"
                         >
+                            <span style={{ color: isActive ? '#f59e0b' : 'inherit', opacity: isActive ? 1 : 0.6 }}>{item.icon}</span>
                             {item.name}
                         </Link>
                     );
@@ -101,6 +112,14 @@ export default function SidebarNav({ role }: { role?: string }) {
                 }
                 @media (max-width: 768px) {
                     .desktop-nav { display: none !important; }
+                }
+                .nav-link-premium:hover {
+                    background: rgba(255,255,255,0.03) !important;
+                    color: #fff !important;
+                    transform: translateX(4px);
+                }
+                .desktop-nav {
+                    font-family: 'Plus Jakarta Sans', sans-serif;
                 }
             `}</style>
         </>

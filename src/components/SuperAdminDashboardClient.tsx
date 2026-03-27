@@ -55,15 +55,55 @@ export default function SuperAdminDashboardClient({ totalGyms, totalUsers, total
             </div>
 
             <header style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                    <div style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', color: '#000', padding: '8px 16px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.05em', width: 'fit-content', marginBottom: '16px' }}>PULSEFIT GLOBAL COMMAND</div>
-                    <h1 style={{ fontSize: '4.5rem', fontWeight: 950, letterSpacing: '-0.06em', lineHeight: 0.9 }}>Universal Oversight</h1>
-                    <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '20px', fontSize: '1.25rem', fontWeight: 500, maxWidth: '600px' }}>
-                        Orchestrating <span style={{ color: '#fff', fontWeight: 800 }}>{totalGyms} elite fitness tenants</span> across the sovereign network.
+                <div style={{ flex: 1 }}>
+                    <div style={{ 
+                        background: 'rgba(245,158,11,0.1)', 
+                        color: '#f59e0b', 
+                        padding: '10px 20px', 
+                        borderRadius: '30px', 
+                        fontSize: '0.7rem', 
+                        fontWeight: 950, 
+                        letterSpacing: '0.15em', 
+                        width: 'fit-content', 
+                        marginBottom: '24px',
+                        border: '1px solid rgba(245,158,11,0.2)',
+                        backdropFilter: 'blur(10px)'
+                    }}>PULSEFIT GLOBAL COMMAND</div>
+                    <h1 style={{ 
+                        fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', 
+                        fontWeight: 950, 
+                        letterSpacing: '-0.06em', 
+                        lineHeight: 0.85, 
+                        color: '#fff',
+                        fontFamily: "'Plus Jakarta Sans', sans-serif"
+                    }}>Universal<br/><span style={{ color: 'rgba(255,255,255,0.6)' }}>Oversight</span></h1>
+                    <p style={{ 
+                        color: 'rgba(255,255,255,0.3)', 
+                        marginTop: '32px', 
+                        fontSize: '1.4rem', 
+                        fontWeight: 600, 
+                        maxWidth: '700px',
+                        lineHeight: 1.4,
+                        letterSpacing: '-0.01em'
+                    }}>
+                        Orchestrating <span style={{ color: '#fff', fontWeight: 900 }}>{totalGyms} elite fitness tenants</span> across the sovereign global network.
                     </p>
                 </div>
-                <div style={{ display: 'flex', gap: '16px' }}>
-                    <Link href="/api/auth/signout" style={{ padding: '14px 28px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '18px', color: '#fff', textDecoration: 'none', fontWeight: 800, fontSize: '0.875rem', backdropFilter: 'blur(10px)' }} className="scale-hover">Global Logout</Link>
+                <div style={{ display: 'flex', gap: '16px', paddingTop: '20px' }}>
+                    <Link href="/api/auth/signout" style={{ 
+                        padding: '16px 32px', 
+                        background: 'rgba(255,255,255,0.03)', 
+                        border: '1px solid rgba(255,255,255,0.08)', 
+                        borderRadius: '20px', 
+                        color: 'rgba(255,255,255,0.6)', 
+                        textDecoration: 'none', 
+                        fontWeight: 800, 
+                        fontSize: '0.8125rem', 
+                        backdropFilter: 'blur(20px)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        transition: 'all 0.3s ease'
+                    }} className="logout-btn-premium">Global Logout</Link>
                 </div>
             </header>
 
@@ -97,19 +137,25 @@ function StatsCard({ title, value, icon, glow }: { title: string, value: string 
             {/* Visual Backlight */}
             <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '150px', height: '150px', background: glow, opacity: 0.15, filter: 'blur(50px)', borderRadius: '50%' }}></div>
             
-            <div style={{ color: glow, marginBottom: '24px', background: `${glow}10`, width: '48px', height: '48px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${glow}20` }}>
+            <div style={{ color: glow, marginBottom: '28px', background: `${glow}15`, width: '56px', height: '56px', borderRadius: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${glow}30`, boxShadow: `0 8px 20px ${glow}10` }}>
                 {icon}
             </div>
             
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '12px' }}>{title}</div>
-            <div style={{ fontSize: '3.5rem', fontWeight: 950, letterSpacing: '-0.05em', lineHeight: 1 }}>{value}</div>
+            <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', fontWeight: 950, textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '16px' }}>{title}</div>
+            <div style={{ fontSize: '4rem', fontWeight: 950, letterSpacing: '-0.06em', lineHeight: 1, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{value}</div>
             
             <style jsx>{`
                 .stats-card-premium:hover {
-                    transform: translateY(-8px);
-                    background: rgba(255,255,255,0.05);
-                    border-color: ${glow}40;
-                    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px ${glow}10;
+                    transform: translateY(-12px) scale(1.02);
+                    background: rgba(255,255,255,0.04);
+                    border-color: ${glow}50;
+                    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px ${glow}15;
+                }
+                .logout-btn-premium:hover {
+                    background: rgba(239, 68, 68, 0.1) !important;
+                    border-color: rgba(239, 68, 68, 0.2) !important;
+                    color: #ef4444 !important;
+                    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.1);
                 }
             `}</style>
         </div>

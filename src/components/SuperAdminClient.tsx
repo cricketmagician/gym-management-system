@@ -69,14 +69,29 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 900 }}>Active Gym Tenants</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 950, letterSpacing: '-0.04em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Active Gym Tenants</h2>
                 <button 
                     onClick={() => setIsModalOpen(true)}
-                    style={{ background: '#fff', color: '#000', padding: '12px 24px', borderRadius: '16px', border: 'none', fontWeight: 800, fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                    style={{ 
+                        background: 'linear-gradient(135deg, #fff 0%, #f3f4f6 100%)', 
+                        color: '#000', 
+                        padding: '14px 28px', 
+                        borderRadius: '20px', 
+                        border: 'none', 
+                        fontWeight: 950, 
+                        fontSize: '0.8125rem', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '10px', 
+                        cursor: 'pointer',
+                        boxShadow: '0 10px 30px rgba(255,255,255,0.1)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em'
+                    }}
                     className="scale-hover"
                 >
-                    <Plus size={18} /> Register New Gym
+                    <Plus size={18} strokeWidth={3} /> Register New Gym
                 </button>
             </div>
 
@@ -93,40 +108,75 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
                     </thead>
                     <tbody>
                         {initialGyms.map(gym => (
-                            <tr key={gym.id} style={{ background: 'rgba(255,255,255,0.02)', transition: 'background 0.3s' }} className="row-hover">
-                                <td style={{ padding: '20px 24px', borderRadius: '16px 0 0 16px' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                                        <div style={{ width: '48px', height: '48px', background: gym.primaryColor || '#333', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.75rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+                            <tr key={gym.id} style={{ background: 'rgba(255,255,255,0.01)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,0.03)' }} className="row-hover">
+                                <td style={{ padding: '24px', borderRadius: '24px 0 0 24px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                        <div style={{ 
+                                            width: '56px', 
+                                            height: '56px', 
+                                            background: gym.primaryColor || '#333', 
+                                            borderRadius: '18px', 
+                                            display: 'flex', 
+                                            alignItems: 'center', 
+                                            justifyContent: 'center', 
+                                            fontWeight: 950, 
+                                            fontSize: '0.875rem', 
+                                            border: '1px solid rgba(255,255,255,0.1)',
+                                            boxShadow: `0 8px 20px ${gym.primaryColor}20`
+                                        }}>
                                             {gym.name?.[0] || 'G'}
                                         </div>
                                         <div>
-                                            <div style={{ fontWeight: 800, fontSize: '1rem' }}>{gym.name}</div>
-                                            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>SLUG: {gym.slug}</div>
+                                            <div style={{ fontWeight: 900, fontSize: '1.125rem', letterSpacing: '-0.02em' }}>{gym.name}</div>
+                                            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginTop: '2px' }}>TENANT ID: {gym.slug}</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td style={{ padding: '20px 24px' }}>
-                                    <div style={{ fontWeight: 700, fontSize: '0.875rem', color: '#fff' }}>{gym.adminEmail}</div>
-                                    <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>PRIMARY OPERATOR</div>
+                                <td style={{ padding: '24px' }}>
+                                    <div style={{ fontWeight: 800, fontSize: '0.9375rem', color: '#fff' }}>{gym.adminEmail}</div>
+                                    <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontWeight: 900, letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: '4px' }}>Primary Operator</div>
                                 </td>
-                                <td style={{ padding: '20px 24px' }}>
-                                    <div style={{ fontWeight: 700 }}>{gym._count.users} Members</div>
-                                    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>{gym._count.memberships} Active Plans</div>
+                                <td style={{ padding: '24px' }}>
+                                    <div style={{ fontWeight: 900, fontSize: '1.125rem' }}>{gym._count.users}</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700 }}>Active Members</div>
                                 </td>
-                                <td style={{ padding: '20px 24px' }}>
-                                    <div style={{ display: 'inline-flex', padding: '6px 12px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '8px', fontSize: '0.75rem', fontWeight: 800 }}>ACTIVE</div>
+                                <td style={{ padding: '24px' }}>
+                                    <div style={{ 
+                                        display: 'inline-flex', 
+                                        padding: '8px 16px', 
+                                        background: 'rgba(16, 185, 129, 0.1)', 
+                                        color: '#10b981', 
+                                        borderRadius: '12px', 
+                                        fontSize: '0.7rem', 
+                                        fontWeight: 950,
+                                        letterSpacing: '0.05em',
+                                        border: '1px solid rgba(16, 185, 129, 0.2)'
+                                    }}>ACTIVE</div>
                                 </td>
-                                <td style={{ padding: '20px 24px', textAlign: 'right', borderRadius: '0 16px 16px 0' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end' }}>
+                                <td style={{ padding: '24px', textAlign: 'right', borderRadius: '0 24px 24px 0' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'flex-end' }}>
                                         <button 
                                             onClick={() => {
                                                 setSelectedGymForAudit({ id: gym.id, name: gym.name });
                                                 setAuditModalOpen(true);
                                             }}
-                                            style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                                            style={{ 
+                                                padding: '10px 20px', 
+                                                background: 'rgba(255,255,255,0.03)', 
+                                                border: '1px solid rgba(255,255,255,0.08)', 
+                                                borderRadius: '14px', 
+                                                color: '#fff', 
+                                                fontSize: '0.75rem', 
+                                                fontWeight: 800, 
+                                                cursor: 'pointer', 
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                gap: '8px',
+                                                transition: 'all 0.3s ease'
+                                            }}
                                             className="scale-hover"
                                         >
-                                            <Shield size={14} className="text-amber-500" /> Manage Audit
+                                            <Shield size={14} className="text-amber-500" /> Audit Logs
                                         </button>
                                         <button 
                                             onClick={async () => {
@@ -139,10 +189,20 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
                                                     } catch (err) { alert('Reset failed'); }
                                                 }
                                             }}
-                                            style={{ padding: '8px 16px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '12px', color: '#ef4444', fontSize: '0.7rem', fontWeight: 800, cursor: 'pointer' }}
-                                            className="scale-hover"
+                                            style={{ 
+                                                padding: '10px 20px', 
+                                                background: 'rgba(239, 68, 68, 0.05)', 
+                                                border: '1px solid rgba(239, 68, 68, 0.1)', 
+                                                borderRadius: '14px', 
+                                                color: '#ef4444', 
+                                                fontSize: '0.7rem', 
+                                                fontWeight: 900, 
+                                                cursor: 'pointer',
+                                                transition: 'all 0.3s ease'
+                                            }}
+                                            className="reset-btn-premium"
                                         >
-                                            Reset Credentials
+                                            Reset Access
                                         </button>
                                     </div>
                                 </td>
@@ -268,10 +328,27 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
 
                                 <button 
                                     disabled={loading}
-                                    style={{ width: '100%', background: '#fff', color: '#000', padding: '18px', borderRadius: '18px', border: 'none', fontWeight: 950, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', cursor: loading ? 'not-allowed' : 'pointer' }}
+                                    style={{ 
+                                        width: '100%', 
+                                        background: 'linear-gradient(135deg, #fff 0%, #f3f4f6 100%)', 
+                                        color: '#000', 
+                                        padding: '20px', 
+                                        borderRadius: '20px', 
+                                        border: 'none', 
+                                        fontWeight: 950, 
+                                        fontSize: '1rem', 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        justifyContent: 'center', 
+                                        gap: '12px', 
+                                        cursor: loading ? 'not-allowed' : 'pointer',
+                                        boxShadow: '0 20px 40px rgba(255,255,255,0.1)',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.05em'
+                                    }}
                                     className="scale-hover"
                                 >
-                                    {loading ? <Loader2 size={24} className="animate-spin" /> : <><Sparkles size={20} /> INITIALIZE TENANT ENTITY</>}
+                                    {loading ? <Loader2 size={24} className="animate-spin" /> : <><Sparkles size={20} strokeWidth={3} /> INITIALIZE TENANT ENTITY</>}
                                 </button>
                             </form>
                         )}
@@ -288,10 +365,15 @@ export default function SuperAdminClient({ initialGyms }: SuperAdminClientProps)
 
             <style jsx>{`
                 .row-hover:hover {
-                    background: rgba(255,255,255,0.04) !important;
+                    background: rgba(255,255,255,0.035) !important;
+                    transform: scale(1.005);
+                }
+                .reset-btn-premium:hover {
+                    background: rgba(239, 68, 68, 0.15) !important;
+                    border-color: rgba(239, 68, 68, 0.3) !important;
                 }
                 .modal-entrance {
-                    animation: modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                    animation: modalIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
                 }
                 @keyframes modalIn {
                     from { opacity: 0; transform: translateY(20px) scale(0.95); }
