@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import AdminQrControl from '@/components/AdminQrControl';
 import AdminDashboardClient from '@/components/AdminDashboardClient';
+import AdminActionList from '@/components/AdminActionList';
 
 export default async function DashboardPage() {
     const session = await getServerSession(authOptions);
@@ -149,6 +150,7 @@ export default async function DashboardPage() {
 
     // Proactive Intelligence Metrics
     const now = new Date();
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
     const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
     let dashboardData = {
@@ -159,11 +161,13 @@ export default async function DashboardPage() {
         expiringMembers: [] as any[],
         expiredMembers: [] as any[],
         gym: null as any,
-        recentAttendance: [] as any[]
+        recentAttendance: [] as any[],
+        monthlyCollections: 0,
+        pendingRecovery: 0
     };
 
     try {
-        const [totalMembers, activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym, recentAttendance] = await Promise.all([
+        const [totalMembers, activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym, recentAttendance, payments] = await Promise.all([
             prisma.user.count({ where: { gymId, role: 'MEMBER' } }),
             prisma.membership.count({ where: { gymId, status: 'ACTIVE' } }),
             prisma.membership.count({ where: { gymId, status: 'EXPIRED' } }),
@@ -198,8 +202,19 @@ export default async function DashboardPage() {
                 include: { user: true },
                 orderBy: { timestamp: 'desc' },
                 take: 8
+            }),
+            prisma.payment.findMany({
+                where: { 
+                    gymId, 
+                    status: 'SUCCESS',
+                    createdAt: { gte: thirtyDaysAgo }
+                },
+                select: { amount: true }
             })
         ]);
+
+        const monthlyCollections = payments.reduce((acc, p) => acc + Number(p.amount), 0);
+        const pendingRecovery = expiredCount * 1500; // Estimated 1500 INR/member value
 
         dashboardData = {
             totalMembers,
@@ -209,107 +224,102 @@ export default async function DashboardPage() {
             expiringMembers,
             expiredMembers,
             gym,
-            recentAttendance
+            recentAttendance,
+            monthlyCollections,
+            pendingRecovery
         };
     } catch (error) {
         console.error("Dashboard data fetch failed:", error);
     }
 
-    const { totalMembers, activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym, recentAttendance } = dashboardData;
+    const { totalMembers, activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym, recentAttendance, monthlyCollections, pendingRecovery } = dashboardData;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', minHeight: '100vh', padding: '40px', background: '#0a0a0a', color: '#fff', position: 'relative', overflow: 'hidden' }} className="admin-dashboard">
+        <div className="admin-dashboard lux-root" style={{ display: 'flex', flexDirection: 'column', gap: '60px', minHeight: '100vh', padding: '60px', color: '#fff', position: 'relative', overflow: 'hidden' }}>
             {/* Luxe Watermark */}
-            <div className="luxe-watermark" style={{ opacity: 0.05 }}>{gym?.name || 'PULSEFIT'}</div>
+            <div className="luxe-watermark" style={{ opacity: 0.03 }}>{gym?.name || 'PULSEFIT'}</div>
             
-            {/* Cinematic Background Glows */}
-            <div style={{ position: 'fixed', top: '-10%', right: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }}></div>
-            <div style={{ position: 'fixed', bottom: '-10%', left: '-10%', width: '30vw', height: '30vw', background: 'radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }}></div>
-
-            <header style={{ 
+            <header className="dashboard-header" style={{ 
                 position: 'relative', 
                 zIndex: 1,
                 display: 'flex', 
                 flexDirection: 'column',
-                gap: '32px'
+                gap: '40px'
             }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '32px' }}>
+                    <div style={{ flex: 1, minWidth: '300px' }}>
                         <div style={{ 
-                            background: 'rgba(245, 158, 11, 0.1)', 
-                            color: '#f59e0b', 
+                            background: 'rgba(239, 68, 68, 0.1)', 
+                            color: '#ef4444', 
                             padding: '8px 16px', 
-                            borderRadius: '20px', 
-                            fontSize: '0.7rem', 
+                            borderRadius: '12px', 
+                            fontSize: '0.65rem', 
                             fontWeight: 950, 
                             letterSpacing: '0.15em', 
                             width: 'fit-content', 
                             marginBottom: '20px',
-                            border: '1px solid rgba(245, 158, 11, 0.2)',
-                            backdropFilter: 'blur(10px)'
-                        }}>COMMAND CENTER</div>
-                        <h1 style={{ 
-                            fontSize: 'clamp(3rem, 6vw, 5rem)', 
-                            fontWeight: 950, 
-                            letterSpacing: '-0.06em', 
-                            lineHeight: 0.9, 
-                            color: '#fff',
-                            fontFamily: "'Plus Jakarta Sans', sans-serif"
-                        }}>Operations Control</h1>
-                        <p style={{ 
-                            color: 'rgba(255,255,255,0.3)', 
-                            marginTop: '20px', 
-                            fontSize: '1.25rem', 
-                            fontWeight: 600, 
-                            maxWidth: '600px',
-                            lineHeight: 1.4
-                        }}>Live monitoring of your gym's elite member network.</p>
-                    </div>
-                    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                        <AdminLogoutButton />
-                        <div style={{ 
-                            background: 'rgba(245, 158, 11, 0.15)', 
-                            padding: '4px',
-                            borderRadius: '16px',
-                            border: '1px solid rgba(245, 158, 11, 0.3)',
-                            backdropFilter: 'blur(10px)'
-                        }}>
-                            <AdminQrControl gymId={gymId} />
+                            border: '1px solid rgba(239, 68, 68, 0.2)',
+                            textTransform: 'uppercase'
+                        }}>REVENUE STATUS: {expiredCount > 0 ? 'ACTION REQUIRED' : 'STABLE'}</div>
+                        
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          <h1 className="revenue-text-hero">₹{monthlyCollections.toLocaleString('en-IN')}</h1>
+                          <p style={{ 
+                              color: 'rgba(255,255,255,0.4)', 
+                              fontSize: '1.25rem', 
+                              fontWeight: 700, 
+                              maxWidth: '600px',
+                              letterSpacing: '0.05em'
+                          }}>Collected this month / <span style={{ color: '#ef4444' }}>₹{pendingRecovery.toLocaleString('en-IN')} At Risk</span></p>
                         </div>
+                    </div>
+                    <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                        <AdminLogoutButton />
+                        <AdminQrControl gymId={gymId} />
                     </div>
                 </div>
                 
-                <Link href="/members/new" className="glass-btn-premium" style={{ 
-                    textDecoration: 'none', 
-                    background: 'rgba(255,255,255,0.03)', 
-                    color: '#fff', 
-                    padding: '20px', 
-                    borderRadius: '24px', 
-                    border: '1px solid rgba(255,255,255,0.08)', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    gap: '12px',
-                    width: '100%',
-                    backdropFilter: 'blur(20px)',
-                    transition: 'all 0.3s ease'
-                }}>
-                    <Plus size={24} strokeWidth={3} /> <span style={{ fontWeight: 950, letterSpacing: '0.1em', fontSize: '0.9rem', textTransform: 'uppercase' }}>Initialize New Member</span>
-                </Link>
+                <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                  <Link href="/members/new" className="btn-high-authority" style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'center' }}>
+                      <Plus size={24} strokeWidth={3} /> ADD MEMBER
+                  </Link>
+                  <Link href="/payments" style={{ 
+                      padding: '24px 32px', 
+                      background: 'rgba(255,255,255,0.05)', 
+                      borderRadius: '12px', 
+                      color: '#fff', 
+                      fontWeight: 800, 
+                      textDecoration: 'none', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '10px',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      fontSize: '0.875rem'
+                  }}>
+                    RECOVER PAYMENTS →
+                  </Link>
+                </div>
             </header>
 
+            <AdminActionList 
+                expiredMembers={expiredMembers as any} 
+                gymName={gym?.name || 'PulseFit'} 
+            />
+ 
             <AdminDashboardClient 
                 totalMembers={totalMembers}
                 activeCount={activeCount}
                 expiringSoonCount={expiringSoonCount}
                 expiredCount={expiredCount}
+                monthlyCollections={monthlyCollections}
+                pendingRecovery={pendingRecovery}
                 recentAttendanceLength={recentAttendance.length}
                 expiringMembers={expiringMembers as any}
                 expiredMembers={expiredMembers as any}
                 gymName={gym?.name || 'PulseFit'}
                 gymWhatsApp={gym?.whatsappNumber || ''}
             />
-
+ 
             {/* Recent Activity Section */}
             <section className="glass-card-premium" style={{ 
                 position: 'relative',
@@ -324,13 +334,13 @@ export default async function DashboardPage() {
                 borderRadius: '40px',
                 boxShadow: '0 40px 100px rgba(0,0,0,0.3)'
             }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
                     <h2 style={{ fontSize: '1.75rem', fontWeight: 950, color: '#fff', letterSpacing: '-0.04em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Recent Verified Activity</h2>
-                    <Link href="/attendance" style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 800, fontSize: '0.8125rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all 0.3s ease' }} className="view-all-premium">View All Records →</Link>
+                    <Link href="/attendance" style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 800, fontSize: '0.8125rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all 0.3s ease' }} className="view-all-premium">View All →</Link>
                 </div>
-
-                <div className="modern-table-container" style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 12px' }}>
+ 
+                <div className="modern-table-container" style={{ overflowX: 'auto', margin: '0 -20px', padding: '0 20px' }}>
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 12px', minWidth: '800px' }}>
                         <thead>
                             <tr style={{ textAlign: 'left', color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 900 }}>
                                 <th style={{ padding: '0 24px' }}>Member Entity</th>
@@ -372,7 +382,7 @@ export default async function DashboardPage() {
                         </tbody>
                     </table>
                 </div>
-
+ 
             </section>
         </div>
     );
