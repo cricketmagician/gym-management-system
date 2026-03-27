@@ -78,16 +78,16 @@ export default function AdminDashboardClient({
                     value={totalMembers} 
                     icon={<Users size={24} strokeWidth={2.5} />} 
                     subtitle="Registered members" 
-                    glowColor="rgba(16, 185, 129, 0.15)"
-                    brandColor="#10b981"
+                    glowColor="rgba(148, 163, 184, 0.15)"
+                    brandColor="#94a3b8"
                 />
                 <MetricCard 
                     title="Active Access" 
                     value={activeCount} 
                     icon={<TrendingUp size={24} strokeWidth={2.5} />} 
                     subtitle="Current permissions" 
-                    glowColor="rgba(99, 102, 241, 0.15)"
-                    brandColor="#6366f1"
+                    glowColor="rgba(249, 115, 22, 0.15)"
+                    brandColor="#f97316"
                 />
                 <div onClick={() => setViewType('expiring')} style={{ cursor: 'pointer' }}>
                     <MetricCard 
@@ -105,8 +105,8 @@ export default function AdminDashboardClient({
                     value={recentAttendanceLength} 
                     icon={<Clock size={24} strokeWidth={2.5} />} 
                     subtitle="Last 24 hours" 
-                    glowColor="rgba(249, 115, 22, 0.15)"
-                    brandColor="#f97316"
+                    glowColor="rgba(100, 116, 139, 0.15)"
+                    brandColor="#64748b"
                 />
                 <div onClick={() => setViewType('expired')} style={{ cursor: 'pointer' }}>
                     <MetricCard 
@@ -114,8 +114,8 @@ export default function AdminDashboardClient({
                         value={expiredCount} 
                         icon={<AlertCircle size={24} strokeWidth={2.5} />} 
                         subtitle="Requires attention" 
-                        glowColor="rgba(239, 68, 68, 0.15)"
-                        brandColor="#ef4444"
+                        glowColor="rgba(234, 88, 12, 0.15)"
+                        brandColor="#ea580c"
                         isInteractive
                     />
                 </div>

@@ -264,7 +264,15 @@ export default async function DashboardPage() {
                     </div>
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                         <AdminLogoutButton />
-                        <AdminQrControl gymId={gymId} />
+                        <div style={{ 
+                            background: 'rgba(245, 158, 11, 0.15)', 
+                            padding: '4px',
+                            borderRadius: '16px',
+                            border: '1px solid rgba(245, 158, 11, 0.3)',
+                            backdropFilter: 'blur(10px)'
+                        }}>
+                            <AdminQrControl gymId={gymId} />
+                        </div>
                     </div>
                 </div>
                 
