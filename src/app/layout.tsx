@@ -145,7 +145,7 @@ export default async function RootLayout({
                                     <ShieldCheck size={18} color="#000" />
                                 </div>
                             )}
-                            <h2 style={{ fontSize: '1.1rem', fontWeight: 950, letterSpacing: '-0.04em', color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                            <h2 style={{ fontSize: '1.1rem', fontWeight: 950, letterSpacing: '-0.04em', color: 'var(--text-main)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                                 {session?.user?.role === 'SUPER_ADMIN' ? 'PULSEFIT GLOBAL' : branding.name}
                             </h2>
                         </div>

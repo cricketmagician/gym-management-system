@@ -38,7 +38,7 @@ export default function AdminActionList({ expiredMembers, gymName }: AdminAction
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 950, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <span style={{ color: '#ef4444' }}>🚨</span> ACTION REQUIRED
                 </h2>
-                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                     {expiredMembers.length} RECOVERIES PENDING
                 </span>
             </div>
@@ -47,7 +47,7 @@ export default function AdminActionList({ expiredMembers, gymName }: AdminAction
                 display: 'grid', 
                 gridTemplateColumns: '1fr', 
                 gap: '12px',
-                background: 'rgba(239, 68, 68, 0.03)',
+                background: 'rgba(239, 68, 68, 0.05)',
                 padding: '24px',
                 borderRadius: '16px',
                 border: '1px solid rgba(239, 68, 68, 0.1)'
@@ -58,18 +58,18 @@ export default function AdminActionList({ expiredMembers, gymName }: AdminAction
                         justifyContent: 'space-between', 
                         alignItems: 'center',
                         padding: '16px',
-                        background: 'rgba(255,255,255,0.02)',
-                        border: '1px solid rgba(255,255,255,0.05)',
+                        background: 'var(--bg-deep)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '12px',
                         transition: 'all 0.2s ease'
                     }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                            <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#ef4444', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 950, fontSize: '0.75rem' }}>
+                            <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'var(--text-main)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 950, fontSize: '0.75rem' }}>
                                 {member.name[0]}
                             </div>
                             <div>
-                                <h4 style={{ fontSize: '0.9375rem', fontWeight: 800 }}>{member.name}</h4>
-                                <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>Expired recently</p>
+                                <h4 style={{ fontSize: '0.9375rem', fontWeight: 800, color: 'var(--text-main)' }}>{member.name}</h4>
+                                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Expired recently</p>
                             </div>
                         </div>
                         

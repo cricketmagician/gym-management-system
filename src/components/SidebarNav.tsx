@@ -35,8 +35,8 @@ export default function SidebarNav({ role }: { role?: string }) {
                             href={item.href}
                             style={{
                                 padding: '12px 16px',
-                                background: isActive ? 'rgba(245,158,11,0.08)' : 'transparent',
-                                color: isActive ? '#f59e0b' : 'rgba(255,255,255,0.4)',
+                                background: isActive ? 'var(--bg-deep)' : 'transparent',
+                                color: isActive ? 'var(--text-main)' : 'var(--text-muted)',
                                 borderRadius: '16px',
                                 fontWeight: isActive ? 800 : 600,
                                 textDecoration: 'none',
@@ -44,14 +44,14 @@ export default function SidebarNav({ role }: { role?: string }) {
                                 alignItems: 'center',
                                 gap: '12px',
                                 transition: 'all 0.3s ease',
-                                border: isActive ? '1px solid rgba(245,158,11,0.1)' : '1px solid transparent',
+                                border: isActive ? '1px solid var(--border-subtle)' : '1px solid transparent',
                                 fontSize: '0.875rem',
                                 letterSpacing: '0.01em',
-                                boxShadow: isActive ? '0 4px 15px rgba(245,158,11,0.05)' : 'none'
+                                boxShadow: isActive ? '0 4px 15px rgba(0,0,0,0.04)' : 'none'
                             }}
                             className="nav-link-premium"
                         >
-                            <span style={{ color: isActive ? '#f59e0b' : 'inherit', opacity: isActive ? 1 : 0.6 }}>{item.icon}</span>
+                            <span style={{ color: isActive ? 'var(--text-main)' : 'inherit', opacity: isActive ? 1 : 0.6 }}>{item.icon}</span>
                             {item.name}
                         </Link>
                     );
@@ -114,8 +114,8 @@ export default function SidebarNav({ role }: { role?: string }) {
                     .desktop-nav { display: none !important; }
                 }
                 .nav-link-premium:hover {
-                    background: rgba(255,255,255,0.03) !important;
-                    color: #fff !important;
+                    background: var(--surface-highlight) !important;
+                    color: var(--text-main) !important;
                     transform: translateX(4px);
                 }
                 .desktop-nav {

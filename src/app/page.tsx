@@ -235,9 +235,9 @@ export default async function DashboardPage() {
     const { totalMembers, activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym, recentAttendance, monthlyCollections, pendingRecovery } = dashboardData;
 
     return (
-        <div className="admin-dashboard lux-root" style={{ display: 'flex', flexDirection: 'column', gap: '60px', minHeight: '100vh', padding: '60px', color: '#fff', position: 'relative', overflow: 'hidden' }}>
-            {/* Luxe Watermark */}
-            <div className="luxe-watermark" style={{ opacity: 0.03 }}>{gym?.name || 'PULSEFIT'}</div>
+        <div className="admin-dashboard lux-root" style={{ display: 'flex', flexDirection: 'column', gap: '60px', minHeight: '100vh', padding: '60px', position: 'relative', overflow: 'hidden' }}>
+            {/* Royale Watermark */}
+            <div className="luxe-watermark" style={{ opacity: 0.01 }}>{gym?.name || 'PULSEFIT'}</div>
             
             <header className="dashboard-header" style={{ 
                 position: 'relative', 
@@ -265,7 +265,7 @@ export default async function DashboardPage() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           <h1 className="revenue-text-hero">₹{monthlyCollections.toLocaleString('en-IN')}</h1>
                           <p style={{ 
-                              color: 'rgba(255,255,255,0.4)', 
+                              color: 'var(--text-muted)', 
                               fontSize: '1.25rem', 
                               fontWeight: 700, 
                               maxWidth: '600px',
@@ -285,15 +285,15 @@ export default async function DashboardPage() {
                   </Link>
                   <Link href="/payments" style={{ 
                       padding: '24px 32px', 
-                      background: 'rgba(255,255,255,0.05)', 
+                      background: 'var(--surface-raised)', 
                       borderRadius: '12px', 
-                      color: '#fff', 
+                      color: 'var(--text-main)', 
                       fontWeight: 800, 
                       textDecoration: 'none', 
                       display: 'flex', 
                       alignItems: 'center', 
                       gap: '10px',
-                      border: '1px solid rgba(255,255,255,0.1)',
+                      border: '1px solid var(--border-subtle)',
                       fontSize: '0.875rem'
                   }}>
                     RECOVER PAYMENTS →
@@ -328,15 +328,14 @@ export default async function DashboardPage() {
                 display: 'flex', 
                 flexDirection: 'column', 
                 gap: '32px', 
-                background: 'rgba(255,255,255,0.01)', 
-                backdropFilter: 'blur(30px)',
-                border: '1px solid rgba(255,255,255,0.05)', 
+                background: 'var(--surface-raised)', 
+                border: '1px solid var(--border-subtle)', 
                 borderRadius: '40px',
-                boxShadow: '0 40px 100px rgba(0,0,0,0.3)'
+                boxShadow: '0 20px 60px rgba(0,0,0,0.03)'
             }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-                    <h2 style={{ fontSize: '1.75rem', fontWeight: 950, color: '#fff', letterSpacing: '-0.04em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Recent Verified Activity</h2>
-                    <Link href="/attendance" style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 800, fontSize: '0.8125rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all 0.3s ease' }} className="view-all-premium">View All →</Link>
+                    <h2 style={{ fontSize: '1.75rem', fontWeight: 950, color: 'var(--text-main)', letterSpacing: '-0.04em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Recent Verified Activity</h2>
+                    <Link href="/attendance" style={{ color: 'var(--text-muted)', fontWeight: 800, fontSize: '0.8125rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all 0.3s ease' }} className="view-all-premium">View All →</Link>
                 </div>
  
                 <div className="modern-table-container" style={{ overflowX: 'auto', margin: '0 -20px', padding: '0 20px' }}>
@@ -351,16 +350,16 @@ export default async function DashboardPage() {
                         </thead>
                         <tbody>
                             {recentAttendance.length > 0 ? recentAttendance.map((record) => (
-                                <tr key={record.id} style={{ background: 'rgba(255,255,255,0.015)', transition: 'all 0.3s ease' }} className="admin-row-hover">
+                                <tr key={record.id} style={{ background: 'var(--surface-highlight)', transition: 'all 0.3s ease' }} className="admin-row-hover">
                                     <td style={{ padding: '20px 24px', borderRadius: '20px 0 0 20px' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                                            <div style={{ width: '44px', height: '44px', borderRadius: '14px', background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '0.875rem' }}>
+                                            <div style={{ width: '44px', height: '44px', borderRadius: '14px', background: 'var(--bg-deep)', color: 'var(--text-main)', border: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '0.875rem' }}>
                                                 {record.user?.name?.[0] || '?'}
                                             </div>
-                                            <span style={{ fontWeight: 800, fontSize: '1rem', color: '#fff' }}>{record.user?.name || 'Unknown User'}</span>
+                                            <span style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-main)' }}>{record.user?.name || 'Unknown User'}</span>
                                         </div>
                                     </td>
-                                    <td style={{ padding: '20px 24px', color: 'rgba(255,255,255,0.4)', fontSize: '0.9375rem', fontWeight: 600 }}>
+                                    <td style={{ padding: '20px 24px', color: 'var(--text-muted)', fontSize: '0.9375rem', fontWeight: 600 }}>
                                         {new Date(record.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                                     </td>
                                     <td style={{ padding: '20px 24px' }}>
@@ -369,7 +368,7 @@ export default async function DashboardPage() {
                                         </div>
                                     </td>
                                     <td style={{ padding: '20px 24px', textAlign: 'right', borderRadius: '0 20px 20px 0' }}>
-                                        <Link href={`/members/${record.userId}`} className="btn-action-premium" style={{ padding: '10px 20px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 800, textDecoration: 'none', color: '#fff', transition: 'all 0.3s ease' }}>View Profile</Link>
+                                        <Link href={`/members/${record.userId}`} className="btn-action-premium" style={{ padding: '10px 20px', background: 'var(--bg-deep)', border: '1px solid var(--border-subtle)', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 800, textDecoration: 'none', color: 'var(--text-main)', transition: 'all 0.3s ease' }}>View Profile</Link>
                                     </td>
                                 </tr>
                             )) : (

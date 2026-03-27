@@ -381,8 +381,8 @@ tbody tr:hover {
 
 .sidebar {
   width: 280px;
-  background-color: #080808;
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--surface-raised);
+  border-right: 1px solid var(--border-subtle);
   padding: 32px 24px;
   display: flex;
   flex-direction: column;
@@ -400,8 +400,8 @@ tbody tr:hover {
   flex: 1;
   padding: 0;
   overflow-y: auto;
-  background: #0a0a0a;
-  color: #fff;
+  background: var(--bg-deep);
+  color: var(--text-main);
   position: relative;
 }
 
@@ -650,17 +650,20 @@ tbody tr:hover {
     }
 }
 
-/* --- REVENUE RECOVERY SYSTEM: HIGH-AUTHORITY THEME --- */
+/* --- REVENUE RECOVERY SYSTEM: LIGHT ROYALE THEME --- */
 :root {
-    --bg-deep: #050505;
-    --surface-raised: #111111;
-    --surface-highlight: #181818;
-    --status-loss: #ef4444; /* Critical Red */
-    --status-warning: #f59e0b; /* Alert Orange */
-    --status-success: #10b981; /* Safe Green */
+    --bg-deep: #FFFFFF;
+    --surface-raised: #F8FAFC;
+    --surface-highlight: #F1F5F9;
+    --text-main: #0F172A;
+    --text-muted: #64748B;
+    --status-loss: #ef4444; 
+    --status-warning: #f59e0b; 
+    --status-success: #10b981; 
+    --border-subtle: #E2E8F0;
 }
 
-.lux-root { background: var(--bg-deep) !important; }
+.lux-root { background: var(--bg-deep) !important; color: var(--text-main) !important; }
 
 /* Controlled Contrast Hierarchy */
 .metric-card-tier-1 {
@@ -677,21 +680,21 @@ tbody tr:hover {
     font-weight: 950;
     letter-spacing: -0.06em;
     line-height: 0.9 !important;
-    color: #fff;
-    text-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    color: var(--text-main);
+    text-shadow: none;
 }
 
 /* Sharp Authority Finish */
 .btn-high-authority {
     padding: 24px 48px;
-    background: #fff;
-    color: #000;
+    background: var(--text-main);
+    color: #fff;
     border-radius: 12px;
     font-weight: 950;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     border: none;
-    box-shadow: 0 20px 40px rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -706,9 +709,9 @@ tbody tr:hover {
 
 .metric-card-premium:hover {
     transform: translateY(-8px) scale(1.01);
-    background: rgba(255,255,255,0.03) !important;
-    border-color: rgba(255,255,255,0.15) !important;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    background: var(--surface-highlight) !important;
+    border-color: var(--border-subtle) !important;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.05);
 }
 
 .metric-card-tier-1:hover {
