@@ -129,7 +129,7 @@ export default async function RootLayout({
                     <aside className="sidebar">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '48px', padding: '0 8px' }}>
                             {branding.logoUrl && session?.user?.role !== 'SUPER_ADMIN' ? (
-                                <img src={branding.logoUrl} alt={branding.name} style={{ width: '40px', height: '40px', borderRadius: '12px', objectFit: 'cover', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }} />
+                                <img src={getDirectImageUrl(branding.logoUrl)} alt={branding.name} style={{ width: '40px', height: '40px', borderRadius: '12px', objectFit: 'cover', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }} />
                             ) : (
                                 <div style={{ 
                                     width: '32px', 
