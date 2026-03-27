@@ -40,41 +40,40 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
     const isAdmin = session.user.role === 'ADMIN';
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '48px', maxWidth: '1100px', margin: '0 auto', padding: '20px' }}>
+        <div className="member-detail-container" style={{ display: 'flex', flexDirection: 'column', gap: '32px', maxWidth: '1100px', margin: '0 auto', padding: '20px' }}>
             {/* Premium Header */}
-            <header style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <header style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <Link href="/members" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem', fontWeight: 600 }}>
                     <ArrowLeft size={16} /> Back to Members
                 </Link>
                 
-                <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '40px', background: '#000', borderRadius: '40px', overflow: 'hidden', color: '#fff' }}>
+                <div className="profile-hero" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#000', borderRadius: '32px', overflow: 'hidden', color: '#fff' }}>
                     {/* Background Glow */}
                     <div style={{ position: 'absolute', top: '-50%', right: '-10%', width: '400px', height: '400px', background: 'rgba(251, 191, 36, 0.15)', filter: 'blur(100px)', borderRadius: '50%' }}></div>
                     
-                    <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ position: 'relative', zIndex: 1, flex: 1 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                             <div style={{ padding: '6px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                                 <ShieldCheck size={14} color="#fbbf24" />
-                                <span style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Premium Member</span>
+                                <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Premium Member</span>
                             </div>
                         </div>
-                        <h1 style={{ fontSize: '4rem', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 0.9, marginBottom: '8px' }}>
+                        <h1 style={{ fontSize: 'clamp(2rem, 8vw, 4rem)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 0.9, marginBottom: '8px', wordBreak: 'break-word' }}>
                             {user.name.toUpperCase()}
                         </h1>
-                        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '1.125rem', fontWeight: 500 }}>ID: #{user.id.slice(-8).toUpperCase()}</p>
+                        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '1rem', fontWeight: 500 }}>ID: #{user.id.slice(-8).toUpperCase()}</p>
                     </div>
-
-                    <div style={{ position: 'relative', zIndex: 1 }}>
+ 
+                    <div style={{ position: 'relative', zIndex: 1, alignSelf: 'flex-start' }}>
                         <EditMemberModal user={user as any} />
                     </div>
                 </div>
             </header>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '32px' }}>
+ 
+            <div className="detail-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 0.8fr)', gap: '32px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                     {/* Membership Card - Premium Orange */}
-                    <div className="card" style={{ 
-                        padding: '40px', 
+                    <div className="membership-status-card" style={{ 
                         display: 'flex', 
                         flexDirection: 'column', 
                         gap: '32px', 
@@ -84,8 +83,8 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
                         borderRadius: '32px',
                         boxShadow: '0 20px 40px rgba(245, 158, 11, 0.2)'
                     }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+                            <h3 style={{ fontSize: '1.25rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '12px' }}>
                                 <CreditCard size={24} /> Membership Status
                             </h3>
                             {currentMembership && (
@@ -95,7 +94,7 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
                                     backdropFilter: 'blur(10px)', 
                                     borderRadius: '100px', 
                                     fontWeight: 900, 
-                                    fontSize: '0.875rem',
+                                    fontSize: '0.75rem',
                                     textTransform: 'uppercase'
                                 }}>
                                     {currentMembership.status}
@@ -105,21 +104,21 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
                         
                         {currentMembership ? (
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+                                <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '24px' }}>
                                     <div>
-                                        <p style={{ fontSize: '0.75rem', fontWeight: 800, opacity: 0.8, textTransform: 'uppercase' }}>Selected Plan</p>
-                                        <p style={{ fontSize: '1.25rem', fontWeight: 800 }}>{currentMembership.plan.name}</p>
+                                        <p style={{ fontSize: '0.65rem', fontWeight: 800, opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Selected Plan</p>
+                                        <p style={{ fontSize: '1.125rem', fontWeight: 800 }}>{currentMembership.plan.name}</p>
                                     </div>
                                     <div>
-                                        <p style={{ fontSize: '0.75rem', fontWeight: 800, opacity: 0.8, textTransform: 'uppercase' }}>Joined On</p>
-                                        <p style={{ fontSize: '1.25rem', fontWeight: 800 }}>{formatMemberDate(currentMembership.startDate)}</p>
+                                        <p style={{ fontSize: '0.65rem', fontWeight: 800, opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Joined On</p>
+                                        <p style={{ fontSize: '1.125rem', fontWeight: 800 }}>{formatMemberDate(currentMembership.startDate)}</p>
                                     </div>
                                     <div>
-                                        <p style={{ fontSize: '0.75rem', fontWeight: 800, opacity: 0.8, textTransform: 'uppercase' }}>Valid Until</p>
-                                        <p style={{ fontSize: '1.25rem', fontWeight: 800 }}>{formatMemberDate(currentMembership.endDate)}</p>
+                                        <p style={{ fontSize: '0.65rem', fontWeight: 800, opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Valid Until</p>
+                                        <p style={{ fontSize: '1.125rem', fontWeight: 800 }}>{formatMemberDate(currentMembership.endDate)}</p>
                                     </div>
                                 </div>
-
+ 
                                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                                     <FreezeButton membershipId={currentMembership.id} currentStatus={currentMembership.status} />
                                     <ActivateButton membershipId={currentMembership.id} currentStatus={currentMembership.status} />
@@ -136,59 +135,94 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
                             </div>
                         ) : (
                             <div style={{ padding: '32px', textAlign: 'center', background: 'rgba(255,255,255,0.1)', borderRadius: '24px', border: '1px dashed rgba(255,255,255,0.3)' }}>
-                                <p style={{ fontWeight: 800, fontSize: '1.125rem' }}>No Active Membership</p>
+                                <p style={{ fontWeight: 800, fontSize: '1rem' }}>No Active Membership</p>
                             </div>
                         )}
                     </div>
-
+ 
                     {/* Check-ins */}
-                    <div className="card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '32px' }}>
-                        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '32px' }}>
+                        <h3 style={{ fontSize: '1.125rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <Activity size={20} color="var(--brand-primary)" /> Recent Check-ins
                         </h3>
                         <div style={{ display: 'grid', gap: '12px' }}>
                             {user.attendances.map((att) => (
-                                <div key={att.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 24px', background: 'rgba(0,0,0,0.01)', borderRadius: '20px', border: '1px solid var(--border-color)' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                                        <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(45, 212, 191, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                            <Zap size={20} color="#2dd4bf" />
+                                <div key={att.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px', background: 'rgba(0,0,0,0.01)', borderRadius: '20px', border: '1px solid var(--border-color)', gap: '12px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                        <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(45, 212, 191, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                            <Zap size={18} color="#2dd4bf" />
                                         </div>
-                                        <span style={{ fontWeight: 700 }}>Gym Check-in</span>
+                                        <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>Check-in</span>
                                     </div>
                                     <div style={{ textAlign: 'right' }}>
-                                        <p style={{ fontSize: '0.875rem', fontWeight: 800 }}>{formatCheckinTime(att.timestamp)}</p>
+                                        <p style={{ fontSize: '0.8125rem', fontWeight: 800 }}>{formatCheckinTime(att.timestamp)}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
-
+ 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                     {/* Contact Card */}
-                    <div className="card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '32px' }}>
+                    <div className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '32px' }}>
                         <h3 style={{ fontSize: '1.125rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <User size={18} color="var(--brand-primary)" /> Contact Details
                         </h3>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                                <div style={{ color: 'var(--text-secondary)' }}><Phone size={18} /></div>
+                                <div style={{ color: 'var(--text-secondary)', flexShrink: 0 }}><Phone size={18} /></div>
                                 <div>
-                                    <p style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Phone</p>
-                                    <p style={{ fontSize: '0.9375rem', fontWeight: 600 }}>{user.phone}</p>
+                                    <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Phone</p>
+                                    <p style={{ fontSize: '0.875rem', fontWeight: 600 }}>{user.phone}</p>
                                 </div>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                                <div style={{ color: 'var(--text-secondary)' }}><Mail size={18} /></div>
-                                <div style={{ overflow: 'hidden' }}>
-                                    <p style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Email</p>
-                                    <p style={{ fontSize: '0.9375rem', fontWeight: 600, wordBreak: 'break-all' }}>{user.email || 'None'}</p>
+                                <div style={{ color: 'var(--text-secondary)', flexShrink: 0 }}><Mail size={18} /></div>
+                                <div style={{ minWidth: 0 }}>
+                                    <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Email</p>
+                                    <p style={{ fontSize: '0.875rem', fontWeight: 600, wordBreak: 'break-all' }}>{user.email || 'None'}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+ 
+            <style jsx>{`
+                .profile-hero {
+                    padding: 40px;
+                }
+                .membership-status-card {
+                    padding: 40px;
+                }
+                @media (max-width: 768px) {
+                    .member-detail-container {
+                        gap: 24px !important;
+                        padding: 16px !important;
+                    }
+                    .profile-hero {
+                        padding: 32px 24px !important;
+                        border-radius: 24px !important;
+                        flex-direction: column;
+                        align-items: flex-start !important;
+                        gap: 24px;
+                    }
+                    .detail-grid {
+                        grid-template-columns: 1fr !important;
+                        gap: 24px !important;
+                    }
+                    .membership-status-card {
+                        padding: 24px !important;
+                        border-radius: 24px !important;
+                    }
+                    .stats-grid {
+                        gap: 16px !important;
+                    }
+                }
+            `}</style>
         </div>
+    );
+}
     );
 }
