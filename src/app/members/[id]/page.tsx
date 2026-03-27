@@ -224,5 +224,3 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
         </div>
     );
 }
-    );
-}
