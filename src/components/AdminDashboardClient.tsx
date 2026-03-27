@@ -72,45 +72,50 @@ export default function AdminDashboardClient({
 
             <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Metric Grid */}
-            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
                 <MetricCard 
                     title="Total Population" 
                     value={totalMembers} 
-                    icon={<Users size={22} />} 
+                    icon={<Users size={24} strokeWidth={2.5} />} 
                     subtitle="Registered members" 
-                    glowColor="rgba(45, 212, 191, 0.2)"
+                    glowColor="rgba(16, 185, 129, 0.15)"
+                    brandColor="#10b981"
                 />
                 <MetricCard 
                     title="Active Access" 
                     value={activeCount} 
-                    icon={<TrendingUp size={22} />} 
+                    icon={<TrendingUp size={24} strokeWidth={2.5} />} 
                     subtitle="Current permissions" 
-                    glowColor="rgba(56, 189, 248, 0.2)"
+                    glowColor="rgba(99, 102, 241, 0.15)"
+                    brandColor="#6366f1"
                 />
                 <div onClick={() => setViewType('expiring')} style={{ cursor: 'pointer' }}>
                     <MetricCard 
                         title="Expiring Soon" 
                         value={expiringSoonCount} 
-                        icon={<Sparkles size={22} />} 
+                        icon={<Sparkles size={24} strokeWidth={2.5} />} 
                         subtitle="Next 7 days" 
-                        glowColor="rgba(245, 158, 11, 0.2)"
+                        glowColor="rgba(245, 158, 11, 0.15)"
+                        brandColor="#f59e0b"
                         isInteractive
                     />
                 </div>
                 <MetricCard 
                     title="Recent Check-ins" 
                     value={recentAttendanceLength} 
-                    icon={<Clock size={22} />} 
+                    icon={<Clock size={24} strokeWidth={2.5} />} 
                     subtitle="Last 24 hours" 
-                    glowColor="rgba(251, 146, 60, 0.2)"
+                    glowColor="rgba(249, 115, 22, 0.15)"
+                    brandColor="#f97316"
                 />
                 <div onClick={() => setViewType('expired')} style={{ cursor: 'pointer' }}>
                     <MetricCard 
                         title="Expired Members" 
                         value={expiredCount} 
-                        icon={<AlertCircle size={22} />} 
+                        icon={<AlertCircle size={24} strokeWidth={2.5} />} 
                         subtitle="Requires attention" 
-                        glowColor="rgba(239, 68, 68, 0.2)"
+                        glowColor="rgba(239, 68, 68, 0.15)"
+                        brandColor="#ef4444"
                         isInteractive
                     />
                 </div>
@@ -272,60 +277,62 @@ export default function AdminDashboardClient({
     );
 }
 
-function MetricCard({ title, value, icon, subtitle, glowColor, isInteractive = false }: { title: string, value: string | number, icon: React.ReactNode, subtitle: string, glowColor: string, isInteractive?: boolean }) {
-    const brandColor = glowColor.replace('0.2', '1');
+function MetricCard({ title, value, icon, subtitle, glowColor, brandColor, isInteractive = false }: { title: string, value: string | number, icon: React.ReactNode, subtitle: string, glowColor: string, brandColor: string, isInteractive?: boolean }) {
     return (
-        <div className="card scale-hover" style={{ 
-            padding: '24px', 
-            borderRadius: '24px',
-            background: 'var(--surface-color)',
-            border: isInteractive ? `2px solid ${brandColor}` : '1px solid var(--border-color)',
+        <div className="metric-card-premium" style={{ 
+            padding: '32px', 
+            borderRadius: '32px',
+            background: 'rgba(255,255,255,0.01)',
+            backdropFilter: 'blur(30px)',
+            border: '1px solid rgba(255,255,255,0.05)',
             display: 'flex', 
             flexDirection: 'column', 
-            gap: '16px',
+            gap: '24px',
             position: 'relative',
             overflow: 'hidden',
             transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-            boxShadow: `0 20px 40px -20px ${glowColor.replace('0.2', '0.5')}, 0 0 15px -5px ${glowColor.replace('0.2', '0.1')}`,
+            boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
             cursor: isInteractive ? 'pointer' : 'default'
         }}>
-            <div style={{ 
-                position: 'absolute', 
-                top: '-20px', 
-                right: '-20px', 
-                width: '120px', 
-                height: '120px', 
-                background: glowColor, 
-                borderRadius: '50%', 
-                filter: 'blur(35px)',
-                opacity: 0.7
-            }}></div>
+            {/* Visual Backlight */}
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '150px', height: '150px', background: brandColor, opacity: 0.1, filter: 'blur(50px)', borderRadius: '50%' }}></div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
                 <div style={{ 
-                    width: '48px', 
-                    height: '48px', 
-                    borderRadius: '14px', 
-                    background: glowColor, 
+                    width: '56px', 
+                    height: '56px', 
+                    borderRadius: '18px', 
+                    background: `${brandColor}20`, 
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center', 
-                    color: brandColor 
+                    color: brandColor,
+                    border: `1px solid ${brandColor}40`,
+                    boxShadow: `0 8px 20px ${brandColor}15`
                 }}>
                     {icon}
                 </div>
                 {isInteractive && (
-                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '6px 10px', borderRadius: '8px', fontSize: '0.65rem', fontWeight: 900, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '8px 12px', borderRadius: '10px', fontSize: '0.65rem', fontWeight: 950, color: '#fff', textTransform: 'uppercase', letterSpacing: '0.05em', border: '1px solid rgba(255,255,255,0.1)' }}>
                         Details →
                     </div>
                 )}
             </div>
             
             <div style={{ position: 'relative', zIndex: 1 }}>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>{title}</p>
-                <h3 style={{ fontSize: '2.75rem', fontWeight: 950, marginBottom: '4px', letterSpacing: '-0.05em', color: 'var(--text-primary)', lineHeight: 1 }}>{value}</h3>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 600, opacity: 0.7 }}>{subtitle}</p>
+                <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', fontWeight: 950, textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '16px' }}>{title}</p>
+                <h3 style={{ fontSize: '3.5rem', fontWeight: 950, marginBottom: '8px', letterSpacing: '-0.06em', color: '#fff', lineHeight: 1, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{value}</h3>
+                <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>{subtitle}</p>
             </div>
+
+            <style jsx>{`
+                .metric-card-premium:hover {
+                    transform: translateY(-12px) scale(1.02);
+                    background: rgba(255,255,255,0.04);
+                    border-color: ${brandColor}50;
+                    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px ${brandColor}15;
+                }
+            `}</style>
         </div>
     );
 }

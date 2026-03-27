@@ -218,40 +218,72 @@ export default async function DashboardPage() {
     const { totalMembers, activeCount, expiredCount, expiringSoonCount, expiringMembers, expiredMembers, gym, recentAttendance } = dashboardData;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', minHeight: '100vh', padding: '24px' }} className="admin-dashboard">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', minHeight: '100vh', padding: '40px', background: '#000', color: '#fff', position: 'relative', overflow: 'hidden' }} className="admin-dashboard">
+            {/* Cinematic Background Glows */}
+            <div style={{ position: 'fixed', top: '-10%', right: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }}></div>
+            <div style={{ position: 'fixed', bottom: '-10%', left: '-10%', width: '30vw', height: '30vw', background: 'radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }}></div>
+
             <header style={{ 
+                position: 'relative', 
+                zIndex: 1,
                 display: 'flex', 
                 flexDirection: 'column',
-                gap: '24px',
-                paddingBottom: '8px'
+                gap: '32px'
             }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
-                        <div style={{ background: 'var(--brand-primary)', color: '#fff', padding: '6px 14px', borderRadius: '20px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.05em', width: 'fit-content', marginBottom: '12px', boxShadow: '0 4px 12px rgba(45, 212, 191, 0.2)' }}>MANAGEMENT</div>
-                        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-0.03em', color: 'var(--text-primary)', lineHeight: 1 }}>Command Center</h1>
-                        <p style={{ color: 'var(--text-secondary)', marginTop: '10px', fontSize: '1rem', fontWeight: 500, opacity: 0.9 }}>Live gym operations and member activity monitoring.</p>
+                        <div style={{ 
+                            background: 'rgba(245, 158, 11, 0.1)', 
+                            color: '#f59e0b', 
+                            padding: '8px 16px', 
+                            borderRadius: '20px', 
+                            fontSize: '0.7rem', 
+                            fontWeight: 950, 
+                            letterSpacing: '0.15em', 
+                            width: 'fit-content', 
+                            marginBottom: '20px',
+                            border: '1px solid rgba(245, 158, 11, 0.2)',
+                            backdropFilter: 'blur(10px)'
+                        }}>COMMAND CENTER</div>
+                        <h1 style={{ 
+                            fontSize: 'clamp(3rem, 6vw, 5rem)', 
+                            fontWeight: 950, 
+                            letterSpacing: '-0.06em', 
+                            lineHeight: 0.9, 
+                            color: '#fff',
+                            fontFamily: "'Plus Jakarta Sans', sans-serif"
+                        }}>Operations Control</h1>
+                        <p style={{ 
+                            color: 'rgba(255,255,255,0.3)', 
+                            marginTop: '20px', 
+                            fontSize: '1.25rem', 
+                            fontWeight: 600, 
+                            maxWidth: '600px',
+                            lineHeight: 1.4
+                        }}>Live monitoring of your gym's elite member network.</p>
                     </div>
-                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                         <AdminLogoutButton />
                         <AdminQrControl gymId={gymId} />
                     </div>
                 </div>
                 
-                <Link href="/members/new" className="btn-renew" style={{ 
+                <Link href="/members/new" className="glass-btn-premium" style={{ 
                     textDecoration: 'none', 
-                    background: '#000', 
+                    background: 'rgba(255,255,255,0.03)', 
                     color: '#fff', 
-                    padding: '16px', 
-                    borderRadius: '18px', 
-                    border: 'none', 
+                    padding: '20px', 
+                    borderRadius: '24px', 
+                    border: '1px solid rgba(255,255,255,0.08)', 
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center',
-                    gap: '10px',
+                    gap: '12px',
                     width: '100%',
-                    boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+                    backdropFilter: 'blur(20px)',
+                    transition: 'all 0.3s ease'
                 }}>
-                    <Plus size={20} /> <span style={{ fontWeight: 800, letterSpacing: '0.02em' }}>ADD NEW MEMBER</span>
+                    <Plus size={24} strokeWidth={3} /> <span style={{ fontWeight: 950, letterSpacing: '0.1em', fontSize: '0.9rem', textTransform: 'uppercase' }}>Initialize New Member</span>
                 </Link>
             </header>
 
@@ -268,55 +300,88 @@ export default async function DashboardPage() {
             />
 
             {/* Recent Activity Section */}
-            <section className="glass-card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--surface-color)', border: '1px solid var(--border-color)', borderRadius: '24px' }}>
+            <section className="glass-card-premium" style={{ 
+                position: 'relative',
+                zIndex: 1,
+                padding: '40px', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '32px', 
+                background: 'rgba(255,255,255,0.01)', 
+                backdropFilter: 'blur(30px)',
+                border: '1px solid rgba(255,255,255,0.05)', 
+                borderRadius: '40px',
+                boxShadow: '0 40px 100px rgba(0,0,0,0.3)'
+            }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Recent Verified Activity</h2>
-                    <Link href="/attendance" style={{ color: 'var(--brand-primary)', fontWeight: 800, fontSize: '0.8125rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.05em' }}>View All Records →</Link>
+                    <h2 style={{ fontSize: '1.75rem', fontWeight: 950, color: '#fff', letterSpacing: '-0.04em', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Recent Verified Activity</h2>
+                    <Link href="/attendance" style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 800, fontSize: '0.8125rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all 0.3s ease' }} className="view-all-premium">View All Records →</Link>
                 </div>
 
                 <div className="modern-table-container" style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 8px' }}>
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 12px' }}>
                         <thead>
-                            <tr style={{ textAlign: 'left', color: 'var(--text-secondary)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800 }}>
-                                <th style={{ padding: '12px 16px' }}>Member</th>
-                                <th style={{ padding: '12px 16px' }}>Timing</th>
-                                <th style={{ padding: '12px 16px' }}>Verification</th>
-                                <th style={{ padding: '12px 16px', textAlign: 'right' }}>Actions</th>
+                            <tr style={{ textAlign: 'left', color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 900 }}>
+                                <th style={{ padding: '0 24px' }}>Member Entity</th>
+                                <th style={{ padding: '0 24px' }}>Operational Timing</th>
+                                <th style={{ padding: '0 24px' }}>Verification</th>
+                                <th style={{ padding: '0 24px', textAlign: 'right' }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {recentAttendance.length > 0 ? recentAttendance.map((record) => (
-                                <tr key={record.id} style={{ background: 'rgba(0,0,0,0.02)', borderRadius: '16px' }}>
-                                    <td style={{ padding: '16px', borderRadius: '16px 0 0 16px' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#000', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.75rem' }}>
+                                <tr key={record.id} style={{ background: 'rgba(255,255,255,0.015)', transition: 'all 0.3s ease' }} className="admin-row-hover">
+                                    <td style={{ padding: '20px 24px', borderRadius: '20px 0 0 20px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                                            <div style={{ width: '44px', height: '44px', borderRadius: '14px', background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '0.875rem' }}>
                                                 {record.user?.name?.[0] || '?'}
                                             </div>
-                                            <span style={{ fontWeight: 700, fontSize: '0.9375rem' }}>{record.user?.name || 'Unknown User'}</span>
+                                            <span style={{ fontWeight: 800, fontSize: '1rem', color: '#fff' }}>{record.user?.name || 'Unknown User'}</span>
                                         </div>
                                     </td>
-                                    <td style={{ padding: '16px', color: '#666', fontSize: '0.875rem' }}>
-                                        {new Date(record.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    <td style={{ padding: '20px 24px', color: 'rgba(255,255,255,0.4)', fontSize: '0.9375rem', fontWeight: 600 }}>
+                                        {new Date(record.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                                     </td>
-                                    <td style={{ padding: '16px' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 700, fontSize: '0.75rem' }}>
-                                            <CheckCircle2 size={14} /> SECURE
+                                    <td style={{ padding: '20px 24px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#10b981', fontWeight: 950, fontSize: '0.7rem', letterSpacing: '0.05em' }}>
+                                            <CheckCircle2 size={16} strokeWidth={3} /> VERIFIED SECURE
                                         </div>
                                     </td>
-                                    <td style={{ padding: '16px', textAlign: 'right', borderRadius: '0 16px 16px 0' }}>
-                                        <Link href={`/members/${record.userId}`} className="btn-action" style={{ padding: '8px 16px', background: '#fff', border: '1px solid #eee', borderRadius: '8px', fontSize: '0.75rem', fontWeight: 700, textDecoration: 'none', color: '#000' }}>View Profile</Link>
+                                    <td style={{ padding: '20px 24px', textAlign: 'right', borderRadius: '0 20px 20px 0' }}>
+                                        <Link href={`/members/${record.userId}`} className="btn-action-premium" style={{ padding: '10px 20px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 800, textDecoration: 'none', color: '#fff', transition: 'all 0.3s ease' }}>View Profile</Link>
                                     </td>
                                 </tr>
                             )) : (
                                 <tr>
-                                    <td colSpan={4} style={{ textAlign: 'center', padding: '60px', color: '#999' }}>
-                                        <p>No recent check-ins recorded.</p>
+                                    <td colSpan={4} style={{ textAlign: 'center', padding: '80px', color: 'rgba(255,255,255,0.2)' }}>
+                                        <p style={{ fontWeight: 700 }}>No recent operational activity recorded.</p>
                                     </td>
                                 </tr>
                             )}
                         </tbody>
                     </table>
                 </div>
+
+                <style jsx>{`
+                    .admin-row-hover:hover {
+                        background: rgba(255,255,255,0.04) !important;
+                        transform: scale(1.005);
+                    }
+                    .glass-btn-premium:hover {
+                        background: rgba(255,255,255,0.08) !important;
+                        transform: translateY(-4px);
+                        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+                        border-color: rgba(255,255,255,0.15) !important;
+                    }
+                    .view-all-premium:hover {
+                        color: #fff !important;
+                        opacity: 1;
+                    }
+                    .btn-action-premium:hover {
+                        background: rgba(255,255,255,0.1) !important;
+                        border-color: rgba(255,255,255,0.2) !important;
+                    }
+                `}</style>
             </section>
         </div>
     );
