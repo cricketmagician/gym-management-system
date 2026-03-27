@@ -132,6 +132,7 @@ export default async function MemberDetailsPage({ params }: { params: Promise<{ 
                                         memberPhone={user.phone || ''}
                                         gymName={user.gym.name}
                                         expiryDate={formatMemberDate(currentMembership.endDate)}
+                                        status={currentMembership.status}
                                         upiId={user.gym.upiId || ''}
                                         upiNumber={user.gym.upiNumber || ''}
                                     />
