@@ -31,8 +31,8 @@ export default function AdminQrControl({ gymId }: AdminQrControlProps) {
 
             {showModal && (
                 <div style={{
-                    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-                    backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(40px)', zIndex: 3000,
+                    position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+                    backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(40px)', zIndex: 9999,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     padding: '20px',
                     animation: 'fadeIn 0.3s ease-out'

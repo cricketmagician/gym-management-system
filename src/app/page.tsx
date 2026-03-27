@@ -241,7 +241,7 @@ export default async function DashboardPage() {
             
             <header className="dashboard-header" style={{ 
                 position: 'relative', 
-                zIndex: 1,
+                zIndex: 500,
                 display: 'flex', 
                 flexDirection: 'column',
                 gap: '40px'
