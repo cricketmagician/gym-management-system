@@ -65,9 +65,9 @@ function MetricCard({
         }}
         onClick={onClick}
         >
-            <div style={{ display: 'flex', justifyContent: 'space-between', color: isWhite ? '#666' : (isOrange || isGlass ? '#fff' : color) }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: isWhite ? '#666' : (isOrange ? '#fff' : (isGlass ? color : color)) }}>
                 <span style={{ fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: (isOrange || isWhite) ? 0.9 : 0.8 }}>{title}</span>
-                <div style={{ padding: compact ? '4px' : '8px', background: isWhite ? '#f3f4f6' : (isOrange || isGlass ? 'rgba(255,255,255,0.2)' : (isBlack ? 'rgba(255,255,255,0.1)' : `${color}10`)), borderRadius: '10px' }}>
+                <div style={{ padding: compact ? '4px' : '8px', background: isWhite ? '#f3f4f6' : (isOrange ? 'rgba(255,255,255,0.2)' : (isBlack ? 'rgba(255,255,255,0.1)' : (isGlass ? `${color}20` : `${color}10`))), borderRadius: '10px' }}>
                     {compact ? React.cloneElement(icon as any, { size: 16 }) : icon}
                 </div>
             </div>
@@ -75,11 +75,11 @@ function MetricCard({
                 <h4 style={{ 
                     fontSize: compact ? (typeof value === 'string' && value === 'Get App' ? '1.1rem' : '1.25rem') : ((typeof value === 'string' && value.length > 8) ? '1.5rem' : '2rem'), 
                     fontWeight: 900, 
-                    color: isWhite ? '#000' : ((isBlack || isOrange || isGlass) ? '#fff' : 'var(--text-primary)'), 
+                    color: isWhite ? '#000' : ((isBlack || isOrange) ? '#fff' : (isGlass ? color : 'var(--text-primary)')), 
                     letterSpacing: '-0.02em', 
                     lineHeight: 1 
                 }}>{value}</h4>
-                <p style={{ fontSize: '0.75rem', color: isWhite ? '#666' : (isOrange || isGlass ? 'rgba(255,255,255,0.8)' : (isBlack ? 'rgba(255,255,255,0.5)' : 'var(--text-secondary)')), fontWeight: 600, marginTop: '4px' }}>{unit}</p>
+                <p style={{ fontSize: '0.75rem', color: isWhite ? '#666' : (isOrange ? 'rgba(255,255,255,0.8)' : (isGlass ? color : (isBlack ? 'rgba(255,255,255,0.5)' : 'var(--text-secondary)'))), opacity: isGlass ? 0.7 : 1, fontWeight: 600, marginTop: '4px' }}>{unit}</p>
             </div>
             {/* Glossy overlay effect for interactivity */}
             {(href || onClick) && <div className="card-gloss" />}
