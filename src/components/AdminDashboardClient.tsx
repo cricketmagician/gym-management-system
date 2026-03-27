@@ -55,21 +55,7 @@ export default function AdminDashboardClient({
 
     return (
         <div style={{ position: 'relative', minHeight: '100%' }}>
-            {/* Holographic Watermark Background */}
-            <div className="watermark-text" style={{ 
-                position: 'fixed', 
-                top: '10vh', 
-                left: '20%', 
-                fontSize: '15rem', 
-                opacity: 0.03, 
-                pointerEvents: 'none', 
-                zIndex: 0,
-                fontWeight: 950,
-                lineHeight: 0.8
-            }}>
-                COMMAND<br />CENTER
-            </div>
-
+            {/* Midnight Luxe 2.0 Refined Dashboard */}
             <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Metric Grid */}
             <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
