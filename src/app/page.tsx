@@ -362,26 +362,6 @@ export default async function DashboardPage() {
                     </table>
                 </div>
 
-                <style jsx>{`
-                    .admin-row-hover:hover {
-                        background: rgba(255,255,255,0.04) !important;
-                        transform: scale(1.005);
-                    }
-                    .glass-btn-premium:hover {
-                        background: rgba(255,255,255,0.08) !important;
-                        transform: translateY(-4px);
-                        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-                        border-color: rgba(255,255,255,0.15) !important;
-                    }
-                    .view-all-premium:hover {
-                        color: #fff !important;
-                        opacity: 1;
-                    }
-                    .btn-action-premium:hover {
-                        background: rgba(255,255,255,0.1) !important;
-                        border-color: rgba(255,255,255,0.2) !important;
-                    }
-                `}</style>
             </section>
         </div>
     );
