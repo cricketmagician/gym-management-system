@@ -9,10 +9,12 @@ import { authOptions } from "@/lib/auth";
 import AdminQrControl from '@/components/AdminQrControl';
 import AdminDashboardClient from '@/components/AdminDashboardClient';
 import AdminActionList from '@/components/AdminActionList';
+import { getISTNow, getISTBoundary } from '@/lib/date-utils';
 
 export default async function DashboardPage() {
     const session = await getServerSession(authOptions);
     if (!session) {
+        // ... (No changes to session-less view)
         return (
             <div style={{ 
                 height: '100vh', 
@@ -148,9 +150,9 @@ export default async function DashboardPage() {
         redirect('/member/dashboard');
     }
 
-    // Proactive Intelligence Metrics
-    const now = new Date();
-    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    // Proactive Intelligence Metrics (Strict IST Sync)
+    const now = getISTNow();
+    const startOfISTMonth = getISTBoundary('month');
     const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
     let dashboardData = {
@@ -207,7 +209,7 @@ export default async function DashboardPage() {
                 where: { 
                     gymId, 
                     status: 'SUCCESS',
-                    createdAt: { gte: thirtyDaysAgo }
+                    createdAt: { gte: startOfISTMonth }
                 },
                 select: { amount: true }
             })

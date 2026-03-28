@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import PaymentRecoveryClient from "@/components/PaymentRecoveryClient";
+import { getISTNow } from "@/lib/date-utils";
 
 export default async function PaymentsPage() {
     const session = await getServerSession(authOptions);
@@ -13,10 +14,9 @@ export default async function PaymentsPage() {
 
     const gymId = session.user.gymId;
 
-    // Fetch memberships that are EXPIRED or expiring in the next 7 days
-    const now = new Date();
-    const sevenDaysFromNow = new Date();
-    sevenDaysFromNow.setDate(now.getDate() + 7);
+    // Fetch memberships that are EXPIRED or expiring in the next 7 days (Strict IST Sync)
+    const now = getISTNow();
+    const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
     const memberships = await prisma.membership.findMany({
         where: {

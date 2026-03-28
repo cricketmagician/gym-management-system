@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import prisma from "@/lib/prisma";
+import { getISTNow, getISTBoundary } from "@/lib/date-utils";
 
 export async function POST(req: Request) {
     try {
@@ -33,19 +34,18 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "No active membership found. Please renew." }, { status: 403 });
         }
 
-        // Daily limit check
-        const startOfDay = new Date();
-        startOfDay.setHours(0, 0, 0, 0);
+        // Use IST synchronized timestamp
+        const now = new Date(); // DB still stores UTC
+        const istNow = getISTNow();
 
-        const endOfDay = new Date();
-        endOfDay.setHours(23, 59, 59, 999);
-
+        // 1. Check if already punched in today (based on IST date)
+        const startOfISTToday = getISTBoundary('day');
+        
         const todaysVisits = await prisma.attendance.count({
             where: {
                 userId,
                 timestamp: {
-                    gte: startOfDay,
-                    lte: endOfDay
+                    gte: startOfISTToday
                 }
             }
         });
